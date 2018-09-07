@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: C:\Users\codemettle.LHDLL\Documents\GitHub\DonationTracker
+ .M2.src.main.java.edu.gatech.oad.antlab.AntLabMain.pkg1
+
