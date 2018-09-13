@@ -10,8 +10,7 @@ dependencies {
 jar {
     manifest {
         attributes(
-        		"Main-Class": "edu.gatech.oad.antlab.pkg1.AntLabMain"
-
+        		"Main-Class": "edu.gatech.oad.antlab.AntLabMain.pkg1"
         )
     }
 }
