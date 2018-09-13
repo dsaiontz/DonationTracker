@@ -1,12 +1,17 @@
+defaultTasks 'jar'
+
 apply plugin: 'java'
+
+dependencies {
+    compile files('libs.resources.jar')
+}
+
 
 jar {
     manifest {
         attributes(
-        		'Main-Class': "${projectDir}.M2.src.main.java.edu.gatech.oad.antlab.AntLabMain.pkg1"
+        		"Main-Class": "edu.gatech.oad.antlab.pkg1.AntLabMain"
 
         )
     }
 }
-
-
