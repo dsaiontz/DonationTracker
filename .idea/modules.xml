@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/M2/src/main/main.iml" filepath="$PROJECT_DIR$/M2/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DonationTracker.iml" filepath="$PROJECT_DIR$/DonationTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
