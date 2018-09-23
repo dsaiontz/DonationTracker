@@ -19,28 +19,25 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
+<<<<<<< HEAD
+=======
         android:id="@+id/login_form"
 
+>>>>>>> Spencer
     <RelativeLayout
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="592dp"
+<<<<<<< HEAD
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+=======
+>>>>>>> master
         android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <AutoCompleteTextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -69,10 +66,15 @@
             android:layout_height="58dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+<<<<<<< HEAD
             android:layout_marginBottom="134dp"
+=======
+>>>>>>> master
             android:baselineAligned="false"
-            android:text="@string/action_sign_in"
             android:textStyle="bold" />
 
     </RelativeLayout>
+<<<<<<< HEAD
+=======
 </RelativeLayout>
+>>>>>>> Spencer
