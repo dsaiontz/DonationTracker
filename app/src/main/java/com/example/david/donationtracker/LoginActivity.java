@@ -3,7 +3,9 @@ package com.example.david.donationtracker;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Credentials;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +32,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import java.util.regex.*;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -51,6 +56,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
+    private static HashMap<String, String> CREDENTIALS = new HashMap<>();
+    private static final String DEFAULT_EMAIL = "user@example.com";
+    private static final String DEFAULT_PASSWORD = "abc123";
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -61,6 +71,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    // Regex Patterns
+    Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +105,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        // Add the default email and password to the valid credentials hashmap
+        CREDENTIALS.put(DEFAULT_EMAIL, DEFAULT_PASSWORD);
     }
 
     private void populateAutoComplete() {
@@ -191,13 +207,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+        return matcher.find();
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 5;
     }
 
     /**
@@ -315,6 +330,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
+            if (CREDENTIALS.containsKey(mEmail)) {
+                return CREDENTIALS.get(mEmail).equals(mPassword);
+            } else {
+                // TODO: register the new account here.
+                return true;
+            }
+            /*
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
@@ -322,9 +344,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     return pieces[1].equals(mPassword);
                 }
             }
-
-            // TODO: register the new account here.
             return true;
+            */
         }
 
         @Override
@@ -333,6 +354,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                startActivity(new Intent(LoginActivity.this, MainPage.class));
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
