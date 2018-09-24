@@ -335,7 +335,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return CREDENTIALS.get(mEmail).equals(mPassword);
             } else {
                 // TODO: register the new account here.
-                return true;
+                return false;
             }
             /*
             for (String credential : DUMMY_CREDENTIALS) {
@@ -358,8 +358,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(new Intent(LoginActivity.this, MainPage.class));
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                if(!CREDENTIALS.containsKey(mEmail)) {
+                    mEmailView.setError(getString(R.string.error_invalid_email));
+                } else {
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
+                }
             }
         }
 
