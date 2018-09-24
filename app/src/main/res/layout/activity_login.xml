@@ -19,11 +19,6 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-<<<<<<< HEAD
-=======
-        android:id="@+id/login_form"
-
->>>>>>> Spencer
     <RelativeLayout
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
@@ -79,8 +74,4 @@
             android:inputType="textPassword" />
 
     </RelativeLayout>
-<<<<<<< HEAD
 </RelativeLayout>
-=======
-</RelativeLayout>
->>>>>>> Spencer
