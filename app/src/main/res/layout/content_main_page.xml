@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="166dp"
+        android:layout_marginBottom="147dp"
         android:text="Logout" />
 
     <TextView
@@ -32,10 +32,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="127dp"
-        android:layout_height="109dp"
+        android:layout_width="258dp"
+        android:layout_height="253dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="137dp"
+        android:layout_marginTop="206dp"
         app:srcCompat="@drawable/bongo_cat" />
 </RelativeLayout>
