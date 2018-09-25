@@ -1,0 +1,12 @@
+M4 User Stories
+
+#1: User categories (Distinguishing between different types of users: admin, manager, location employee, and basic user)
+#2: Location Data handling (Adding information about each location into the system)
+#3: Handling added donations (Adding information about each donation made at a specific location into the system)
+#4: Login security (A user will be locked out after 3 unsuccessful logins)
+#5: Usage logs (When admins, managers, and location employees change information in the system, information about who, when, and what changed will be logged to make sure users can be held accountable for their actions)
+#6: Search feature (User may search for certain information about locations)
+#7: Google Maps Display (locations and their details should be shown with the help of Google Maps)
+#8: Graphs (For each location, should provide graphs of data analysis about certain details)
+#9: Management information (special details for admins, location employees, and managers about donations, sales, and times should be visible)
+#10: User Interface/User Experience (not only should the app look good, users should also be able to easily navigate back and forth between activities)
