@@ -104,6 +104,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button mCancelLoginButton = (Button) findViewById(R.id.CancelLoginButton);
+        mCancelLoginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancelLogin();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
 
@@ -205,6 +213,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
+    }
+
+    private void cancelLogin() {
+        startActivity(new Intent(LoginActivity.this, welcome_page.class));
+        finish();
     }
 
     private boolean isEmailValid(String email) {
