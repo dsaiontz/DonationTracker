@@ -4,11 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.david.donationtracker"
-<<<<<<< HEAD
-        minSdkVersion 25
-=======
-        minSdkVersion 22
->>>>>>> cb4d16dc2dec69e31be7bc12dca96b175714669f
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
