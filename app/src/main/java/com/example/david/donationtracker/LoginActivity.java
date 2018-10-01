@@ -104,6 +104,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button mCancelLoginButton = (Button) findViewById(R.id.CancelLoginButton);
+        mCancelLoginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancelLogin();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
 
@@ -205,6 +213,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
+    }
+
+    private void cancelLogin() {
+        startActivity(new Intent(LoginActivity.this, welcome_page.class));
+        finish();
     }
 
     private boolean isEmailValid(String email) {
@@ -322,31 +335,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
             if (CREDENTIALS.containsKey(mEmail)) {
                 return CREDENTIALS.get(mEmail).equals(mPassword);
             } else {
-                // TODO: register the new account here.
                 return false;
             }
-            /*
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-            return true;
-            */
         }
 
         @Override
@@ -360,6 +353,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } else {
                 if(!CREDENTIALS.containsKey(mEmail)) {
                     mEmailView.setError(getString(R.string.error_invalid_email));
+                    mEmailView.requestFocus();
                 } else {
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
                     mPasswordView.requestFocus();
