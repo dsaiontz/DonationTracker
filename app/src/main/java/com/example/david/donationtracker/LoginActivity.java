@@ -72,8 +72,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    private com.example.david.donationtracker.Credentials creds;
-
     // Regex Patterns
     Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -85,8 +83,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         // mEmailView = (EditText) findViewById(R.id.email);
         populateAutoComplete();
-
-        creds = new com.example.david.donationtracker.Credentials();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -358,7 +354,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(new Intent(LoginActivity.this, MainPage.class));
                 finish();
             } else {
-                if(!CREDENTIALS.containsKey(mEmail)) {
+                if(!creds.containsKey(mEmail)) {
                     mEmailView.setError(getString(R.string.error_invalid_email));
                     mEmailView.requestFocus();
                 } else {

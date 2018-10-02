@@ -1,5 +1,6 @@
 package com.example.david.donationtracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,13 +79,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String emailText = email.getText().toString();
         String passText1 = pass1.getText().toString();
         String passText2 = pass2.getText().toString();
-        //UserType userType = userSpinner.getSelectedItem();
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailText);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailText);
         if (userSpinner.getSelectedItem().equals(registerSpinnerOptions[0])) {
             email.setError("Please choose a user type!");
             email.requestFocus();
-        }
-        else if (!matcher.find()) {
+        } else if (!matcher.find()) {
             email.setError("Invalid email address!");
             email.requestFocus();
         } else if (!passText1.equals(passText2)) {
@@ -95,6 +95,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             pass1.requestFocus();
         } else {
             creds.add(new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));
+            Context context = getApplicationContext();
+            CharSequence text = "You have been registered!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
     }
 
