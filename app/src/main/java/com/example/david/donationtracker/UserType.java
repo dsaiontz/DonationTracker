@@ -2,9 +2,9 @@ package com.example.david.donationtracker;
 
 public enum UserType {
 
-    USER ("U"),
-    ADMIN ("A"),
-    EMPLOYEE ("E");
+    USER ("USER"),
+    ADMIN ("ADMIN"),
+    EMPLOYEE ("EMPLOYEE");
 
     private final String _userType;
 

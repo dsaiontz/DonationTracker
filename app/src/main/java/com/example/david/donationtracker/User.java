@@ -1,10 +1,14 @@
 package com.example.david.donationtracker;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class User {
 
     private String username;
     private String password;
     private UserType userType;
+
 
     User(String name, String pass, UserType type) {
         username = name;

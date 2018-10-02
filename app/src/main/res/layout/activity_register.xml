@@ -30,10 +30,9 @@
         android:id="@+id/RegisterPassword1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/RegisterPassword2"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="107dp"
-        android:layout_marginEnd="-2dp"
+        android:layout_alignStart="@+id/RegisterPageCancel"
+        android:layout_marginTop="82dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" />
@@ -54,11 +53,18 @@
         android:id="@+id/RegisterPassword2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/RegisterPageCancel"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="265dp"
+        android:layout_marginTop="141dp"
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword" />
+
+    <Spinner
+        android:id="@+id/userSpinner"
+        android:layout_width="213dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/RegisterPageCancel"
+        android:layout_marginTop="198dp" />
 </RelativeLayout>
