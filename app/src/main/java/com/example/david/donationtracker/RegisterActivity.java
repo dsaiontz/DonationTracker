@@ -103,6 +103,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            finish();
         }
     }
 
