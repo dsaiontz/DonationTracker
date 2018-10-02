@@ -32,6 +32,12 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Object[] registerSpinnerOptions = new Object[UserType.values().length+1];
+        registerSpinnerOptions[0] = (Object) "PLEASE SELECT USER TYPE";
+        int k = 1;
+        for (UserType i : UserType.values()) {
+            registerSpinnerOptions[k++] = i;
+        }
 
         email = (EditText) findViewById(R.id.RegisterPageEmail);
         pass1 = (EditText) findViewById(R.id.RegisterPassword1);
@@ -39,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
         userSpinner = (Spinner) findViewById(R.id.userSpinner);
         userSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<UserType> adapterNext = new ArrayAdapter(this, android.R.layout.simple_spinner_item, UserType.values());
+        ArrayAdapter<UserType> adapterNext = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
         adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapterNext);
         userSpinner.setOnItemSelectedListener(this);
