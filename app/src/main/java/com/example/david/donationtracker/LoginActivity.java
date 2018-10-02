@@ -339,7 +339,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             if (creds.containsKey(mEmail)) {
-                return creds.get(mEmail).equals(mPassword);
+                return creds.get(mEmail).getPassword().equals(mPassword);
             } else {
                 return false;
             }

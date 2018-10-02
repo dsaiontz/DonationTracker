@@ -4,11 +4,7 @@ import java.util.HashMap;
 
 public class Credentials {
 
-    private static HashMap<String, User> users;
-
-    public Credentials() {
-        users = new HashMap<String, User>();
-    }
+    private static HashMap<String, User> users = new HashMap<>();
 
     public static void add(User user) {
         users.put(user.getUsername(), user);
