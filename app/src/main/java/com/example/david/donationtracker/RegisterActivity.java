@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     private EditText pass2;
 
     private Spinner userSpinner;
+    Object[] registerSpinnerOptions;
 
     // Regex Patterns
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -32,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        Object[] registerSpinnerOptions = new Object[UserType.values().length+1];
+        registerSpinnerOptions = new Object[UserType.values().length+1];
         registerSpinnerOptions[0] = (Object) "PLEASE SELECT USER TYPE";
         int k = 1;
         for (UserType i : UserType.values()) {
@@ -75,18 +76,22 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String passText2 = pass2.getText().toString();
         //UserType userType = userSpinner.getSelectedItem();
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailText);
-        if (!matcher.find()) {
-            email.setError("Invalid email address");
+        if (userSpinner.getSelectedItem().equals(registerSpinnerOptions[0])) {
+            email.setError("Please choose a user type!");
+            email.requestFocus();
+        }
+        else if (!matcher.find()) {
+            email.setError("Invalid email address!");
             email.requestFocus();
         } else if (!passText1.equals(passText2)) {
-            pass1.setError("Passwords need to match");
-            pass2.setError("Passwords need to match");
+            pass1.setError("Passwords need to match!");
+            pass2.setError("Passwords need to match!");
             pass1.requestFocus();
         } else if (pass1.length() < minPasswordLength) {
             pass1.setError("Password must be at least " + minPasswordLength + " characters long");
             pass1.requestFocus();
         } else {
-            Credentials.add(emailText.hashCode(), new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));
+            Credentials.add(new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));
         }
     }
 
