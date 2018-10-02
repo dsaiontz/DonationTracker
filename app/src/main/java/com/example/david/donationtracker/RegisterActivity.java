@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             pass1.setError("Password must be at least " + minPasswordLength + " characters long");
             pass1.requestFocus();
         } else {
-
+            Credentials.add(emailText.hashCode(), new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));
         }
     }
 
