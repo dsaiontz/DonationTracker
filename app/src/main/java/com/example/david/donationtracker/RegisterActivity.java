@@ -24,13 +24,16 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     private EditText pass2;
 
     private Spinner userSpinner;
-    Object[] registerSpinnerOptions;
+    private Object[] registerSpinnerOptions;
+
+    private Credentials creds;
 
     // Regex Patterns
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        creds = new Credentials();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         registerSpinnerOptions = new Object[UserType.values().length+1];
@@ -91,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             pass1.setError("Password must be at least " + minPasswordLength + " characters long");
             pass1.requestFocus();
         } else {
-            Credentials.add(new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));
+            creds.add(new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));
         }
     }
 

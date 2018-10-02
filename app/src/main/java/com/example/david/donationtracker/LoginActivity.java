@@ -72,6 +72,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private com.example.david.donationtracker.Credentials creds;
+
     // Regex Patterns
     Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
@@ -83,6 +85,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         // mEmailView = (EditText) findViewById(R.id.email);
         populateAutoComplete();
+
+        creds = new com.example.david.donationtracker.Credentials();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -325,18 +329,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
+        private com.example.david.donationtracker.Credentials creds;
+
         private final String mEmail;
         private final String mPassword;
 
         UserLoginTask(String email, String password) {
+            creds = new com.example.david.donationtracker.Credentials();
             mEmail = email;
             mPassword = password;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if (CREDENTIALS.containsKey(mEmail)) {
-                return CREDENTIALS.get(mEmail).equals(mPassword);
+            if (creds.containsKey(mEmail)) {
+                return creds.get(mEmail).equals(mPassword);
             } else {
                 return false;
             }

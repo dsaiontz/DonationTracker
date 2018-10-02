@@ -2,11 +2,11 @@ package com.example.david.donationtracker;
 
 import java.util.HashMap;
 
-public final class Credentials {
+public class Credentials {
 
     private static HashMap<String, User> users;
 
-    private Credentials() {
+    public Credentials() {
         users = new HashMap<String, User>();
     }
 
@@ -25,6 +25,10 @@ public final class Credentials {
     public static void set(String username, User user) {
         users.remove(username);
         users.put(username, user);
+    }
+
+    public static boolean containsKey(String key) {
+        return users.containsKey(key);
     }
 
 }
