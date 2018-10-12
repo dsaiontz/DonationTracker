@@ -52,11 +52,14 @@ public class LocationActivity extends AppCompatActivity {
 
     private void readLocationData() {
         try {
-            File csvFile = new File(Environment.getExternalStorageDirectory() + "/LocationData.csv");
+//            File csvFile = new File(Environment.getExternalStorageDirectory() + "/LocationData.csv");
+            File csvFile = new File("C:\\Users\\codemettle.LHDLL\\Documents\\GitHub\\DonationTracker\\app\\LocationData.csv");
+            System.out.println("got a new file: " + csvFile.toString());
             BufferedReader br = new BufferedReader(new FileReader(csvFile));
             String line;
             String space = " ";
             String comma = ", ";
+            System.out.println("starting while loop");
             while ((line = br.readLine()) != null) {
                 String[] words = line.split(",");
                 String name = words[1];
@@ -70,10 +73,13 @@ public class LocationActivity extends AppCompatActivity {
                 String phoneNumber = words[9];
                 Location locale = new Location(name, type, longitude, lattitude, address, phoneNumber);
                 locations.add(locale);
+                System.out.println("finished an iteration of while loop");
             }
+            System.out.println("Finished reading file successfully");
 
         } catch (Exception e) {
             Log.w("Location Data", e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
