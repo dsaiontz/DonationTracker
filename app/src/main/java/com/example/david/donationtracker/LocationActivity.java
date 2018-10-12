@@ -28,6 +28,7 @@ public class LocationActivity extends AppCompatActivity {
                 backToMainPage();
             }
         });
+        readLocationData();
         
     }
 
