@@ -18,8 +18,19 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="107dp"
+        android:layout_marginStart="-82dp"
+        android:layout_marginBottom="114dp"
         android:text="Logout" />
+
+    <Button
+        android:id="@+id/locationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="114dp"
+        android:text="View Location Data" />
 
     <TextView
         android:id="@+id/textView"
