@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 
 import java.io.BufferedReader;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 public class LocationActivity extends AppCompatActivity {
 
     private ArrayList<Location> locations;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +31,18 @@ public class LocationActivity extends AppCompatActivity {
                 backToMainPage();
             }
         });
+        locations = new ArrayList<>();
+        System.out.println("About to read location data");
         readLocationData();
-        
+        System.out.println("Finished reading location data");
+
+        recyclerView = findViewById(R.id.listLocationData);
+        Location[] locationArr = new Location[locations.size()];
+        for (int i = 0; i < locations.size(); i++) {
+            locationArr[i] = locations.get(i);
+        }
+        LocationAdapter adapter = new LocationAdapter(locationArr);
+        recyclerView.setAdapter(adapter);
     }
 
     public void backToMainPage() {

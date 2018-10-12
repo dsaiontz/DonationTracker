@@ -22,8 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.david.donationtracker.R;
-
 /**
  * Provide views to RecyclerView with data from mDataSet.
  */
