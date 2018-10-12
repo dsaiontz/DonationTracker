@@ -30,10 +30,22 @@ public class MainPage extends AppCompatActivity {
                 logout();
             }
         });
+        Button locationButton = (Button) findViewById(R.id.locationButton);
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toLocation();
+            }
+        });
     }
 
     private void logout() {
         startActivity(new Intent(MainPage.this, LoginActivity.class));
+        finish();
+    }
+
+    private void toLocation() {
+        startActivity(new Intent(MainPage.this, Location.class));
         finish();
     }
 
