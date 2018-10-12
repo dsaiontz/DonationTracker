@@ -44,7 +44,7 @@ public class MainPage extends AppCompatActivity {
     }
 
     private void toLocation() {
-        startActivity(new Intent(MainPage.this, Location.class));
+        startActivity(new Intent(MainPage.this, LocationActivity.class));
         finish();
     }
 }
