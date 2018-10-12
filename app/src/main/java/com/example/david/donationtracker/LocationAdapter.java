@@ -30,8 +30,7 @@ import com.example.david.donationtracker.R;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private String[] stringData;
-    private float[] floatData;
+    private Location[] locationData;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -61,12 +60,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     /**
      * Initialize the dataset of the Adapter.
      *
-     * @param sDataSet String[] containing string data to populate views to be used by RecyclerView.
-     * @param fDataSet float[] containing numerical data to populate views to be used by RecyclerView.
+     * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
      */
-    public LocationAdapter(String[] sDataSet, float[] fDataSet) {
-        stringData = sDataSet;
-        floatData = fDataSet;
+    public LocationAdapter(Location[] sDataSet) {
+        locationData = sDataSet;
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -89,13 +86,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
-        viewHolder.getTextView().setText(stringData[position] + ": " + floatData);
+        viewHolder.getTextView().setText(locationData[position].toString());
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return stringData.length + floatData.length;
+        return locationData.length;
     }
 }
