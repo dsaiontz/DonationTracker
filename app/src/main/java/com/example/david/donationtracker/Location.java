@@ -3,16 +3,16 @@ package com.example.david.donationtracker;
 public class Location {
     private String name;
     private String type;
-    private float longitude;
-    private float lattitude;
+    private String longitude;
+    private String latitude;
     private String address;
     private String phoneNumber;
 
-    public Location(String name, String type, float longitude, float lattitude, String address, String phoneNumber) {
+    public Location(String name, String type, String longitude, String latitude, String address, String phoneNumber) {
         this.name = name;
         this.type = type;
         this.longitude = longitude;
-        this.lattitude = lattitude;
+        this.latitude = latitude;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
@@ -33,20 +33,20 @@ public class Location {
         this.type = type;
     }
 
-    public float getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public float getLattitude() {
-        return lattitude;
+    public String getLattitude() {
+        return latitude;
     }
 
-    public void setLattitude(float lattitude) {
-        this.lattitude = lattitude;
+    public void setLattitude(String lattitude) {
+        this.latitude = lattitude;
     }
 
     public String getAddress() {

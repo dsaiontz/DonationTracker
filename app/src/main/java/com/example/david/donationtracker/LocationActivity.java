@@ -1,24 +1,31 @@
 package com.example.david.donationtracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class LocationActivity extends AppCompatActivity {
 
     private ArrayList<Location> locations;
     private RecyclerView recyclerView;
+    private LocationAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +38,20 @@ public class LocationActivity extends AppCompatActivity {
                 backToMainPage();
             }
         });
-        locations = new ArrayList<>();
-        System.out.println("About to read location data");
-        readLocationData();
-        System.out.println("Finished reading location data");
 
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        locations = new ArrayList<>();
         recyclerView = findViewById(R.id.listLocationData);
+        readLocationData();
         Location[] locationArr = new Location[locations.size()];
         for (int i = 0; i < locations.size(); i++) {
             locationArr[i] = locations.get(i);
+            Log.w("Location Data", locations.get(i).toString());
         }
-        LocationAdapter adapter = new LocationAdapter(locationArr);
+        adapter = new LocationAdapter(locationArr);
+        linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
 
@@ -52,31 +62,30 @@ public class LocationActivity extends AppCompatActivity {
 
     private void readLocationData() {
         try {
-//            File csvFile = new File(Environment.getExternalStorageDirectory() + "/LocationData.csv");
-            File csvFile = new File("C:\\Users\\codemettle.LHDLL\\Documents\\GitHub\\DonationTracker\\app\\LocationData.csv");
-            System.out.println("got a new file: " + csvFile.toString());
-            BufferedReader br = new BufferedReader(new FileReader(csvFile));
+            Context context = recyclerView.getContext();
+            InputStream stream = context.getAssets().open("LocationData.csv");
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
             String line;
             String space = " ";
             String comma = ", ";
-            System.out.println("starting while loop");
+            int lineNumber = 0;
             while ((line = br.readLine()) != null) {
                 String[] words = line.split(",");
                 String name = words[1];
-                Float lattitude = Float.parseFloat(words[2]);
-                Float longitude = Float.parseFloat(words[3]);
+                String latitude = words[2];
+                String longitude = words[3];
                 String streetAddress = words[4];
                 String city = words[5];
                 String state = words[6];
                 String address = streetAddress + space + city + comma + state;
                 String type = words[8];
                 String phoneNumber = words[9];
-                Location locale = new Location(name, type, longitude, lattitude, address, phoneNumber);
-                locations.add(locale);
-                System.out.println("finished an iteration of while loop");
+                Location location = new Location(name, type, longitude, latitude, address, phoneNumber);
+                locations.add(location);
+                lineNumber++;
+                System.out.println(lineNumber);
+                Log.w("lineNumber: ", lineNumber + "");
             }
-            System.out.println("Finished reading file successfully");
-
         } catch (Exception e) {
             Log.w("Location Data", e.getMessage());
             System.out.println("Error: " + e.getMessage());
