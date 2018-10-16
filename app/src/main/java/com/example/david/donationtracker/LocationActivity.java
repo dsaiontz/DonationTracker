@@ -25,7 +25,7 @@ public class LocationActivity extends AppCompatActivity {
 
     private ArrayList<Location> locations;
     private RecyclerView recyclerView;
-    private LocationAdapter adapter;
+    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +39,20 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         locations = new ArrayList<>();
-        recyclerView = findViewById(R.id.listLocationData);
+
+        recyclerView = (RecyclerView) findViewById(R.id.listLocationData);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         readLocationData();
-        Location[] locationArr = new Location[locations.size()];
-        for (int i = 0; i < locations.size(); i++) {
-            locationArr[i] = locations.get(i);
-            Log.w("Location Data", locations.get(i).toString());
-        }
-        adapter = new LocationAdapter(locationArr);
-        linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
+
+//        Location[] locationArr = new Location[locations.size()];
+//        for (int i = 0; i < locations.size(); i++) {
+//            locationArr[i] = locations.get(i);
+//            Log.w("Location Data", locations.get(i).toString());
+//        }
+        adapter = new LocationAdapter(locations);
+        recyclerView.setAdapter(adapter);       //CAUSING CRASHES
     }
 
     public void backToMainPage() {
@@ -65,11 +65,11 @@ public class LocationActivity extends AppCompatActivity {
             Context context = recyclerView.getContext();
             InputStream stream = context.getAssets().open("LocationData.csv");
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-            String line;
             String space = " ";
             String comma = ", ";
+            String line;
             int lineNumber = 0;
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine())!= null) {
                 String[] words = line.split(",");
                 String name = words[1];
                 String latitude = words[2];
@@ -83,9 +83,9 @@ public class LocationActivity extends AppCompatActivity {
                 Location location = new Location(name, type, longitude, latitude, address, phoneNumber);
                 locations.add(location);
                 lineNumber++;
-                System.out.println(lineNumber);
                 Log.w("lineNumber: ", lineNumber + "");
             }
+            br.close();
         } catch (Exception e) {
             Log.w("Location Data", e.getMessage());
             System.out.println("Error: " + e.getMessage());

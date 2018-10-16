@@ -15,12 +15,16 @@ package com.example.david.donationtracker;/*
  */
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import java.util.ArrayList;
+
+import java.lang.reflect.Array;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -28,30 +32,46 @@ import android.widget.TextView;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private Location[] locationData;
+    private ArrayList<Location> locationData;
+    private Context context;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
+
+    public LocationAdapter (ArrayList<Location> locationData, Context context) {
+        this.locationData = locationData;
+        this.context = context;
+    }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        private final TextView name;
+        private final TextView type;
+        private final TextView longitude;
+        private final TextView latitude;
+        private final TextView address;
+        private final TextView phoneNumber;
 
-        public ViewHolder(View v) {
-            super(v);
+        public ViewHolder(View view) {
+            super(view);
             // Define click listener for the ViewHolder's View.
-            v.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            textView = (TextView) v.findViewById(R.id.textView);
+            name = (TextView) view.findViewById(R.id.name);
+            type = (TextView) view.findViewById(R.id.type);
+            longitude = (TextView) view.findViewById(R.id.longitude);
+            latitude = (TextView) view.findViewById(R.id.latitude);
+            address = (TextView) view.findViewById(R.id.address);
+            phoneNumber = (TextView) view.findViewById(R.id.phoneNumber);
         }
 
-        public TextView getTextView() {
-            return textView;
-        }
+//        public TextView getTextView() {
+//            return textView;
+//        }
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
 
@@ -60,7 +80,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
      *
      * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
      */
-    public LocationAdapter(Location[] sDataSet) {
+    public LocationAdapter(ArrayList<Location> sDataSet) {
         locationData = sDataSet;
     }
 
@@ -70,27 +90,31 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.activity_location, viewGroup, false);
+                .inflate(R.layout.recycler_view, viewGroup, false);
 
         return new ViewHolder(v);
     }
-    // END_INCLUDE(recyclerViewOnCreateViewHolder)
 
-    // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
-        viewHolder.getTextView().setText(locationData[position].toString());
+        Location location = locationData.get(position);
+
+        viewHolder.name.setText(location.getName());
+        viewHolder.type.setText(location.getType());
+        viewHolder.longitude.setText(location.getLongitude());
+        viewHolder.latitude.setText(location.getLatitude());
+        viewHolder.address.setText(location.getAddress());
+        viewHolder.phoneNumber.setText(location.getPhoneNumber());
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return locationData.length;
+        return locationData.size();
     }
 }

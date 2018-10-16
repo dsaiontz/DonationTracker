@@ -41,11 +41,11 @@ public class Location {
         this.longitude = longitude;
     }
 
-    public String getLattitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLattitude(String lattitude) {
+    public void setLatitude(String lattitude) {
         this.latitude = lattitude;
     }
 
@@ -67,6 +67,6 @@ public class Location {
 
     public String toString() {
         return getName() + ", " + getAddress() + ", " + getAddress() +
-                ", " + getPhoneNumber() + ", " + getLattitude() + ", " + getLongitude();
+                ", " + getPhoneNumber() + ", " + getLatitude() + ", " + getLongitude();
     }
 }
