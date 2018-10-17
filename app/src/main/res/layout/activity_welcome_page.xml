@@ -25,4 +25,10 @@
         android:layout_marginStart="71dp"
         android:layout_marginBottom="146dp"
         android:text="LogIn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skip Login"
+        android:id="@+id/SkipLoginButton"/>
 </RelativeLayout>

@@ -72,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                 cancel();
             }
         });
+
     }
 
 
