@@ -45,12 +45,7 @@ public class LocationActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         readLocationData();
-
-//        Location[] locationArr = new Location[locations.size()];
-//        for (int i = 0; i < locations.size(); i++) {
-//            locationArr[i] = locations.get(i);
-//            Log.w("Location Data", locations.get(i).toString());
-//        }
+        locations.remove(locations.get(0));
         adapter = new LocationAdapter(locations);
         recyclerView.setAdapter(adapter);       //CAUSING CRASHES
     }
