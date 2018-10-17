@@ -1,6 +1,9 @@
 package com.example.david.donationtracker;
 
-public class Location {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Location implements Parcelable {
     private String name;
     private String type;
     private String longitude;
@@ -66,7 +69,42 @@ public class Location {
     }
 
     public String toString() {
-        return getName() + ", " + getAddress() + ", " + getAddress() +
+        return getName() + "," +
+                ", " + getAddress() + ", " + getAddress() +
                 ", " + getPhoneNumber() + ", " + getLatitude() + ", " + getLongitude();
     }
+
+    public Location(Parcel in){
+        String[] data = new String[6];
+
+        in.readStringArray(data);
+        // the order needs to be the same as in writeToParcel() method
+        this.name = data[0];
+        this.type = data[1];
+        this.longitude = data[2];
+        this.latitude = data[3];
+        this.address = data[4];
+        this.phoneNumber = data[5];
+    }
+
+    public int describeContents(){
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringArray(new String[] {this.name,
+                this.type, this.longitude, this.latitude,
+                this.address, this.phoneNumber});
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Location createFromParcel(Parcel in) {
+            return new Location(in);
+        }
+
+        public Location[] newArray(int size) {
+            return new Location[size];
+        }
+    };
 }
