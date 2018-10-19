@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".DonationActivity"
+    tools:showIn="@layout/activity_donation">
+
+    <EditText
+        android:id="@+id/addDonationShortDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:ems="10"
+        android:hint="Short Description"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/addDonationLongDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addDonationShortDescription"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="Long Description"
+        android:inputType="textCapSentences|textPersonName" />
+
+    <EditText
+        android:id="@+id/addDonationValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addDonationLongDescription"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="Value"
+        android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/addDonationSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <Spinner
+        android:id="@+id/addDonationLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="175dp" />
+
+    <Button
+        android:id="@+id/addDonationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="106dp"
+        android:text="Add Donation" />
+
+    <Button
+        android:id="@+id/donationBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:text="Back" />
+
+</RelativeLayout>

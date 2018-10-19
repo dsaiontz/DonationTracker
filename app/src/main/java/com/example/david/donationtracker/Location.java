@@ -20,6 +20,10 @@ public class Location implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
+    public Location(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
@@ -78,7 +82,6 @@ public class Location implements Parcelable {
         String[] data = new String[6];
 
         in.readStringArray(data);
-        // the order needs to be the same as in writeToParcel() method
         this.name = data[0];
         this.type = data[1];
         this.longitude = data[2];
