@@ -15,4 +15,5 @@
     </string>
     <string name="title_activity_main_page">MainPage</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_donation">DonationActivity</string>
 </resources>

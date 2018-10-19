@@ -347,11 +347,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected void onPostExecute(final Boolean success) {
+            String username = mAuthTask.mEmail;
             mAuthTask = null;
             showProgress(false);
 
+
             if (success) {
-                startActivity(new Intent(LoginActivity.this, MainPage.class));
+                Intent intent = new Intent(LoginActivity.this, MainPage.class);
+                intent.putExtra("username", username);
+
+                startActivity(intent);
                 finish();
             } else {
                 if(!creds.containsKey(mEmail)) {

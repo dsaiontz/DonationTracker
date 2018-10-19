@@ -1,10 +1,14 @@
 package com.example.david.donationtracker;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class Credentials {
 
     private static HashMap<String, User> users = new HashMap<>();
+
 
     public static void add(User user) {
         users.put(user.getUsername(), user);

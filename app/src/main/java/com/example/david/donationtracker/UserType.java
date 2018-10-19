@@ -4,7 +4,8 @@ public enum UserType {
 
     USER ("USER"),
     ADMIN ("ADMIN"),
-    EMPLOYEE ("EMPLOYEE");
+    EMPLOYEE ("EMPLOYEE"),
+    MANAGER ("MANAGER");
 
     private final String _userType;
 

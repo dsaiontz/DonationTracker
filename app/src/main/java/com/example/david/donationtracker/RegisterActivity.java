@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
         userSpinner = (Spinner) findViewById(R.id.userSpinner);
         userSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<UserType> adapterNext = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
+        ArrayAdapter<DonationActivity> adapterNext = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
         adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapterNext);
         userSpinner.setOnItemSelectedListener(this);
