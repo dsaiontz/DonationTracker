@@ -42,7 +42,8 @@ public class LocationActivity extends AppCompatActivity {
 
         locations = new ArrayList<>();
 
-        String username = getIntent().getStringExtra("username");
+        Intent grabbedIntent = getIntent();
+        String username = grabbedIntent.getExtras().getString("username");
         Intent intent = new Intent(LocationActivity.this, DetailActivity.class);
         intent.putExtra("username", username);
 

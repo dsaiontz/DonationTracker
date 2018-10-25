@@ -44,7 +44,8 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
-        String username = getIntent().getStringExtra("username");
+        Intent grabbedIntent = getIntent();
+        String username = grabbedIntent.getExtras().getString("username");
         if (Credentials.containsKey(username)) {
             user = Credentials.get(username);
         }
