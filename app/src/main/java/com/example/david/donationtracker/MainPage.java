@@ -44,18 +44,7 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
-        Intent grabbedIntent = getIntent();
-        String username = grabbedIntent.getExtras().getString("username");
-        if (Credentials.containsKey(username)) {
-            user = Credentials.get(username);
-        }
 
-
-        Intent intent = new Intent(MainPage.this, LocationActivity.class);
-        intent.putExtra("username", username);
-
-        Log.e("","after intent" + username);
-        Log.e("","after intent" + getIntent().getStringExtra("username"));
 
         TextView showDonations = (TextView) findViewById(R.id.showDonations);
         showDonations.append(Donations.getDonations().keySet().toString());
@@ -67,7 +56,18 @@ public class MainPage extends AppCompatActivity {
     }
 
     private void toLocation() {
-        startActivity(new Intent(MainPage.this, LocationActivity.class));
+        Intent grabbedIntent = getIntent();
+        String username = grabbedIntent.getExtras().getString("username");
+        if (Credentials.containsKey(username)) {
+            user = Credentials.get(username);
+        }
+        Intent intent = new Intent(MainPage.this, LocationActivity.class);
+        intent.putExtra("username", username);
+
+        Log.e("","after intent" + username);
+        Log.e("","after intent" + getIntent().getStringExtra("username"));
+
+        startActivity(intent);
         finish();
     }
 }
