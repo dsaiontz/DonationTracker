@@ -10,10 +10,9 @@
         android:id="@+id/WelcomePageRegisterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/WelcomePageLoginButton"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="152dp"
-        android:layout_marginBottom="146dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/WelcomePageLoginButton"
+        android:layout_marginEnd="71dp"
         android:text="Register" />
 
     <Button
