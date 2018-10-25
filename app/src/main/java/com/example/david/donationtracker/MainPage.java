@@ -50,26 +50,6 @@ public class MainPage extends AppCompatActivity {
         }
 
 
-        Button donationButton = (Button) findViewById(R.id.donationButton);
-        donationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((user.getUserType() == UserType.EMPLOYEE) ||
-                        (user.getUserType() == UserType.ADMIN) ||
-                        (user.getUserType() == UserType.MANAGER)) {
-                    startActivity(new Intent(MainPage.this, DonationActivity.class));
-                    finish();
-                } else {
-                    //Toaster if no access
-                    int duration = Toast.LENGTH_SHORT;
-                    Context context = getApplicationContext();
-                    String text = "Your user type does not have access.";
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
-            }
-        });
-
         TextView showDonations = (TextView) findViewById(R.id.showDonations);
         showDonations.append(Donations.getDonations().keySet().toString());
     }

@@ -1,5 +1,6 @@
 package com.example.david.donationtracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -23,6 +25,27 @@ public class DetailActivity extends AppCompatActivity {
                 + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
                 + location.getLatitude() + "\nAddress: " + location.getAddress()
                 + "\nPhone Number: " + location.getPhoneNumber());
+
+        Button donationButton = (Button) findViewById(R.id.donationButton);
+        donationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ((user.getUserType() == UserType.EMPLOYEE) ||
+                        (user.getUserType() == UserType.ADMIN) ||
+                        (user.getUserType() == UserType.MANAGER)) {
+                    startActivity(new Intent(MainPage.this, DonationActivity.class));
+                    finish();
+                } else {
+                    //Toaster if no access
+                    int duration = Toast.LENGTH_SHORT;
+                    Context context = getApplicationContext();
+                    String text = "Your user type does not have access.";
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+            }
+        });
+
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
