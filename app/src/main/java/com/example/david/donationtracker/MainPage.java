@@ -49,7 +49,7 @@ public class MainPage extends AppCompatActivity {
             user = Credentials.get(username);
         }
 
-        Intent intent = new Intent(MainPage.this, MainPage.class);
+        Intent intent = new Intent(MainPage.this, LocationActivity.class);
         intent.putExtra("username", username);
 
         TextView showDonations = (TextView) findViewById(R.id.showDonations);

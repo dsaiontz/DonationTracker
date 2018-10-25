@@ -18,6 +18,13 @@ public class User {
         location = loc;
     }
 
+    User(String name, String pass, UserType type) {
+        username = name;
+        password = pass;
+        userType = type;
+        location = null;
+    }
+
     User(String name, String pass) {
         this(name, pass, UserType.USER, null);
     }

@@ -7,10 +7,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import javax.security.auth.login.LoginException;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -29,18 +32,22 @@ public class DetailActivity extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
         Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
         intent.putExtra("username", username);
-        final User user = Credentials.get(username);
+        User user = Credentials.get(username);
 
         Button donationButton = (Button) findViewById(R.id.donationButton);
         donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("","before if" + username);
+
                 if ((user.getUserType() == UserType.EMPLOYEE) ||
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {
+                    Log.e("","if runs");
                     startActivity(new Intent(DetailActivity.this, DonationActivity.class));
                     finish();
                 } else {
+                    Log.e("","else runs");
                     //Toaster if no access
                     int duration = Toast.LENGTH_SHORT;
                     Context context = getApplicationContext();
