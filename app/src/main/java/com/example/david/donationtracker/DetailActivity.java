@@ -26,6 +26,11 @@ public class DetailActivity extends AppCompatActivity {
                 + location.getLatitude() + "\nAddress: " + location.getAddress()
                 + "\nPhone Number: " + location.getPhoneNumber());
 
+        String username = getIntent().getStringExtra("username");
+        Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
+        intent.putExtra("username", username);
+        final User user = Credentials.get(username);
+
         Button donationButton = (Button) findViewById(R.id.donationButton);
         donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
                 if ((user.getUserType() == UserType.EMPLOYEE) ||
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {
-                    startActivity(new Intent(MainPage.this, DonationActivity.class));
+                    startActivity(new Intent(DetailActivity.this, DonationActivity.class));
                     finish();
                 } else {
                     //Toaster if no access

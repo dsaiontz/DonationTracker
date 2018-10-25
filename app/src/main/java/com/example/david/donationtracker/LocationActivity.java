@@ -41,6 +41,10 @@ public class LocationActivity extends AppCompatActivity {
 
         locations = new ArrayList<>();
 
+        String username = getIntent().getStringExtra("username");
+        Intent intent = new Intent(LocationActivity.this, DetailActivity.class);
+        intent.putExtra("username", username);
+
         recyclerView = (RecyclerView) findViewById(R.id.listLocationData);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

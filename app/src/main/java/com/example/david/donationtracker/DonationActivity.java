@@ -32,6 +32,8 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_donation);
         donos = new Donations();
 
+        String username = getIntent().getStringExtra("username");
+
         registerLocationOptions = new Object[Donations.getValidLocations().length+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
