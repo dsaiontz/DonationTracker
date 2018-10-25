@@ -29,10 +29,10 @@ public class DetailActivity extends AppCompatActivity {
                 + location.getLatitude() + "\nAddress: " + location.getAddress()
                 + "\nPhone Number: " + location.getPhoneNumber());
 
-        String username = getIntent().getStringExtra("username");
+        final String username = getIntent().getStringExtra("username");
         Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
         intent.putExtra("username", username);
-        User user = Credentials.get(username);
+        final User user = Credentials.get(username);
 
         Button donationButton = (Button) findViewById(R.id.donationButton);
         donationButton.setOnClickListener(new View.OnClickListener() {
