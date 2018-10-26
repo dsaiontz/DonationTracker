@@ -73,9 +73,9 @@ public class Location implements Parcelable {
     }
 
     public String toString() {
-        return getName() + "," +
-                ", " + getAddress() + ", " + getAddress() +
-                ", " + getPhoneNumber() + ", " + getLatitude() + ", " + getLongitude();
+        return "Name: " + getName() + "\nAddress:"
+                + getAddress() + "\nType:" + getType() +
+                "\nPhone Number:" + getPhoneNumber() + "\nLatitude: " + getLatitude() + "\nLongitude: " + getLongitude() + "\n\n";
     }
 
     public Location(Parcel in){
