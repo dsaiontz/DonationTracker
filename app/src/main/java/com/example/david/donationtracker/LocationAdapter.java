@@ -65,7 +65,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     Location clickedItem = locationData.get(pos);
 
                     Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("location", (Parcelable) clickedItem);
+                    intent.putExtra("location", clickedItem);
                     intent.putExtra("username", username);
 
                     context.startActivity(intent);
