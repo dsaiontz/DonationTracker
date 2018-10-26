@@ -34,8 +34,8 @@ public class DetailActivity extends AppCompatActivity {
                 + "\nPhone Number: " + location.getPhoneNumber() + "\n" + donationsText);
 
         final String username = getIntent().getStringExtra("username");
-        Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-        intent.putExtra("username", username);
+        //Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
+        //intent.putExtra("username", username);
         final User user = Credentials.get(username);
 
         Button donationButton = (Button) findViewById(R.id.donationButton);
@@ -50,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
                     Log.e("","if runs");
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
                     intent.putExtra("location", location);
+                    intent.putExtra("username", username);
                     startActivity(intent);
                     finish();
                 } else {
