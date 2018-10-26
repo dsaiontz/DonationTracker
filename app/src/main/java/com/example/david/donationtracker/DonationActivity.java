@@ -96,7 +96,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                     //toast
                     int duration = Toast.LENGTH_SHORT;
                     Context context = getApplicationContext();
-                    String text = "Value must be a double.";
+                    String text = "Value must be a number.";
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
