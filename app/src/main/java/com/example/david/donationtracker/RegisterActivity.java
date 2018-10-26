@@ -28,6 +28,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     private Spinner userSpinner;
     private Object[] registerSpinnerOptions;
 
+    private Spinner locationSpinner;
+    private Object[] registerLocationOptions;
+
     private Credentials creds;
 
     // Regex Patterns
@@ -45,6 +48,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             registerSpinnerOptions[k++] = i;
         }
 
+        registerLocationOptions = new Object[Donations.getValidLocations().length+1];
+        registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
+        int m = 1;
+        for (String i : Donations.getValidLocations()) {
+            registerLocationOptions[m++] = i;
+        }
+
         email = (EditText) findViewById(R.id.RegisterPageEmail);
         pass1 = (EditText) findViewById(R.id.RegisterPassword1);
         pass2 = (EditText) findViewById(R.id.RegisterPassword2);
@@ -55,6 +65,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapterNext);
         userSpinner.setOnItemSelectedListener(this);
+
+        locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
+        locationSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<DonationActivity> adapterNew = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerLocationOptions);
+        adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        locationSpinner.setAdapter(adapterNew);
+        locationSpinner.setOnItemSelectedListener(this);
 
 
         Button registerButton = (Button) findViewById(R.id.RegisterButton);
