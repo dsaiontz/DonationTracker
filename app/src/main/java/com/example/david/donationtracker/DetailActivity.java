@@ -21,7 +21,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Location location = getIntent().getParcelableExtra("location");
+        final Location location = getIntent().getParcelableExtra("location");
 
         TextView text = (TextView) findViewById(R.id.text);
         text.setText("Name: " + location.getName() + "\nType: " + location.getType()
@@ -44,7 +44,9 @@ public class DetailActivity extends AppCompatActivity {
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {
                     Log.e("","if runs");
-                    startActivity(new Intent(DetailActivity.this, DonationActivity.class));
+                    Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
+                    intent.putExtra("location", location);
+                    startActivity(intent);
                     finish();
                 } else {
                     Log.e("","else runs");
