@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Locations {
 
+    //NOT USEFUL AT ALL, NEED TO EDIT A LOT
     private static HashMap<String, User> locations = new HashMap<>();
 
 

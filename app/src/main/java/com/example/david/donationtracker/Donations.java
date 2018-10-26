@@ -27,13 +27,9 @@ public class Donations {
 
     public static String[] getValidLocations() {return VALID_LOCATIONS;}
 
-    public static HashMap<String, ArrayList<Donation>> getDonations() {return donations;}
-
-    public ArrayList<Donation> getDonations(String donationName) {
+    public static ArrayList<Donation> getDonations(String donationName) {
         return donations.get(donationName);
-    public static HashMap<Location, ArrayList<Donation>> getDonations() {return donations;}
-
-    public static ArrayList<Donation> getDonations(Location location) {
-        return donations.get(location);
     }
+
+    public static HashMap<Location, ArrayList<Donation>> getDonationHashMap() { return donations; }
 }

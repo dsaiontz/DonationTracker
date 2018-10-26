@@ -77,7 +77,9 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                 {
                     //////TRY OTHER TESTS TO MAKE SURE THERE AREN'T ANY OTHER ERRORS
                     Double.parseDouble(donationValue.getText().toString());
-                    Location locale = new Location(donationLocation.getSelectedItem().toString());
+                    Location locale = new Location(donationLocation.getSelectedItem().toString(),
+                            location.getType(), location.getLongitude(), location.getLatitude(),
+                            location.getAddress(), location.getPhoneNumber());
                     ///////LOCATION NEEDS FULL CONSTRUCTOR EVENTUALLY!!!
                     donos.addDonation(new Donation(locale,
                             shortDescription.getText().toString(), longDescription.getText().toString(),

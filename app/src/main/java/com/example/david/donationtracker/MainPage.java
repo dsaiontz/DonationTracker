@@ -47,7 +47,7 @@ public class MainPage extends AppCompatActivity {
 
 
         TextView showDonations = (TextView) findViewById(R.id.showDonations);
-        showDonations.append(Donations.getDonations().keySet().toString());
+        showDonations.append(Donations.getDonationHashMap().keySet().toString());
     }
 
     private void logout() {
