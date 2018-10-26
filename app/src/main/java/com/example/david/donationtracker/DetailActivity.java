@@ -26,14 +26,18 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         Intent grabbedIntent = getIntent();
-        final String username = grabbedIntent.getExtras().getString("username");
-        final Location location = grabbedIntent.getExtras().getParcelable("location");
+        final String username = grabbedIntent.getStringExtra("username");
+        final Location location = grabbedIntent.getParcelableExtra("location");
         final User user = Credentials.get(username);
 
         String donationsText = "";
         Log.e("Donations", "onCreate: " + Donations.getDonations().toString());
         donationsText = Donations.getDonations().toString();
 
+        Log.e("", "after this is location");
+        if (location != null) {
+            Log.e("","location is not null " + location.getName());
+        }
 
         TextView text = (TextView) findViewById(R.id.text);
         String detailText = "Name: " + location.getName();
