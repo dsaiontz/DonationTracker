@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDateTime;
+
 import javax.security.auth.login.LoginException;
 
 public class DetailActivity extends AppCompatActivity {
@@ -63,6 +65,8 @@ public class DetailActivity extends AppCompatActivity {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
                     intent.putExtra("location", location);
                     intent.putExtra("username", username);
+                    final LocalDateTime time = LocalDateTime.now();
+                    intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
                 } else {
