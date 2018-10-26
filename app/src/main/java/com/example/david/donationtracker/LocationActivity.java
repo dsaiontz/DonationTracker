@@ -2,21 +2,15 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -31,7 +25,7 @@ public class LocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_location); // why is this line here twice???
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +54,10 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     public void backToMainPage() {
-        startActivity(new Intent(LocationActivity.this, MainPage.class));
+        Intent grabbedIntent = getIntent();
+        Intent backToMain = new Intent(LocationActivity.this, MainPage.class);
+        backToMain.putExtra("username", grabbedIntent.getExtras().getString("username"));
+        startActivity(backToMain);
         finish();
     }
 

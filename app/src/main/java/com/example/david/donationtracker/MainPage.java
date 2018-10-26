@@ -58,16 +58,21 @@ public class MainPage extends AppCompatActivity {
     private void toLocation() {
         Intent grabbedIntent = getIntent();
         String username = grabbedIntent.getExtras().getString("username");
+        if (username == null) {
+            Log.e("", "Username is null in MainPage");
+        }
         if (Credentials.containsKey(username)) {
             user = Credentials.get(username);
+        } else {
+            Log.e("", "username passed to main page wasn't a valid username");
         }
-        Intent intent = new Intent(MainPage.this, LocationActivity.class);
-        intent.putExtra("username", username);
+        Intent toLocationActivity = new Intent(MainPage.this, LocationActivity.class);
+        toLocationActivity.putExtra("username", username);
 
         Log.e("","after intent" + username);
-        Log.e("","after intent" + getIntent().getStringExtra("username"));
+        Log.e("","after intent" + getIntent().getExtras().getString("username"));
 
-        startActivity(intent);
+        startActivity(toLocationActivity);
         finish();
     }
 }
