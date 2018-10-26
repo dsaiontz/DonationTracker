@@ -16,6 +16,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import javax.security.auth.login.LoginException;
 
 public class DetailActivity extends AppCompatActivity {
@@ -31,8 +34,15 @@ public class DetailActivity extends AppCompatActivity {
         final User user = Credentials.get(username);
 
         String donationsText = "";
-        Log.e("Donations", "onCreate: " + Donations.getDonations().toString());
-        donationsText = Donations.getDonations().toString();
+        Donations donationsClass = new Donations();
+        ArrayList<Donation> donationsForLocation = donationsClass.getDonations(location.getName());
+
+        if (donationsForLocation != null) {
+            for (int i = 0; i < donationsForLocation.size(); i++) {
+                donationsText += donationsForLocation.get(i) + "\n";
+            }
+        }
+//        Log.e("Donations", "onCreate: " + Donations.getDonations().toString());
 
         Log.e("", "after this is location");
         if (location != null) {

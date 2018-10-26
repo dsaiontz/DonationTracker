@@ -114,7 +114,6 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                 finish();
             }
         });
-
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.david.donationtracker;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,4 +28,8 @@ public class Donations {
     public static String[] getValidLocations() {return VALID_LOCATIONS;}
 
     public static HashMap<String, ArrayList<Donation>> getDonations() {return donations;}
+
+    public ArrayList<Donation> getDonations(String donationName) {
+        return donations.get(donationName);
+    }
 }
