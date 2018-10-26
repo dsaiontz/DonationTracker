@@ -2,12 +2,14 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,7 +34,10 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.content_donation);
         donos = new Donations();
 
-        final String username = getIntent().getStringExtra("username");
+        String username = getIntent().getExtras().getString("username");
+
+        final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
+        intentToDetail.putExtra("username", username);
 
         registerLocationOptions = new Object[Donations.getValidLocations().length+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
@@ -80,9 +85,9 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                             shortDescription.getText().toString(), longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
-                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
-                    intent.putExtra("username", username);
-                    startActivity(intent);
+//                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
+//                    intent.putExtra("username", username);
+                    startActivity(intentToDetail);
                     finish();
                 }
                 catch(NumberFormatException e)
@@ -101,14 +106,15 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DonationActivity.this, DetailActivity.class);
-                intent.putExtra("username", username);
-                startActivity(intent);
+                Log.i("","before going back to location page when you click button");
+                startActivity(intentToDetail);
                 finish();
             }
         });
 
     }
+
+
 
     //methods for spinner
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

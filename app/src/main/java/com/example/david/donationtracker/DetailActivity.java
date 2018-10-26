@@ -3,6 +3,7 @@ package com.example.david.donationtracker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,21 +22,25 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        final Location location = getIntent().getParcelableExtra("location");
+
+        Intent grabbedIntent = getIntent();
+        final String username = grabbedIntent.getExtras().getString("username");
+        final Location location = grabbedIntent.getExtras().getParcelable("location");
+        final User user = Credentials.get(username);
 
         String donationsText = "";
         Log.e("Donations", "onCreate: " + Donations.getDonations().toString());
         donationsText = Donations.getDonations().toString();
 
+
         TextView text = (TextView) findViewById(R.id.text);
-        String detailText = "Name: " + location.getName() + "\nType: " + location.getType()
+        String detailText = "Name: " + location.getName();
+        Log.i("","NOT WORKING");
+        detailText = detailText + "\nType: " + location.getType()
                 + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
                 + location.getLatitude() + "\nAddress: " + location.getAddress()
                 + "\nPhone Number: " + location.getPhoneNumber() + "\n" + donationsText;
         text.setText(detailText);
-
-        final String username = getIntent().getStringExtra("username");
-        final User user = Credentials.get(username);
 
         Button donationButton = (Button) findViewById(R.id.donationButton);
         donationButton.setOnClickListener(new View.OnClickListener() {
