@@ -32,12 +32,12 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_donation);
         donos = new Donations();
 
-        String username = getIntent().getStringExtra("username");
+        final String username = getIntent().getStringExtra("username");
 
         registerLocationOptions = new Object[Donations.getValidLocations().length+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
-        for (String i: donos.getValidLocations()) {
+        for (String i: Donations.getValidLocations()) {
             registerLocationOptions[m++] = i;
         }
 
@@ -80,7 +80,9 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                             shortDescription.getText().toString(), longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
-                    startActivity(new Intent(DonationActivity.this, MainPage.class));
+                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
+                    intent.putExtra("username", username);
+                    startActivity(intent);
                     finish();
                 }
                 catch(NumberFormatException e)
@@ -99,7 +101,9 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DonationActivity.this, MainPage.class));
+                Intent intent = new Intent(DonationActivity.this, MainPage.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
                 finish();
             }
         });

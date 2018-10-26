@@ -23,11 +23,15 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         final Location location = getIntent().getParcelableExtra("location");
 
+        String donationsText = "";
+        Log.e("Donations", "onCreate: " + Donations.getDonations().toString());
+        donationsText = Donations.getDonations().toString();
+
         TextView text = (TextView) findViewById(R.id.text);
         text.setText("Name: " + location.getName() + "\nType: " + location.getType()
                 + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
                 + location.getLatitude() + "\nAddress: " + location.getAddress()
-                + "\nPhone Number: " + location.getPhoneNumber());
+                + "\nPhone Number: " + location.getPhoneNumber() + "\n" + donationsText);
 
         final String username = getIntent().getStringExtra("username");
         Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
