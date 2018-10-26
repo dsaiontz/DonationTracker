@@ -77,9 +77,9 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                 {
                     //////TRY OTHER TESTS TO MAKE SURE THERE AREN'T ANY OTHER ERRORS
                     Double.parseDouble(donationValue.getText().toString());
-
+                    Location locale = new Location(donationLocation.getSelectedItem().toString();
                     ///////LOCATION NEEDS FULL CONSTRUCTOR EVENTUALLY!!!
-                    donos.addDonation(new Donation(new Location(donationLocation.getSelectedItem().toString()),
+                    donos.addDonation(new Donation(locale,
                             shortDescription.getText().toString(), longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
@@ -87,7 +87,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 //                    intent.putExtra("username", username);
                     final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
                     intentToDetail.putExtra("username", username);
-                    intentToDetail.putExtra("location", location);
+                    intentToDetail.putExtra("location", locale);
                     startActivity(intentToDetail);
                     finish();
                 }
@@ -96,7 +96,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                     //toast
                     int duration = Toast.LENGTH_SHORT;
                     Context context = getApplicationContext();
-                    String text = "Value must be a number.";
+                    String text = "Value must be a double.";
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
