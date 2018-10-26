@@ -34,10 +34,8 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.content_donation);
         donos = new Donations();
 
-        String username = getIntent().getExtras().getString("username");
-
-        final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
-        intentToDetail.putExtra("username", username);
+        final String username = getIntent().getExtras().getString("username");
+        final Location location = getIntent().getParcelableExtra("location");
 
         registerLocationOptions = new Object[Donations.getValidLocations().length+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
@@ -87,6 +85,9 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
 //                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
 //                    intent.putExtra("username", username);
+                    final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
+                    intentToDetail.putExtra("username", username);
+                    intentToDetail.putExtra("location", location);
                     startActivity(intentToDetail);
                     finish();
                 }
@@ -107,6 +108,8 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 Log.i("","before going back to location page when you click button");
+                final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
+                intentToDetail.putExtra("username", username);
                 startActivity(intentToDetail);
                 finish();
             }
