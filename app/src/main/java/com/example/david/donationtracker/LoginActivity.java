@@ -354,10 +354,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
             if (success) {
-                Intent intent = new Intent(LoginActivity.this, MainPage.class);
-                intent.putExtra("username", username);
+                Intent toMainPage = new Intent(LoginActivity.this, MainPage.class);
+                toMainPage.putExtra("username", username);
 
-                startActivity(intent);
+                startActivity(toMainPage);
                 finish();
             } else {
                 if(!creds.containsKey(mEmail)) {

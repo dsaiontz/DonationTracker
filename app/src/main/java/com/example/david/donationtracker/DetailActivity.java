@@ -28,14 +28,13 @@ public class DetailActivity extends AppCompatActivity {
         donationsText = Donations.getDonations().toString();
 
         TextView text = (TextView) findViewById(R.id.text);
-        text.setText("Name: " + location.getName() + "\nType: " + location.getType()
+        String detailText = "Name: " + location.getName() + "\nType: " + location.getType()
                 + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
                 + location.getLatitude() + "\nAddress: " + location.getAddress()
-                + "\nPhone Number: " + location.getPhoneNumber() + "\n" + donationsText);
+                + "\nPhone Number: " + location.getPhoneNumber() + "\n" + donationsText;
+        text.setText(detailText);
 
         final String username = getIntent().getStringExtra("username");
-        //Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-        //intent.putExtra("username", username);
         final User user = Credentials.get(username);
 
         Button donationButton = (Button) findViewById(R.id.donationButton);
@@ -54,11 +53,11 @@ public class DetailActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Log.e("","else runs");
+                    Log.i("","User type is not employee");
                     //Toaster if no access
                     int duration = Toast.LENGTH_SHORT;
                     Context context = getApplicationContext();
-                    String text = "Your user type does not have access.";
+                    String text = "You don't have permission to access this.";
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
@@ -69,7 +68,10 @@ public class DetailActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DetailActivity.this, LocationActivity.class));
+                Intent grabbedIntent = getIntent();
+                Intent toLocationActivity = new Intent(DetailActivity.this, LocationActivity.class);
+                toLocationActivity.putExtra("username", grabbedIntent.getExtras().getString("username"));
+                startActivity(toLocationActivity);
                 finish();
             }
         });
