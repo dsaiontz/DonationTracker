@@ -44,8 +44,8 @@ public class LocationActivity extends AppCompatActivity {
 
         Intent grabbedIntent = getIntent();
         String username = grabbedIntent.getExtras().getString("username");
-        Intent intent = new Intent(LocationActivity.this, DetailActivity.class);
-        intent.putExtra("username", username);
+        //Intent intent = new Intent(LocationActivity.this, DetailActivity.class);
+        //intent.putExtra("username", username);
 
         Log.e("", "in location activity " + username);
 
@@ -54,7 +54,8 @@ public class LocationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         readLocationData();
         locations.remove(locations.get(0));
-        adapter = new LocationAdapter(locations);
+        adapter = new LocationAdapter(locations, null, username);
+
         recyclerView.setAdapter(adapter);       //CAUSING CRASHES
     }
 
