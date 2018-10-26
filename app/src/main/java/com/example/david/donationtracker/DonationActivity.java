@@ -29,7 +29,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donation);
+        setContentView(R.layout.content_donation);
         donos = new Donations();
 
         final String username = getIntent().getStringExtra("username");
@@ -101,7 +101,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DonationActivity.this, MainPage.class);
+                Intent intent = new Intent(DonationActivity.this, DetailActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
                 finish();
