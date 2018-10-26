@@ -29,8 +29,8 @@ public class Donations {
 
     public static String[] getValidLocations() {return VALID_LOCATIONS;}
 
-    public static ArrayList<Donation> getDonations(String donationName) {
-        return donations.get(donationName);
+    public static ArrayList<Donation> getDonations(Location location) {
+        return donations.get(location);
     }
 
     public static HashMap<Location, ArrayList<Donation>> getDonationHashMap() { return donations; }

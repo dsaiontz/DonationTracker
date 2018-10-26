@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity {
 
         String donationsText = "";
         Donations donationsClass = new Donations();
-        ArrayList<Donation> donationsForLocation = donationsClass.getDonations(location.getName());
+        ArrayList<Donation> donationsForLocation = donationsClass.getDonations(location);
 
         if (donationsForLocation != null) {
             for (int i = 0; i < donationsForLocation.size(); i++) {
