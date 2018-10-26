@@ -40,13 +40,15 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         TextView text = (TextView) findViewById(R.id.text);
-        String detailText = "Name: " + location.getName();
-        Log.i("","NOT WORKING");
-        detailText = detailText + "\nType: " + location.getType()
-                + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
-                + location.getLatitude() + "\nAddress: " + location.getAddress()
-                + "\nPhone Number: " + location.getPhoneNumber() + "\n" + donationsText;
-        text.setText(detailText);
+        if (location != null) {
+            String detailText = "Name: " + location.getName();
+            Log.i("", "NOT WORKING");
+            detailText = detailText + "\nType: " + location.getType()
+                    + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
+                    + location.getLatitude() + "\nAddress: " + location.getAddress()
+                    + "\nPhone Number: " + location.getPhoneNumber() + "\n" + donationsText;
+            text.setText(detailText);
+        }
 
         Button donationButton = (Button) findViewById(R.id.donationButton);
         donationButton.setOnClickListener(new View.OnClickListener() {
