@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Donations {
 
     //Stores all donations, key is each location
-    private static HashMap<String, ArrayList<Donation>> donations = new HashMap<>();
+    private static HashMap<Location, ArrayList<Donation>> donations = new HashMap<>();
 
     //GILRS misspelled in csv file also???
     private final static String[] VALID_LOCATIONS = new String[]
@@ -14,7 +14,7 @@ public class Donations {
                     "PAVILION OF HOPE INC", "D&D CONVENIENCE STORE", "KEEP NORTH FULTON BEAUTIFUL"};
 
     public static void addDonation(Donation donation) {
-        String loc = donation.getLocation().getName();
+        Location loc = donation.getLocation();
         if (donations.containsKey(loc)) {
             donations.get(loc).add(donation);
         } else {
@@ -26,5 +26,9 @@ public class Donations {
 
     public static String[] getValidLocations() {return VALID_LOCATIONS;}
 
-    public static HashMap<String, ArrayList<Donation>> getDonations() {return donations;}
+    public static HashMap<Location, ArrayList<Donation>> getDonations() {return donations;}
+
+    public static ArrayList<Donation> getDonations(Location location) {
+        return donations.get(location);
+    }
 }
