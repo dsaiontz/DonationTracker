@@ -17,7 +17,9 @@ public class Donations {
     public static void addDonation(Donation donation) {
         Location loc = donation.getLocation();
         if (donations.containsKey(loc)) {
-            donations.get(loc).add(donation);
+            ArrayList<Donation> list = donations.get(loc);
+            list.add(donation);
+            donations.put(loc, list);
         } else {
             ArrayList<Donation> newList = new ArrayList<>();
             newList.add(donation);
