@@ -3,6 +3,7 @@ package com.example.david.donationtracker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import android.support.design.widget.FloatingActionButton;
@@ -26,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent grabbedIntent = getIntent();
         final String username = grabbedIntent.getExtras().getString("username");
-        final Location location = Location.CREATOR.createFromParcel((grabbedIntent.getExtras().getParcelable("location"));
+        final Location location = grabbedIntent.getExtras().getParcelable("location");
         final User user = Credentials.get(username);
 
         String donationsText = "";

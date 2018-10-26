@@ -101,7 +101,7 @@ public class Location implements Parcelable {
                 this.address, this.phoneNumber});
     }
 
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator<Location>() {
         public Location createFromParcel(Parcel in) {
             return new Location(in);
         }
