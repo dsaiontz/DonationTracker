@@ -31,6 +31,7 @@ public class LocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_location);
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,12 +42,20 @@ public class LocationActivity extends AppCompatActivity {
 
         locations = new ArrayList<>();
 
+        Intent grabbedIntent = getIntent();
+        String username = grabbedIntent.getExtras().getString("username");
+        //Intent intent = new Intent(LocationActivity.this, DetailActivity.class);
+        //intent.putExtra("username", username);
+
+        Log.e("", "in location activity " + username);
+
         recyclerView = (RecyclerView) findViewById(R.id.listLocationData);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         readLocationData();
         locations.remove(locations.get(0));
-        adapter = new LocationAdapter(locations);
+        adapter = new LocationAdapter(locations, null, username);
+
         recyclerView.setAdapter(adapter);       //CAUSING CRASHES
     }
 

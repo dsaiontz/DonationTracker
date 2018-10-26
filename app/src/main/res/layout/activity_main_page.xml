@@ -22,15 +22,6 @@
         android:text="Logout" />
 
     <Button
-        android:id="@+id/donationButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="220dp"
-        android:text="Make Donation" />
-
-    <Button
         android:id="@+id/locationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
