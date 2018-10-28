@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,33 +26,34 @@ import javax.security.auth.login.LoginException;
 
 public class DetailActivity extends AppCompatActivity {
 
+    private String username;
+    private String locationName;
+    private RecyclerView.Adapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         Intent grabbedIntent = getIntent();
-        final String username = grabbedIntent.getStringExtra("username");
-        final Location location = grabbedIntent.getParcelableExtra("location");
+        Bundle bundle = grabbedIntent.getExtras();
+        username = bundle.getString("username");
+        locationName = bundle.getString("locationName");
+
+        final Location location = Locations.get(locationName);
         final User user = Credentials.get(username);
 
         String donationsText = "";
-        Donations donationsClass = new Donations();
-        ArrayList<Donation> donationsForLocation = donationsClass.getDonations(location);
+        ArrayList<Donation> donationsForLocation = Donations.getDonations(location);
 
-        if (donationsForLocation != null) {
-            for (int i = 0; i < donationsForLocation.size(); i++) {
-                donationsText += donationsForLocation.get(i) + "\n";
-            }
-        }
-//        Log.e("Donations", "onCreate: " + Donations.getDonations().toString());
+        // configures the recycler view
+        adapter = new DonationAdapter(Donations.getDonations(Locations.get(locationName)), null, username);
+        locationRecyclerView = findViewById(R.id.locationRecyclerView);
+        locationRecyclerView.setHasFixedSize(true);
+        locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        locationRecyclerView.setAdapter(adapter);
 
-        Log.e("", "after this is location");
-        if (location != null) {
-            Log.e("","location is not null " + location.getName());
-        }
-
-        TextView text = (TextView) findViewById(R.id.text);
+        TextView textView = (TextView) findViewById(R.id.detailText);
         if (location != null) {
             String detailText = "Name: " + location.getName();
             Log.i("", "NOT WORKING");
@@ -58,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
                     + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
                     + location.getLatitude() + "\nAddress: " + location.getAddress()
                     + "\nPhone Number: " + location.getPhoneNumber() + "\n" + donationsText;
-            text.setText(detailText);
+            textView.setText(detailText);
         }
 
         Button donationButton = (Button) findViewById(R.id.donationButton);
@@ -81,10 +84,8 @@ public class DetailActivity extends AppCompatActivity {
                 } else {
                     Log.i("","User type is not employee");
                     //Toaster if no access
-                    int duration = Toast.LENGTH_SHORT;
-                    Context context = getApplicationContext();
                     String text = "You don't have permission to access this.";
-                    Toast toast = Toast.makeText(context, text, duration);
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }

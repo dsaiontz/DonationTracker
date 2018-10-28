@@ -1,11 +1,11 @@
 package com.example.david.donationtracker;
 
-import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Donation {
 
-    private Time time;
+    private LocalDateTime time;
     private Location location;
     private String shortDescription;
     private String fullDescription;
@@ -35,15 +35,16 @@ public class Donation {
         this.fullDescription = fullDescription;
         this.value = value;
         this.category = category;
+        this.time = LocalDateTime.now();
     }
 
-//    public Time getTime() {
-//        return time;
-//    }
-//
-//    public void setTime(Time time) {
-//        this.time = time;
-//    }
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
 
     public Location getLocation() {
         return location;

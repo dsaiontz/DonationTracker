@@ -13,18 +13,20 @@ import android.widget.Button;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class LocationActivity extends AppCompatActivity {
 
     private ArrayList<Location> locations;
-    private RecyclerView recyclerView;
+    private RecyclerView locationRecyclerView;
     private RecyclerView.Adapter adapter;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location); // why is this line here twice???
+        setContentView(R.layout.activity_location);
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,42 +35,37 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-        locations = new ArrayList<>();
+        // reads in location data
+        locations = readLocationData();
 
+        // grabs username
         Intent grabbedIntent = getIntent();
-        String username = grabbedIntent.getExtras().getString("username");
-        //Intent intent = new Intent(LocationActivity.this, DetailActivity.class);
-        //intent.putExtra("username", username);
+        username = grabbedIntent.getExtras().getString("username");
 
-        Log.e("", "in location activity " + username);
-
-        recyclerView = (RecyclerView) findViewById(R.id.listLocationData);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        readLocationData();
-        locations.remove(locations.get(0));
+        // configures the recycler view
         adapter = new LocationAdapter(locations, null, username);
-
-        recyclerView.setAdapter(adapter);       //CAUSING CRASHES
+        locationRecyclerView = findViewById(R.id.locationRecyclerView);
+        locationRecyclerView.setHasFixedSize(true);
+        locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        locationRecyclerView.setAdapter(adapter);
     }
 
     public void backToMainPage() {
-        Intent grabbedIntent = getIntent();
         Intent backToMain = new Intent(LocationActivity.this, MainPage.class);
-        backToMain.putExtra("username", grabbedIntent.getExtras().getString("username"));
+        backToMain.putExtra("username", username);
         startActivity(backToMain);
         finish();
     }
 
-    private void readLocationData() {
+    private ArrayList<Location> readLocationData() {
+        ArrayList<Location> locations = new ArrayList<>();
         try {
-            Context context = recyclerView.getContext();
+            Context context = locationRecyclerView.getContext();
             InputStream stream = context.getAssets().open("LocationData.csv");
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
             String space = " ";
             String comma = ", ";
             String line;
-            int lineNumber = 0;
             while ((line = br.readLine())!= null) {
                 String[] words = line.split(",");
                 String name = words[1];
@@ -82,13 +79,13 @@ public class LocationActivity extends AppCompatActivity {
                 String phoneNumber = words[9];
                 Location location = new Location(name, type, longitude, latitude, address, phoneNumber);
                 locations.add(location);
-                lineNumber++;
-                Log.w("lineNumber: ", lineNumber + "");
             }
             br.close();
         } catch (Exception e) {
-            Log.w("Location Data", e.getMessage());
-            System.out.println("Error: " + e.getMessage());
+            Log.w("Location Data", "Reading Location Data crashed" + "\n" + e.getMessage());
         }
+        // corrects for reading in the column headers
+        locations.remove(0);
+        return locations;
     }
 }

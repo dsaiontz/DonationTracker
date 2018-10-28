@@ -1,5 +1,7 @@
 package com.example.david.donationtracker;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,29 +9,29 @@ import java.util.List;
 
 public class Locations {
 
-    //NOT USEFUL AT ALL, NEED TO EDIT A LOT
-    private static HashMap<String, User> locations = new HashMap<>();
+    private static HashMap<String, Location> locations = new HashMap<>();
 
-
-    public static void add(User user) {
-        locations.put(user.getUsername(), user);
+    public static void add(Location location) {
+        if (!locations.containsKey(location.getName())) {
+            locations.put(location.getName(), location);
+        } else {
+            Log.w("Warning", "Tried to add a location to Locations which already existed");
+        }
     }
 
-    public static User get(String username) {
-        return locations.get(username);
+    public static Location get(String locationName) {
+        return locations.get(locationName);
     }
 
-    public static HashMap<String, User> getUsers() {
-        return locations;
+    public static void set(String locationName, Location location) {
+        if (locations.containsKey(location.getName())) {
+            locations.remove(location);
+        }
+        locations.put(locationName, location);
     }
 
-    public static void set(String username, User user) {
-        locations.remove(username);
-        locations.put(username, user);
-    }
-
-    public static boolean containsKey(String key) {
-        return locations.containsKey(key);
+    public static boolean containsLocation(String locationName) {
+        return locations.containsKey(locationName);
     }
 
 }

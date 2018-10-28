@@ -39,7 +39,8 @@
         <activity
             android:name=".DonationActivity"
             android:label="@string/title_activity_donation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DonationDetailActivity"></activity>
     </application>
 
 </manifest>
