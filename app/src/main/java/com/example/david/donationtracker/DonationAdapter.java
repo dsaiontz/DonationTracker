@@ -47,10 +47,10 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             });
 
             time = (TextView) view.findViewById(R.id.time);
-            location = (TextView) view.findViewById(R.id.donationLocation);
-            shortDescription = view.findViewById(R.id.donationShortDescription);
-            fullDescription = (TextView) view.findViewById(R.id.donationLongDescription);
-            value = (TextView) view.findViewById(R.id.donationValue);
+            location = (TextView) view.findViewById(R.id.location);
+            shortDescription = view.findViewById(R.id.shortDescription);
+            fullDescription = (TextView) view.findViewById(R.id.fullDescription);
+            value = (TextView) view.findViewById(R.id.value);
             category = (TextView) view.findViewById(R.id.category);
             // comments
             // picture URI??
