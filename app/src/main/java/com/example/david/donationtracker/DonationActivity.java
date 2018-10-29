@@ -38,13 +38,10 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.content_donation);
         donations = new Donations();
 
-        Intent grabbedIntent = getIntent();
-        Bundle extras = grabbedIntent.getExtras();
-        username = extras.getString("username");
-        locationName = extras.getString("locationName");
-        final Location location = Locations.get(locationName);
+        final User username = Credentials.getCurrentUser();
+        final Location location = Locations.getCurrentLocation();
 
-        registerLocationOptions = new Object[Locations.getAllLocations().length+1];
+        registerLocationOptions = new Object[Donations.getValidLocations().size()+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
         for (Location i: Locations.getAllLocations()) {

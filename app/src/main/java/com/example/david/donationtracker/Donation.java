@@ -2,6 +2,7 @@ package com.example.david.donationtracker;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.time.format.DateTimeFormatter;
 
 public class Donation {
 
@@ -38,8 +39,19 @@ public class Donation {
         this.time = LocalDateTime.now();
     }
 
-    public LocalDateTime getTime() {
-        return time;
+//    public Donation(String location, String shortDescription,
+//                    String fullDescription, double value, DonationCategory category) {
+//        this.location = location;
+//        this.shortDescription = shortDescription;
+//        this.fullDescription = fullDescription;
+//        this.value = value;
+//        this.category = category;
+//        this.time = LocalDateTime.now();
+//    }
+
+    public String getTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return time.format(formatter);
     }
 
     public void setTime(LocalDateTime time) {
