@@ -36,6 +36,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     // Regex Patterns
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+    //Firebase
+//    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         creds = new Credentials();

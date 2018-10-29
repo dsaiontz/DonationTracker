@@ -101,14 +101,14 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 
         Donation donation = donationData.get(position);
 
-        viewHolder
+        bind(holder);
 
-//        viewHolder.name.setText(location.getName());
-//        viewHolder.type.setText(location.getType());
-//        viewHolder.longitude.setText(location.getLongitude());
-//        viewHolder.latitude.setText(location.getLatitude());
-//        viewHolder.address.setText(location.getAddress());
-//        viewHolder.phoneNumber.setText(location.getPhoneNumber());
+        viewHolder.name.setText(donation.getName());
+        viewHolder.type.setText(donation.getType());
+        viewHolder.longitude.setText(donation.getLongitude());
+        viewHolder.latitude.setText(donation.getLatitude());
+        viewHolder.address.setText(donation.getAddress());
+        viewHolder.phoneNumber.setText(donation.getPhoneNumber());
     }
 
     @Override
