@@ -133,7 +133,6 @@ public class DetailActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
->>>>>>> Jackson
 
         Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
