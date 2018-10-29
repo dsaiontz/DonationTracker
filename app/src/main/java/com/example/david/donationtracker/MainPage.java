@@ -43,11 +43,6 @@ public class MainPage extends AppCompatActivity {
                 toLocation();
             }
         });
-
-
-
-        TextView showDonations = (TextView) findViewById(R.id.showDonations);
-        showDonations.append(Donations.getDonationHashMap().keySet().toString());
     }
 
     private void logout() {
