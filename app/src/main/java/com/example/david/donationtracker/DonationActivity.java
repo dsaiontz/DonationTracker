@@ -118,8 +118,6 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         });
     }
 
-
-
     //methods for spinner
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
