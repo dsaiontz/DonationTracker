@@ -37,11 +37,11 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         final String username = getIntent().getExtras().getString("username");
         final Location location = getIntent().getParcelableExtra("location");
 
-        registerLocationOptions = new Object[Donations.getValidLocations().length+1];
+        registerLocationOptions = new Object[Locations.getAllLocations().length+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
-        for (String i: Donations.getValidLocations()) {
-            registerLocationOptions[m++] = i;
+        for (Location i: Locations.getAllLocations()) {
+            registerLocationOptions[m++] = i.getName();
         }
 
         registerSpinnerOptions = new Object[DonationCategory.values().length+1];
