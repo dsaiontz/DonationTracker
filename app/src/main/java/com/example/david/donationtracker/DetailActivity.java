@@ -54,6 +54,17 @@ public class DetailActivity extends AppCompatActivity {
             }
             textView.setText(detailText);
         }
+        TextView locationDetail = (TextView) findViewById(R.id.detailText);
+
+        String detailText = "Name: " + locationName.getName();
+        detailText = detailText + "\nType: " + locationName.getType()
+                + "\nLongitude: " + locationName.getLongitude() + "\nLatitude: "
+                + locationName.getLatitude() + "\nAddress: " + locationName.getAddress()
+                + "\nPhone Number: " + locationName.getPhoneNumber() + "\n";
+//        for (int i = 0; i < donationsForLocation.size(); i++) {
+//            detailText = detailText + donationsForLocation.get(i).getFullDescription() + "\n";
+//        }
+        locationDetail.setText(detailText);
 
 //        Button donationButton = (Button) findViewById(R.id.donationButton);
 //        donationButton.setOnClickListener(new View.OnClickListener() {
