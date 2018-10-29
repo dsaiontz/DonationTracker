@@ -120,16 +120,10 @@ public class Donation implements Serializable {
 
     @Override
     public String toString() {
-        return "Donation{" +
-//                "time=" + time +
-                ", location=" + location +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", fullDescription='" + fullDescription + '\'' +
-                ", value=" + value +
-                ", category=" + category +
-//                ", comments='" + comments + '\'' +
-//                ", pictureURI='" + pictureURI + '\'' +
-                '}';
+        return "Donation\n" + "Location: " + location.getName()
+                + "\nTime: " + time + "\nShort Description: " + shortDescription
+                + "\nFull Description: " + fullDescription + "\nValue: "
+                + value + "\nCategory: " + category;
     }
 
     @Override

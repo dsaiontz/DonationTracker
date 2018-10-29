@@ -11,6 +11,16 @@ public class Donations {
 
     private static HashMap<Location, ArrayList<Donation>> donations = new HashMap<>();
 
+    private static Donation currentDonation;
+
+    public static Donation getCurrentDonation() {
+        return currentDonation;
+    }
+
+    public static void setCurrentDonation(Donation donation) {
+        currentDonation = donation;
+    }
+
     public static void addDonation(Donation donation) {
         Location location = donation.getLocation();
         if (!donations.containsKey(location)) {

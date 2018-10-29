@@ -72,7 +72,9 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 //                    intent.putExtra("full description", clickedItem.getFullDescription());
 //                    intent.putExtra("value", String.valueOf(clickedItem.getValue()));
 //                    intent.putExtra("category", clickedItem.getCategory().toString());
-                    intent.putExtra("donation", (Serializable) clickedItem);
+                    //intent.putExtra("donation", (Serializable) clickedItem);
+                    Donations.setCurrentDonation(clickedItem);
+                    Log.e("","before starting new activity");
 
                     context.startActivity(intent);
                 }
