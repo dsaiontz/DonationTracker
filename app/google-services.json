@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "483618558090",
+    "firebase_url": "https://donationtracker-fc003.firebaseio.com",
+    "project_id": "donationtracker-fc003",
+    "storage_bucket": "donationtracker-fc003.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483618558090:android:53dd91d5e4dfd6cf",
+        "android_client_info": {
+          "package_name": "com.example.david.donationtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483618558090-uua1fo60g2mt0so4hguoi8r1v9od8798.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsNTaZANvMsj9O9NsOoTptWt3doMUGz78"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
