@@ -53,7 +53,7 @@ public class Locations {
     }
 
     public static Location[] getAllLocations() {
-        return (Location[]) locations.keySet().toArray();
+        return (Location[]) locations.values().toArray();
     }
 
 }
