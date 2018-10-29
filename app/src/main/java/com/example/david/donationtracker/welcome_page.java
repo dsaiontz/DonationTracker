@@ -26,7 +26,17 @@ public class welcome_page extends AppCompatActivity {
                 register();
             }
         });
+        Button skipLoginButton = (Button) findViewById(R.id.SkipLoginButton);
+        skipLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(welcome_page.this, MainPage.class));
+                finish();
+            }
+        });
     }
+
+
 
     private void logout() {
         startActivity(new Intent(welcome_page.this, LoginActivity.class));

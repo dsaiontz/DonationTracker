@@ -18,16 +18,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="244dp"
+        android:layout_marginBottom="106dp"
         android:text="Logout" />
+
+    <Button
+        android:id="@+id/locationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/logoutButton"
+        android:layout_centerHorizontal="true"
+        android:text="View Location Data" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginBottom="57dp"
         android:text="You've logged in!" />
 
     <ImageView
@@ -36,6 +44,16 @@
         android:layout_height="188dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="177dp"
+        android:layout_marginTop="78dp"
         app:srcCompat="@drawable/bongo_cat" />
+
+    <TextView
+        android:id="@+id/showDonations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-57dp"
+        android:text="TextView" />
+
 </RelativeLayout>
