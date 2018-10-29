@@ -102,12 +102,13 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             viewHolder.category.setText("");
         } else {
 
-        viewHolder.time.setText(donation.getTime().toString());
-        viewHolder.location.setText(donation.getLocation().toString());
-        viewHolder.shortDescription.setText(donation.getShortDescription());
-        viewHolder.fullDescription.setText(donation.getFullDescription());
-        viewHolder.value.setText(Double.toString(donation.getValue()));
-        viewHolder.category.setText(donation.getCategory().toString());
+            viewHolder.time.setText(donation.getTime().toString());
+            viewHolder.location.setText(donation.getLocation().toString());
+            viewHolder.shortDescription.setText(donation.getShortDescription());
+            viewHolder.fullDescription.setText(donation.getFullDescription());
+            viewHolder.value.setText(Double.toString(donation.getValue()));
+            viewHolder.category.setText(donation.getCategory().toString());
+        }
     }
 
     @Override
