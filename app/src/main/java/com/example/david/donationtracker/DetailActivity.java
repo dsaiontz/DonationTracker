@@ -29,6 +29,7 @@ public class DetailActivity extends AppCompatActivity {
     private String username;
     private String locationName;
     private RecyclerView.Adapter adapter;
+    private RecyclerView locationRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
