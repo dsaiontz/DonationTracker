@@ -51,7 +51,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             registerSpinnerOptions[k++] = i;
         }
 
+<<<<<<< HEAD
         registerLocationOptions = new Object[Locations.getAllLocations().length+1];
+=======
+        registerLocationOptions = new Object[Donations.getValidLocations().size()+1];
+>>>>>>> Jackson
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
         for (Location i : Locations.getAllLocations()) {

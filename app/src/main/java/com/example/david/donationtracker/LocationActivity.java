@@ -35,12 +35,22 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
+        Button donationButton = (Button) findViewById(R.id.donationButton);
+        donationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toDonationActivity();
+            }
+        });
+
+        Log.i("","before getting csv locations");
         // reads in location data
-        locations = readLocationData();
+        locations = Locations.getCsvLocations();
 
         // grabs username
         Intent grabbedIntent = getIntent();
-        username = grabbedIntent.getExtras().getString("username");
+
+        Log.i("","before setting adapter contents");
 
         // configures the recycler view
         adapter = new LocationAdapter(locations, null, username);
@@ -52,40 +62,14 @@ public class LocationActivity extends AppCompatActivity {
 
     public void backToMainPage() {
         Intent backToMain = new Intent(LocationActivity.this, MainPage.class);
-        backToMain.putExtra("username", username);
         startActivity(backToMain);
         finish();
     }
 
-    private ArrayList<Location> readLocationData() {
-        ArrayList<Location> locations = new ArrayList<>();
-        try {
-            Context context = locationRecyclerView.getContext();
-            InputStream stream = context.getAssets().open("LocationData.csv");
-            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-            String space = " ";
-            String comma = ", ";
-            String line;
-            while ((line = br.readLine())!= null) {
-                String[] words = line.split(",");
-                String name = words[1];
-                String latitude = words[2];
-                String longitude = words[3];
-                String streetAddress = words[4];
-                String city = words[5];
-                String state = words[6];
-                String address = streetAddress + space + city + comma + state;
-                String type = words[8];
-                String phoneNumber = words[9];
-                Location location = new Location(name, type, longitude, latitude, address, phoneNumber);
-                locations.add(location);
-            }
-            br.close();
-        } catch (Exception e) {
-            Log.w("Location Data", "Reading Location Data crashed" + "\n" + e.getMessage());
-        }
-        // corrects for reading in the column headers
-        locations.remove(0);
-        return locations;
+    public void toDonationActivity() {
+        startActivity(new Intent(LocationActivity.this, DonationActivity.class));
+        finish();
     }
+
+
 }

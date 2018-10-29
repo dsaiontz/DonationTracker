@@ -38,6 +38,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.content_donation);
         donations = new Donations();
 
+<<<<<<< HEAD
         Intent grabbedIntent = getIntent();
         Bundle extras = grabbedIntent.getExtras();
         username = extras.getString("username");
@@ -45,6 +46,12 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         final Location location = Locations.get(locationName);
 
         registerLocationOptions = new Object[Locations.getAllLocations().length+1];
+=======
+        final User username = Credentials.getCurrentUser();
+        final Location location = Locations.getCurrentLocation();
+
+        registerLocationOptions = new Object[Donations.getValidLocations().size()+1];
+>>>>>>> Jackson
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
         for (Location i: Locations.getAllLocations()) {
@@ -82,12 +89,26 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 try
                 {
+<<<<<<< HEAD
                     double value = Double.parseDouble(donationValue.getText().toString()); // just to confirm that value is a double
                     donations.addDonation(new Donation(location, shortDescription.getText().toString(),
                             longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
                     backToDetailActivity();
+=======
+                    //////TRY OTHER TESTS TO MAKE SURE THERE AREN'T ANY OTHER ERRORS
+                    Double.parseDouble(donationValue.getText().toString());
+                    ///////LOCATION NEEDS FULL CONSTRUCTOR EVENTUALLY!!!
+                    donos.addDonation(new Donation(new Location( donationLocation.getSelectedItem().toString()),
+                            shortDescription.getText().toString(), longDescription.getText().toString(),
+                            Double.parseDouble(donationValue.getText().toString()),
+                            (DonationCategory) donationCategorySpinner.getSelectedItem()));
+//                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
+//                    intent.putExtra("username", username);
+                    final Intent intentToDetail = new Intent(DonationActivity.this, LocationActivity.class);
+                    startActivity(intentToDetail);
+>>>>>>> Jackson
                     finish();
                 }
                 catch(NumberFormatException e)
@@ -106,7 +127,13 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 backToDetailActivity();
+=======
+                Log.i("","before going back to location page when you click button");
+                final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
+                startActivity(intentToDetail);
+>>>>>>> Jackson
                 finish();
             }
         });
