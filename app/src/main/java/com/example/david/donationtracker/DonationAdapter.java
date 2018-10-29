@@ -34,8 +34,8 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
         private TextView fullDescription;
         private TextView value;
         private TextView category;
-        private TextView comments;
-        private TextView pictureURI;
+        //private TextView comments;
+        //private TextView pictureURI;
 
         public ViewHolder(View view) {
             super(view);
@@ -55,20 +55,20 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             // comments
             // picture URI??
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    int pos = getAdapterPosition();
-                    Donation clickedItem = donationData.get(pos);
-
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    // locationName is used to get the donations for a location
-                    intent.putExtra("locationName", locationName);
-
-                    context.startActivity(intent);
-                }
-            });
+//            view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Context context = v.getContext();
+//                    int pos = getAdapterPosition();
+//                    Donation clickedItem = donationData.get(pos);
+//
+//                    Intent intent = new Intent(context, DetailActivity.class);
+//                    // locationName is used to get the donations for a location
+//                    intent.putExtra("locationName", locationName);
+//
+//                    context.startActivity(intent);
+//                }
+//            });
         }
     }
 
@@ -84,7 +84,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     @Override
     public DonationAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recycler_view, viewGroup, false);
+                .inflate(R.layout.recycler_view_detail_view, viewGroup, false);
 
         return new DonationAdapter.ViewHolder(v);
     }
@@ -93,6 +93,14 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     public void onBindViewHolder(DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
         Donation donation = donationData.get(position);
+        if (donation == null) {
+            viewHolder.time.setText("no donations");
+            viewHolder.location.setText("no donations");
+            viewHolder.shortDescription.setText("no donations");
+            viewHolder.fullDescription.setText("no donations");
+            viewHolder.value.setText("no donations");
+            viewHolder.category.setText("no donations");
+        } else {
 
         viewHolder.time.setText(donation.getTime().toString());
         viewHolder.location.setText(donation.getLocation().toString());
@@ -104,6 +112,10 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return donationData.size();
+        if (donationData == null) {
+            return 0;
+        } else {
+            return donationData.size();
+        }
     }
 }

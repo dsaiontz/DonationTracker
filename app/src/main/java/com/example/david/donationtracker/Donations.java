@@ -3,11 +3,21 @@ package com.example.david.donationtracker;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Donations {
 
     private static HashMap<Location, ArrayList<Donation>> donations = new HashMap<>();
+
+    private static final List<String> validLocations = Arrays.asList("AFD Station", "BOYS & GILRS CLUB W.W. WOOLFOLK",
+            "PATHWAY UPPER ROOM CHRISTIAN MINISTRIES", "PAVILION OF HOPE INC",
+            "D&D CONVENIENCE STORE", "KEEP NORTH FULTON BEAUTIFUL");
+
+    public static List<String> getValidLocations() {
+        return validLocations;
+    }
 
     public static void addDonation(Donation donation) {
         Location location = donation.getLocation();
