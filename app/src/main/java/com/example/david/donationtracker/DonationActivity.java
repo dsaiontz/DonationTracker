@@ -80,16 +80,29 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 try
                 {
+<<<<<<< HEAD
                     double value = Double.parseDouble(donationValue.getText().toString());
                     donos.addDonation(new Donation(location, shortDescription.getText().toString(),
                             longDescription.getText().toString(),
+=======
+                    //////TRY OTHER TESTS TO MAKE SURE THERE AREN'T ANY OTHER ERRORS
+                    //OK JACKSON
+                    Double.parseDouble(donationValue.getText().toString());
+                    ///////LOCATION NEEDS FULL CONSTRUCTOR EVENTUALLY!!!
+                    donos.addDonation(new Donation(location,
+                            shortDescription.getText().toString(), longDescription.getText().toString(),
+>>>>>>> 6a7fd89814cd2100b58f6ebb8cfd4954a85e7b61
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
 //                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
 //                    intent.putExtra("username", username);
                     final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
                     intentToDetail.putExtra("username", username);
+<<<<<<< HEAD
                     intentToDetail.putExtra("location", locationName);
+=======
+                    intentToDetail.putExtra("location", location.getName());
+>>>>>>> 6a7fd89814cd2100b58f6ebb8cfd4954a85e7b61
                     startActivity(intentToDetail);
                     finish();
                 }
