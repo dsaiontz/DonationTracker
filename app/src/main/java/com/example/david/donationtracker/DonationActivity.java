@@ -104,6 +104,9 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 backToDetailActivity();
+                Log.i("","before going back to location page when you click button");
+                final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
+                startActivity(intentToDetail);
                 finish();
             }
         });

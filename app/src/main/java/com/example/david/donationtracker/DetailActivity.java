@@ -73,6 +73,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
         Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
