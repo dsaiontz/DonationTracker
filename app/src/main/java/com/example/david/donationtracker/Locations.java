@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Locations {
 
@@ -32,6 +33,11 @@ public class Locations {
 
     public static boolean containsLocation(String locationName) {
         return locations.containsKey(locationName);
+    }
+
+    public static Location[] getAllLocations() {
+        Collection<Location> values = locations.values();
+        return (Location[]) values.toArray();
     }
 
 }

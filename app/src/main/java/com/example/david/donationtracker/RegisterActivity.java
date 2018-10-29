@@ -51,11 +51,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             registerSpinnerOptions[k++] = i;
         }
 
-        registerLocationOptions = new Object[Donations.getValidLocations().length+1];
+        registerLocationOptions = new Object[Locations.getAllLocations().length+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
-        for (String i : Donations.getValidLocations()) {
-            registerLocationOptions[m++] = i;
+        for (Location i : Locations.getAllLocations()) {
+            registerLocationOptions[m++] = i.getName();
         }
 
         email = (EditText) findViewById(R.id.RegisterPageEmail);
