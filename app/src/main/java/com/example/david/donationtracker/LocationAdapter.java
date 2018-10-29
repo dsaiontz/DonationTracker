@@ -67,6 +67,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
                     Intent intent = new Intent(context, DetailActivity.class);
 
+                    Log.e("", "This is before starting the new activity");
+
                     context.startActivity(intent);
                 }
             });

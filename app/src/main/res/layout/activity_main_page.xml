@@ -47,13 +47,13 @@
         android:layout_marginTop="78dp"
         app:srcCompat="@drawable/bongo_cat" />
 
-    <TextView
-        android:id="@+id/showDonations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-57dp"
-        android:text="TextView" />
+    <!--<TextView-->
+        <!--android:id="@+id/showDonations"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/textView"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="-57dp"-->
+        <!--android:text="TextView" />-->
 
 </RelativeLayout>

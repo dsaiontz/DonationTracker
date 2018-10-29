@@ -13,10 +13,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/donationsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:padding="4dp">
+        android:layout_width="356dp"
+        android:layout_height="341dp"
+        android:padding="4dp"
+        android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -31,24 +31,18 @@
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="407dp" />
 
-    <TextView
-        android:id="@+id/detailText"
+    <Button
+        android:id="@+id/donationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="TextView" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/donationsRecyclerView"
-        android:layout_width="350dp"
-        android:layout_height="449dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:padding="4dp"
-        android:scrollbars="vertical">
+        android:layout_marginBottom="73dp"
+        android:text="Make Donation"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="407dp" />
 
-    </android.support.v7.widget.RecyclerView>
+
 
 
 </RelativeLayout>

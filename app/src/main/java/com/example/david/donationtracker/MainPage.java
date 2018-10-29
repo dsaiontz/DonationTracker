@@ -45,10 +45,13 @@ public class MainPage extends AppCompatActivity {
                 toLocation();
             }
         });
-        readLocationData();
 
-
-        TextView showDonations = (TextView) findViewById(R.id.showDonations);
+//        TextView showDonations = (TextView) findViewById(R.id.showDonations);
+//        try {
+//            showDonations.setText(Donations.getDonations(Locations.getCsvLocations().get(0)).toString());
+//        } catch (Exception e) {
+//            showDonations.setText("hiya!");
+//        }
     }
 
     private void logout() {
@@ -58,38 +61,9 @@ public class MainPage extends AppCompatActivity {
     }
 
     private void toLocation() {
+        startActivity(new Intent(MainPage.this, LocationActivity.class));
         finish();
     }
 
-    private void readLocationData() {
-        ArrayList<Location> locations = new ArrayList<>();
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(
-                    new InputStreamReader(getAssets().open("LocationData.csv")));
-            String space = " ";
-            String comma = ", ";
-            String line;
-            while ((line = reader.readLine())!= null) {
-                String[] words = line.split(",");
-                String name = words[1];
-                String latitude = words[2];
-                String longitude = words[3];
-                String streetAddress = words[4];
-                String city = words[5];
-                String state = words[6];
-                String address = streetAddress + space + city + comma + state;
-                String type = words[8];
-                String phoneNumber = words[9];
-                Location location = new Location(name, type, longitude, latitude, address, phoneNumber);
-                locations.add(location);
-            }
-            reader.close();
-        } catch (Exception e) {
-            Log.w("Location Data", "Reading Location Data crashed" + "\n" + e.getMessage());
-        }
-        // corrects for reading in the column headers
-        locations.remove(0);
-        Locations.setCsvLocations(locations);
-    }
+
 }

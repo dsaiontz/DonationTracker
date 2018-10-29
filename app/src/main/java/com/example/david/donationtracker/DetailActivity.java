@@ -27,23 +27,20 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         Intent grabbedIntent = getIntent();
-        Bundle bundle = grabbedIntent.getExtras();
-        username = bundle.getString("username");
-        locationName = bundle.getString("locationName");
 
-        Locations locations = new Locations();
+        final User user = Credentials.getCurrentUser();
 
-        final Location location = Locations.get(locationName);
-        final User user = Credentials.get(username);
+        final Location location = Locations.getCurrentLocation();
+        //final User user = Credentials.get(username);
 
         // configures the recycler view
-        adapter = new DonationAdapter(Donations.getDonations(locations.get(locationName)), null, username);
-        locationRecyclerView = findViewById(R.id.locationRecyclerView);
+        adapter = new DonationAdapter(Donations.getDonations(location), null, username);
+        locationRecyclerView = findViewById(R.id.donationsRecyclerView);
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         locationRecyclerView.setAdapter(adapter);
 
-        TextView textView = findViewById(R.id.detailText);
+        TextView textView = (TextView) findViewById(R.id.detailText);
         if (location != null) {
             String detailText = "Name: " + location.getName();
             detailText = detailText + "\nType: " + location.getType()
@@ -61,8 +58,8 @@ public class DetailActivity extends AppCompatActivity {
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-                    intent.putExtra("location", location.getName());
-                    intent.putExtra("username", username);
+//                    intent.putExtra("location", location.getName());
+//                    intent.putExtra("username", username);
                     final LocalDateTime time = LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);
@@ -81,9 +78,9 @@ public class DetailActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent grabbedIntent = getIntent();
                 Intent toLocationActivity = new Intent(DetailActivity.this, LocationActivity.class);
-                toLocationActivity.putExtra("username", grabbedIntent.getExtras().getString("username"));
+                //toLocationActivity.putExtra("username", grabbedIntent.getExtras().getString("username"));
+                Log.e("","this is before going back from detail view to location activity");
                 startActivity(toLocationActivity);
                 finish();
             }

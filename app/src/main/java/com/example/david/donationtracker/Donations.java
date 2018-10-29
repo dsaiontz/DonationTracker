@@ -11,24 +11,14 @@ public class Donations {
 
     private static HashMap<Location, ArrayList<Donation>> donations = new HashMap<>();
 
-    private static final List<String> validLocations = Arrays.asList("AFD Station", "BOYS & GILRS CLUB W.W. WOOLFOLK",
-            "PATHWAY UPPER ROOM CHRISTIAN MINISTRIES", "PAVILION OF HOPE INC",
-            "D&D CONVENIENCE STORE", "KEEP NORTH FULTON BEAUTIFUL");
-
-    public static List<String> getValidLocations() {
-        return validLocations;
-    }
-
     public static void addDonation(Donation donation) {
         Location location = donation.getLocation();
-        if (donations.containsKey(location)) {
-            ArrayList<Donation> donationsAtLocation = donations.get(location);
+        if (!donations.containsKey(location)) {
+            ArrayList<Donation> donationsAtLocation = new ArrayList<>();
             donationsAtLocation.add(donation);
             donations.put(location, donationsAtLocation);
         } else {
-            ArrayList<Donation> newList = new ArrayList<>();
-            newList.add(donation);
-            donations.put(location, newList);
+            donations.get(location).add(donation);
         }
     }
 

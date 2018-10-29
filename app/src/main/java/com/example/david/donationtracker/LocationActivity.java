@@ -35,13 +35,13 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-        Button donationButton = (Button) findViewById(R.id.donationButton);
-        donationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toDonationActivity();
-            }
-        });
+//        Button donationButton = (Button) findViewById(R.id.donationButton);
+//        donationButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toDonationActivity();
+//            }
+//        });
 
         Log.i("","before getting csv locations");
         // reads in location data
@@ -66,10 +66,10 @@ public class LocationActivity extends AppCompatActivity {
         finish();
     }
 
-    public void toDonationActivity() {
-        startActivity(new Intent(LocationActivity.this, DonationActivity.class));
-        finish();
-    }
+//    public void toDonationActivity() {
+//        startActivity(new Intent(LocationActivity.this, DonationActivity.class));
+//        finish();
+//    }
 
 
 }

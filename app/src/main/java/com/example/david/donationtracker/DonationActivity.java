@@ -41,10 +41,10 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         final User username = Credentials.getCurrentUser();
         final Location location = Locations.getCurrentLocation();
 
-        registerLocationOptions = new Object[Donations.getValidLocations().size()+1];
+        registerLocationOptions = new Object[Locations.getCsvLocations().size()+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
-        for (Location i: Locations.getAllLocations()) {
+        for (Location i: Locations.getCsvLocations()) {
             registerLocationOptions[m++] = i.getName();
         }
 
@@ -84,7 +84,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                             longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
-                    backToDetailActivity();
+                    toLocationActivity();
                     finish();
                 }
                 catch(NumberFormatException e)
@@ -118,11 +118,17 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         // Do nothing.
     }
 
+    public void toLocationActivity() {
+        startActivity(new Intent(DonationActivity.this, LocationActivity.class));
+        finish();
+    }
+
     public void backToDetailActivity() {
         Intent backToDetailActivity = new Intent(DonationActivity.this, DetailActivity.class);
         backToDetailActivity.putExtra("username", username);
         backToDetailActivity.putExtra("location", locationName);
         startActivity(backToDetailActivity);
+        finish();
     }
 
 }

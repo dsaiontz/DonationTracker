@@ -93,7 +93,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     public void onBindViewHolder(DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
         Donation donation = donationData.get(position);
-        if (donation == null) {
+        if (donationData.size() == 0) {
             viewHolder.time.setText("no donations");
             viewHolder.location.setText("");
             viewHolder.shortDescription.setText("");

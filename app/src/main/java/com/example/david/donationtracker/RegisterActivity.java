@@ -36,8 +36,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     // Regex Patterns
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-    //Firebase
-//    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +49,10 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             registerSpinnerOptions[k++] = i;
         }
 
-        registerLocationOptions = new Object[Locations.getAllLocations().length+1];
+        registerLocationOptions = new Object[Locations.getCsvLocations().size()+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
-        for (Location i : Locations.getAllLocations()) {
+        for (Location i : Locations.getCsvLocations()) {
             registerLocationOptions[m++] = i.getName();
         }
 
