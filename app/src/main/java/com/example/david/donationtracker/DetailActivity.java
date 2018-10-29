@@ -57,13 +57,11 @@ public class DetailActivity extends AppCompatActivity {
         donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("","before if" + username);
-
                 if ((user.getUserType() == UserType.EMPLOYEE) ||
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-                    intent.putExtra("location", location);
+                    intent.putExtra("location", location.getName());
                     intent.putExtra("username", username);
                     final LocalDateTime time = LocalDateTime.now();
                     intent.putExtra("time", time);

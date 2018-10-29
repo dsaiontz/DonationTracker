@@ -76,12 +76,10 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                 try
                 {
                     //////TRY OTHER TESTS TO MAKE SURE THERE AREN'T ANY OTHER ERRORS
+                    //OK JACKSON
                     Double.parseDouble(donationValue.getText().toString());
-                    Location locale = new Location(donationLocation.getSelectedItem().toString(),
-                            location.getType(), location.getLongitude(), location.getLatitude(),
-                            location.getAddress(), location.getPhoneNumber());
                     ///////LOCATION NEEDS FULL CONSTRUCTOR EVENTUALLY!!!
-                    donos.addDonation(new Donation(locale,
+                    donos.addDonation(new Donation(location,
                             shortDescription.getText().toString(), longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
@@ -89,7 +87,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 //                    intent.putExtra("username", username);
                     final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
                     intentToDetail.putExtra("username", username);
-                    intentToDetail.putExtra("location", locale);
+                    intentToDetail.putExtra("location", location.getName());
                     startActivity(intentToDetail);
                     finish();
                 }
