@@ -2,6 +2,7 @@ package com.example.david.donationtracker;
 
 import android.util.Log;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -52,8 +53,7 @@ public class Locations {
     }
 
     public static Location[] getAllLocations() {
-        Collection<Location> values = locations.values();
-        return (Location[]) values.toArray();
+        return (Location[]) locations.keySet().toArray();
     }
 
 }
