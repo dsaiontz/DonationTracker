@@ -18,27 +18,27 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/location"
+                android:id="@+id/donationLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/donationTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/shortDescription"
+                android:id="@+id/donationShortDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/longDescription"
+                android:id="@+id/donationLongDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/value"
+                android:id="@+id/donationValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

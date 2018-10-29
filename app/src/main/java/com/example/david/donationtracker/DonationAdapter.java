@@ -53,10 +53,10 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             });
 
             time = (TextView) view.findViewById(R.id.time);
-            location = (TextView) view.findViewById(R.id.location);
-            shortDescription = view.findViewById(R.id.shortDescrtion);
-            fullDescription = (TextView) view.findViewById(R.id.fullDescription);
-            value = (TextView) view.findViewById(R.id.value);
+            location = (TextView) view.findViewById(R.id.donationLocation);
+            shortDescription = view.findViewById(R.id.donationShortDescription);
+            fullDescription = (TextView) view.findViewById(R.id.donationLongDescription);
+            value = (TextView) view.findViewById(R.id.donationValue);
             category = (TextView) view.findViewById(R.id.category);
             // comments
             // picture URI??
@@ -101,14 +101,13 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 
         Donation donation = donationData.get(position);
 
-        bind(holder);
 
-        viewHolder.name.setText(donation.getName());
-        viewHolder.type.setText(donation.getType());
-        viewHolder.longitude.setText(donation.getLongitude());
-        viewHolder.latitude.setText(donation.getLatitude());
-        viewHolder.address.setText(donation.getAddress());
-        viewHolder.phoneNumber.setText(donation.getPhoneNumber());
+        viewHolder.time.setText(donation.getTime().toString());
+        viewHolder.location.setText(donation.getLocation().toString());
+        viewHolder.shortDescription.setText(donation.getShortDescription());
+        viewHolder.fullDescription.setText(donation.getFullDescription());
+        viewHolder.value.setText(Double.toString(donation.getValue()));
+        viewHolder.category.setText(donation.getCategory().toString());
     }
 
     @Override
