@@ -11,6 +11,22 @@ public class Locations {
 
     private static HashMap<String, Location> locations = new HashMap<>();
 
+    private static Location currentLocation;
+
+    private static ArrayList<Location> csvLocations;
+
+    public static ArrayList<Location> getCsvLocations() {
+        return csvLocations;
+    }
+
+    public static void setCsvLocations(ArrayList<Location> newLocations) {
+        csvLocations = newLocations;
+    }
+
+    public static void setCurrentLocation(Location location) { currentLocation = location; }
+
+    public static Location getCurrentLocation() { return currentLocation; }
+
     public static void add(Location location) {
         if (!locations.containsKey(location.getName())) {
             locations.put(location.getName(), location);

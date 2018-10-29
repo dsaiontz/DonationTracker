@@ -40,8 +40,8 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
         private TextView fullDescription;
         private TextView value;
         private TextView category;
-        private TextView comments;
-        private TextView pictureURI;
+        //private TextView comments;
+        //private TextView pictureURI;
 
         public ViewHolder(View view) {
             super(view);
@@ -54,27 +54,27 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 
             time = (TextView) view.findViewById(R.id.time);
             location = (TextView) view.findViewById(R.id.location);
-            shortDescription = view.findViewById(R.id.shortDescrtion);
+            shortDescription = view.findViewById(R.id.shortDescription);
             fullDescription = (TextView) view.findViewById(R.id.fullDescription);
             value = (TextView) view.findViewById(R.id.value);
             category = (TextView) view.findViewById(R.id.category);
             // comments
             // picture URI??
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    int pos = getAdapterPosition();
-                    Donation clickedItem = donationData.get(pos);
-
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    // locationName is used to get the donations for a location
-                    intent.putExtra("locationName", locationName);
-
-                    context.startActivity(intent);
-                }
-            });
+//            view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Context context = v.getContext();
+//                    int pos = getAdapterPosition();
+//                    Donation clickedItem = donationData.get(pos);
+//
+//                    Intent intent = new Intent(context, DetailActivity.class);
+//                    // locationName is used to get the donations for a location
+//                    intent.putExtra("locationName", locationName);
+//
+//                    context.startActivity(intent);
+//                }
+//            });
         }
     }
 
@@ -90,7 +90,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     @Override
     public DonationAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recycler_view, viewGroup, false);
+                .inflate(R.layout.recycler_view_detail_view, viewGroup, false);
 
         return new DonationAdapter.ViewHolder(v);
     }
@@ -100,19 +100,30 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
         Log.d(TAG, "Element " + position + " set.");
 
         Donation donation = donationData.get(position);
+        if (donation == null) {
+            viewHolder.time.setText("no donations");
+            viewHolder.location.setText("no donations");
+            viewHolder.shortDescription.setText("no donations");
+            viewHolder.fullDescription.setText("no donations");
+            viewHolder.value.setText("no donations");
+            viewHolder.category.setText("no donations");
+        } else {
 
-        viewHolder
-
-//        viewHolder.name.setText(location.getName());
-//        viewHolder.type.setText(location.getType());
-//        viewHolder.longitude.setText(location.getLongitude());
-//        viewHolder.latitude.setText(location.getLatitude());
-//        viewHolder.address.setText(location.getAddress());
-//        viewHolder.phoneNumber.setText(location.getPhoneNumber());
+            viewHolder.time.setText(donation.getTime());
+            viewHolder.location.setText(donation.getLocation().toString());
+            viewHolder.shortDescription.setText(donation.getShortDescription());
+            viewHolder.fullDescription.setText(donation.getFullDescription());
+            viewHolder.value.setText(String.valueOf(donation.getValue()));
+            viewHolder.category.setText(donation.getCategory().toString());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return donationData.size();
+        if (donationData == null) {
+            return 0;
+        } else {
+            return donationData.size();
+        }
     }
 }

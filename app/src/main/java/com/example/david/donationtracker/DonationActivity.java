@@ -34,10 +34,10 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.content_donation);
         donos = new Donations();
 
-        final String username = getIntent().getExtras().getString("username");
-        final Location location = getIntent().getParcelableExtra("location");
+        final User username = Credentials.getCurrentUser();
+        final Location location = Locations.getCurrentLocation();
 
-        registerLocationOptions = new Object[Donations.getValidLocations().length+1];
+        registerLocationOptions = new Object[Donations.getValidLocations().size()+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
         for (String i: Donations.getValidLocations()) {
@@ -77,19 +77,14 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                 {
                     //////TRY OTHER TESTS TO MAKE SURE THERE AREN'T ANY OTHER ERRORS
                     Double.parseDouble(donationValue.getText().toString());
-                    Location locale = new Location(donationLocation.getSelectedItem().toString(),
-                            location.getType(), location.getLongitude(), location.getLatitude(),
-                            location.getAddress(), location.getPhoneNumber());
                     ///////LOCATION NEEDS FULL CONSTRUCTOR EVENTUALLY!!!
-                    donos.addDonation(new Donation(locale,
+                    donos.addDonation(new Donation(new Location( donationLocation.getSelectedItem().toString()),
                             shortDescription.getText().toString(), longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
 //                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
 //                    intent.putExtra("username", username);
-                    final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
-                    intentToDetail.putExtra("username", username);
-                    intentToDetail.putExtra("location", locale);
+                    final Intent intentToDetail = new Intent(DonationActivity.this, LocationActivity.class);
                     startActivity(intentToDetail);
                     finish();
                 }
@@ -111,7 +106,6 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 Log.i("","before going back to location page when you click button");
                 final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
-                intentToDetail.putExtra("username", username);
                 startActivity(intentToDetail);
                 finish();
             }
