@@ -11,10 +11,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LocationActivity">
 
+    <TextView
+        android:id="@+id/detailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/donationsRecyclerView"
-        android:layout_width="356dp"
-        android:layout_height="341dp"
+        android:layout_marginTop="100dp"
+        android:layout_width="345dp"
+        android:layout_height="349dp"
         android:padding="4dp"
         android:scrollbars="vertical">
 
@@ -26,7 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="17dp"
         android:text="Back"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="407dp" />
@@ -37,11 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="73dp"
+        android:layout_marginBottom="56dp"
         android:text="Make Donation"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="407dp" />
-
 
 
 

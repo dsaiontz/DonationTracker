@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
@@ -55,20 +57,26 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             // comments
             // picture URI??
 
-//            view.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Context context = v.getContext();
-//                    int pos = getAdapterPosition();
-//                    Donation clickedItem = donationData.get(pos);
-//
-//                    Intent intent = new Intent(context, DetailActivity.class);
-//                    // locationName is used to get the donations for a location
-//                    intent.putExtra("locationName", locationName);
-//
-//                    context.startActivity(intent);
-//                }
-//            });
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    int pos = getAdapterPosition();
+                    Donation clickedItem = donationData.get(pos);
+
+                    Intent intent = new Intent(context, DonationDetailActivity.class);
+                    // locationName is used to get the donations for a location
+//                    intent.putExtra("time", clickedItem.getTime());
+//                    intent.putExtra("location", clickedItem.getLocation().toString());
+//                    intent.putExtra("short description", clickedItem.getShortDescription());
+//                    intent.putExtra("full description", clickedItem.getFullDescription());
+//                    intent.putExtra("value", String.valueOf(clickedItem.getValue()));
+//                    intent.putExtra("category", clickedItem.getCategory().toString());
+                    intent.putExtra("donation", (Serializable) clickedItem);
+
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

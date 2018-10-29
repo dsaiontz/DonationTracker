@@ -1,10 +1,14 @@
 package com.example.david.donationtracker;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.time.format.DateTimeFormatter;
 
-public class Donation {
+public class Donation implements Serializable {
 
     private LocalDateTime time;
     private Location location;
@@ -145,4 +149,5 @@ public class Donation {
         return Objects.hash(//getTime(),
                 getLocation(), getValue(), getCategory());
     }
+
 }
