@@ -2,18 +2,12 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.sql.Time;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
