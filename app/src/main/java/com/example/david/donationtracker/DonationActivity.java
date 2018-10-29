@@ -23,23 +23,25 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     private EditText longDescription;
     private EditText donationValue;
     private Spinner donationCategorySpinner;
-
     private Object[] registerSpinnerOptions;
     private Object[] registerLocationOptions;
+    private Donations donations;
 
-    private Donations donos;
-
+    // username must be passed with every intent
+    // location name should be passed with most intents
+    private String username;
+    private String locationName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_donation);
-        donos = new Donations();
+        donations = new Donations();
 
         Intent grabbedIntent = getIntent();
         Bundle extras = grabbedIntent.getExtras();
-        final String username = extras.getString("username");
-        final String locationName = extras.getString("locationName");
+        username = extras.getString("username");
+        locationName = extras.getString("locationName");
         final Location location = Locations.get(locationName);
 
         registerLocationOptions = new Object[Locations.getAllLocations().length+1];
@@ -80,22 +82,17 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 try
                 {
-                    double value = Double.parseDouble(donationValue.getText().toString());
-                    donos.addDonation(new Donation(location, shortDescription.getText().toString(),
+                    double value = Double.parseDouble(donationValue.getText().toString()); // just to confirm that value is a double
+                    donations.addDonation(new Donation(location, shortDescription.getText().toString(),
                             longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
-//                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
-//                    intent.putExtra("username", username);
-                    final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
-                    intentToDetail.putExtra("username", username);
-                    intentToDetail.putExtra("location", location.getName());
-                    startActivity(intentToDetail);
+                    backToDetailActivity();
                     finish();
                 }
                 catch(NumberFormatException e)
                 {
-                    //toast
+                    //toast the user that value needs to be a number
                     int duration = Toast.LENGTH_SHORT;
                     Context context = getApplicationContext();
                     String text = "Donation value must be a number.";
@@ -105,14 +102,11 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             }
         });
 
-        Button backButton = (Button) findViewById(R.id.donationBackButton);
+        Button backButton = findViewById(R.id.donationBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("","before going back to location page when you click button");
-                final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
-                intentToDetail.putExtra("username", username);
-                startActivity(intentToDetail);
+                backToDetailActivity();
                 finish();
             }
         });
@@ -125,6 +119,13 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
+    }
+
+    public void backToDetailActivity() {
+        Intent backToDetailActivity = new Intent(DonationActivity.this, DetailActivity.class);
+        backToDetailActivity.putExtra("username", username);
+        backToDetailActivity.putExtra("location", locationName);
+        startActivity(backToDetailActivity);
     }
 
 }
