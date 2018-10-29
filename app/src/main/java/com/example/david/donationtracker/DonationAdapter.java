@@ -92,9 +92,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
-
         Donation donation = donationData.get(position);
-
 
         viewHolder.time.setText(donation.getTime().toString());
         viewHolder.location.setText(donation.getLocation().toString());

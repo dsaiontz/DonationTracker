@@ -57,8 +57,6 @@ public class DetailActivity extends AppCompatActivity {
         donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("","before if" + username);
-
                 if ((user.getUserType() == UserType.EMPLOYEE) ||
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {

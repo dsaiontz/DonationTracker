@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.time.LocalDateTime;
+
 public class DonationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner donationLocation;
@@ -34,8 +36,11 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.content_donation);
         donos = new Donations();
 
-        final String username = getIntent().getExtras().getString("username");
-        final Location location = getIntent().getParcelableExtra("location");
+        Intent grabbedIntent = getIntent();
+        Bundle extras = grabbedIntent.getExtras();
+        final String username = extras.getString("username");
+        final String locationName = extras.getString("locationName");
+        final Location location = Locations.get(locationName);
 
         registerLocationOptions = new Object[Locations.getAllLocations().length+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
@@ -75,21 +80,16 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 try
                 {
-                    //////TRY OTHER TESTS TO MAKE SURE THERE AREN'T ANY OTHER ERRORS
-                    Double.parseDouble(donationValue.getText().toString());
-                    Location locale = new Location(donationLocation.getSelectedItem().toString(),
-                            location.getType(), location.getLongitude(), location.getLatitude(),
-                            location.getAddress(), location.getPhoneNumber());
-                    ///////LOCATION NEEDS FULL CONSTRUCTOR EVENTUALLY!!!
-                    donos.addDonation(new Donation(locale,
-                            shortDescription.getText().toString(), longDescription.getText().toString(),
+                    double value = Double.parseDouble(donationValue.getText().toString());
+                    donos.addDonation(new Donation(location, shortDescription.getText().toString(),
+                            longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
 //                    Intent intent = new Intent(DonationActivity.this, MainPage.class);
 //                    intent.putExtra("username", username);
                     final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
                     intentToDetail.putExtra("username", username);
-                    intentToDetail.putExtra("location", locale);
+                    intentToDetail.putExtra("location", locationName);
                     startActivity(intentToDetail);
                     finish();
                 }
@@ -98,7 +98,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                     //toast
                     int duration = Toast.LENGTH_SHORT;
                     Context context = getApplicationContext();
-                    String text = "Value must be a double.";
+                    String text = "Donation value must be a number.";
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
