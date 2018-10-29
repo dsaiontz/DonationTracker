@@ -102,11 +102,11 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
         Donation donation = donationData.get(position);
         if (donation == null) {
             viewHolder.time.setText("no donations");
-            viewHolder.location.setText("no donations");
-            viewHolder.shortDescription.setText("no donations");
-            viewHolder.fullDescription.setText("no donations");
-            viewHolder.value.setText("no donations");
-            viewHolder.category.setText("no donations");
+            viewHolder.location.setText("");
+            viewHolder.shortDescription.setText("");
+            viewHolder.fullDescription.setText("");
+            viewHolder.value.setText("");
+            viewHolder.category.setText("");
         } else {
 
             viewHolder.time.setText(donation.getTime());
