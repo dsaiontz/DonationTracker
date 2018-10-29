@@ -41,6 +41,8 @@ public class DetailActivity extends AppCompatActivity {
         username = bundle.getString("username");
         locationName = bundle.getString("locationName");
 
+        Locations locations = new Locations();
+
         final Location location = Locations.get(locationName);
         final User user = Credentials.get(username);
 
@@ -48,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         ArrayList<Donation> donationsForLocation = Donations.getDonations(location);
 
         // configures the recycler view
-        adapter = new DonationAdapter(Donations.getDonations(Locations.get(locationName)), null, username);
+        adapter = new DonationAdapter(Donations.getDonations(locations.get(locationName)), null, username);
         locationRecyclerView = findViewById(R.id.locationRecyclerView);
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
