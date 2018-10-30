@@ -41,6 +41,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         final User username = Credentials.getCurrentUser();
         final Location location = Locations.getCurrentLocation();
 
+        //setting values for spinner for choosing location
         registerLocationOptions = new Object[Locations.getCsvLocations().size()+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
@@ -48,6 +49,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             registerLocationOptions[m++] = i.getName();
         }
 
+        //setting values for spinner for choosing donation category
         registerSpinnerOptions = new Object[DonationCategory.values().length+1];
         registerSpinnerOptions[0] = (Object) "PLEASE SELECT CATEGORY";
         int k = 1;
@@ -55,6 +57,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             registerSpinnerOptions[k++] = i;
         }
 
+        //location spinner
         donationLocation = (Spinner) findViewById(R.id.addDonationLocation);
         donationLocation.setOnItemSelectedListener(this);
         ArrayAdapter<DonationCategory> adapterOne = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerLocationOptions);
@@ -62,10 +65,14 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         donationLocation.setAdapter(adapterOne);
         donationLocation.setOnItemSelectedListener(this);
 
+
+        //EditTexts for descriptions and value
         shortDescription = (EditText) findViewById(R.id.addDonationShortDescription);
         longDescription = (EditText) findViewById(R.id.addDonationLongDescription);
         donationValue = (EditText) findViewById(R.id.addDonationValue);
 
+
+        //donation category spinner
         donationCategorySpinner = (Spinner) findViewById(R.id.addDonationSpinner);
         donationCategorySpinner.setOnItemSelectedListener(this);
         ArrayAdapter<DonationCategory> adapterNext = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
@@ -73,13 +80,16 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         donationCategorySpinner.setAdapter(adapterNext);
         donationCategorySpinner.setOnItemSelectedListener(this);
 
+
+        //add donation button should to to location activity after adding donation to Donations
         Button addDonationButton = (Button) findViewById(R.id.addDonationButton);
         addDonationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try
                 {
-                    double value = Double.parseDouble(donationValue.getText().toString()); // just to confirm that value is a double
+                    //need to add more test cases to send to catch block
+                    double value = Double.parseDouble(donationValue.getText().toString());
                     donations.addDonation(new Donation(location, shortDescription.getText().toString(),
                             longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
@@ -99,6 +109,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             }
         });
 
+        //back button goes to detail activity
         Button backButton = findViewById(R.id.donationBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

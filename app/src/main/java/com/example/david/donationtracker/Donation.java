@@ -43,16 +43,6 @@ public class Donation implements Serializable {
         this.time = LocalDateTime.now();
     }
 
-//    public Donation(String location, String shortDescription,
-//                    String fullDescription, double value, DonationCategory category) {
-//        this.location = location;
-//        this.shortDescription = shortDescription;
-//        this.fullDescription = fullDescription;
-//        this.value = value;
-//        this.category = category;
-//        this.time = LocalDateTime.now();
-//    }
-
     public String getTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return time.format(formatter);
@@ -132,7 +122,7 @@ public class Donation implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Donation donation = (Donation) o;
         return Double.compare(donation.getValue(), getValue()) == 0 &&
-//                Objects.equals(getTime(), donation.getTime()) &&
+                Objects.equals(getTime(), donation.getTime()) &&
                 Objects.equals(getLocation(), donation.getLocation()) &&
                 getCategory() == donation.getCategory();
     }
@@ -140,7 +130,7 @@ public class Donation implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(//getTime(),
+        return Objects.hash(getTime(),
                 getLocation(), getValue(), getCategory());
     }
 

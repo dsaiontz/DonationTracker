@@ -21,7 +21,7 @@ import java.lang.reflect.Array;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private static ArrayList<Location> locationData; ///////is static rn?
+    private static ArrayList<Location> locationData;
     private Context context;
     private static String username;
 

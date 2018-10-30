@@ -17,6 +17,8 @@ public class welcome_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
+
+        //login button goes to login activity
         Button LoginButton = (Button) findViewById(R.id.WelcomePageLoginButton);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,6 +26,8 @@ public class welcome_page extends AppCompatActivity {
                 logout();
             }
         });
+
+        //register button goes to register activity
         Button RegisterButton = (Button) findViewById(R.id.WelcomePageRegisterButton);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +35,8 @@ public class welcome_page extends AppCompatActivity {
                 register();
             }
         });
+
+        //shortcut button, needs to be changed or deleted
         Button skipLoginButton = (Button) findViewById(R.id.SkipLoginButton);
         skipLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +45,8 @@ public class welcome_page extends AppCompatActivity {
                 finish();
             }
         });
+
+        //reads in the location data from the csv file, sets it to Locations.CsvLocations
         readLocationData();
     }
 

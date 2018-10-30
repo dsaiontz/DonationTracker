@@ -35,22 +35,10 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-//        Button donationButton = (Button) findViewById(R.id.donationButton);
-//        donationButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                toDonationActivity();
-//            }
-//        });
 
-        Log.i("","before getting csv locations");
         // reads in location data
         locations = Locations.getCsvLocations();
 
-        // grabs username
-        Intent grabbedIntent = getIntent();
-
-        Log.i("","before setting adapter contents");
 
         // configures the recycler view
         adapter = new LocationAdapter(locations, null, username);
@@ -60,16 +48,11 @@ public class LocationActivity extends AppCompatActivity {
         locationRecyclerView.setAdapter(adapter);
     }
 
+
+    //back button returns to the main page
     public void backToMainPage() {
         Intent backToMain = new Intent(LocationActivity.this, MainPage.class);
         startActivity(backToMain);
         finish();
     }
-
-//    public void toDonationActivity() {
-//        startActivity(new Intent(LocationActivity.this, DonationActivity.class));
-//        finish();
-//    }
-
-
 }

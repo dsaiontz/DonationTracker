@@ -26,20 +26,20 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Intent grabbedIntent = getIntent();
-
+        //user and location are static variables that represent the current user and current location being used
         final User user = Credentials.getCurrentUser();
-
         final Location location = Locations.getCurrentLocation();
-        //final User user = Credentials.get(username);
 
-        // configures the recycler view
+
+        //configures the recycler view that holds the location detail activity as well as donations at that location
         adapter = new DonationAdapter(Donations.getDonations(location), null, username);
         locationRecyclerView = findViewById(R.id.donationsRecyclerView);
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         locationRecyclerView.setAdapter(adapter);
 
+
+        //Sets text for detailed information of location
         TextView textView = (TextView) findViewById(R.id.detailText);
         if (location != null) {
             String detailText = "Name: " + location.getName();
@@ -50,6 +50,8 @@ public class DetailActivity extends AppCompatActivity {
             textView.setText(detailText);
         }
 
+
+        //Button for adding donation, displays toast if just a USER
         Button donationButton = findViewById(R.id.donationButton);
         donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,15 +60,11 @@ public class DetailActivity extends AppCompatActivity {
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-//                    intent.putExtra("location", location.getName());
-//                    intent.putExtra("username", username);
                     final LocalDateTime time = LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
                 } else {
-                    Log.i("","User type is not employee");
-                    //Toaster if no access
                     String text = "You don't have permission to access this.";
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                     toast.show();
@@ -74,13 +72,13 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+
+        //Back button returns to locationactivity
         Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent toLocationActivity = new Intent(DetailActivity.this, LocationActivity.class);
-                //toLocationActivity.putExtra("username", grabbedIntent.getExtras().getString("username"));
-                Log.e("","this is before going back from detail view to location activity");
                 startActivity(toLocationActivity);
                 finish();
             }

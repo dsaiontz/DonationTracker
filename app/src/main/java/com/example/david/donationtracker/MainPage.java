@@ -31,6 +31,9 @@ public class MainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+
+
+        //logout button should set current user to null, return to login activity
         Button logoutButton = (Button) findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +41,9 @@ public class MainPage extends AppCompatActivity {
                 logout();
             }
         });
+
+
+        //location button should go to location activity=
         Button locationButton = (Button) findViewById(R.id.locationButton);
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,13 +51,6 @@ public class MainPage extends AppCompatActivity {
                 toLocation();
             }
         });
-
-//        TextView showDonations = (TextView) findViewById(R.id.showDonations);
-//        try {
-//            showDonations.setText(Donations.getDonations(Locations.getCsvLocations().get(0)).toString());
-//        } catch (Exception e) {
-//            showDonations.setText("hiya!");
-//        }
     }
 
     private void logout() {

@@ -94,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
 
+    //goes to login activity, registers user
     private void register() {
         String emailText = email.getText().toString();
         String passText1 = pass1.getText().toString();
@@ -127,6 +128,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
+    //cancels registration
     private void cancel() {
         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
         finish();
