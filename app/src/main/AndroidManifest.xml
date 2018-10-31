@@ -32,6 +32,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LocationActivity" />
+        <activity android:name=".SearchActivity" />
         <activity
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
