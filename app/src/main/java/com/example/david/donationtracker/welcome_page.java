@@ -37,18 +37,10 @@ public class welcome_page extends AppCompatActivity {
             }
         });
 
-        //shortcut button, needs to be changed or deleted
-        Button skipLoginButton = (Button) findViewById(R.id.SkipLoginButton);
-        skipLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(welcome_page.this, MainPage.class));
-                finish();
-            }
-        });
-
         //reads in the location data from the csv file, sets it to Locations.CsvLocations
         readLocationData();
+
+        addDefaultLogin();
     }
 
     private void readLocationData() {
@@ -79,9 +71,12 @@ public class welcome_page extends AppCompatActivity {
         } catch (Exception e) {
             Log.w("Location Data", "Reading Location Data crashed" + "\n" + e.getMessage());
         }
-        // corrects for reading in the column headers
-//        locations.remove(0);
-//        Locations.setCsvLocations(locations);
+    }
+
+    private void addDefaultLogin() {
+        Credentials credentials = new Credentials();
+
+        credentials.add(new User("a@a.com", "abc123", UserType.ADMIN));
     }
 
 
