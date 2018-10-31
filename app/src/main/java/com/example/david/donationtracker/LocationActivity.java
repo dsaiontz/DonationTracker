@@ -34,6 +34,13 @@ public class LocationActivity extends AppCompatActivity {
                 backToMainPage();
             }
         });
+        Button searchButton = (Button) findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toSearchPage();
+            }
+        });
 
 
         // reads in location data
@@ -48,6 +55,11 @@ public class LocationActivity extends AppCompatActivity {
         locationRecyclerView.setAdapter(adapter);
     }
 
+    public void toSearchPage() {
+        Intent toSearch = new Intent(LocationActivity.this, MainPage.class);
+        startActivity(toSearch);
+        finish();
+    }
 
     //back button returns to the main page
     public void backToMainPage() {
