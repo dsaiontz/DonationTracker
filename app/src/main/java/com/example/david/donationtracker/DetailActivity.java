@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -25,6 +28,8 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        AndroidThreeTen.init(this);
 
         Intent grabbedIntent = getIntent();
 
@@ -58,9 +63,10 @@ public class DetailActivity extends AppCompatActivity {
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-//                    intent.putExtra("location", location.getName());
-//                    intent.putExtra("username", username);
-                    final LocalDateTime time = LocalDateTime.now();
+                    intent.putExtra("location", location.getName());
+                    intent.putExtra("username", username);
+                    //final LocalDateTime time = LocalDateTime.now();
+                    final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
