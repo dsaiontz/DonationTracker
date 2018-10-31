@@ -56,7 +56,7 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     public void toSearchPage() {
-        Intent toSearch = new Intent(LocationActivity.this, MainPage.class);
+        Intent toSearch = new Intent(LocationActivity.this, SearchActivity.class);
         startActivity(toSearch);
         finish();
     }
