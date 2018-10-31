@@ -22,5 +22,18 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        Button backButton = (Button) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToMainPage();
+            }
+        });
+    }
+
+    public void backToMainPage() {
+        Intent backToMain = new Intent(SearchActivity.this, MainPage.class);
+        startActivity(backToMain);
+        finish();
     }
 }
