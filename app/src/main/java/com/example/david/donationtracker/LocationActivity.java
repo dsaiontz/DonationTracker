@@ -37,7 +37,7 @@ public class LocationActivity extends AppCompatActivity {
 
 
         // reads in location data
-        locations = Locations.getCsvLocations();
+        locations = Locations.getAllLocations();
 
 
         // configures the recycler view

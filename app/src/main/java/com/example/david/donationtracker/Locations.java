@@ -15,15 +15,15 @@ public class Locations {
 
     private static Location currentLocation;
 
-    private static ArrayList<Location> csvLocations;
-
-    public static ArrayList<Location> getCsvLocations() {
-        return csvLocations;
-    }
-
-    public static void setCsvLocations(ArrayList<Location> newLocations) {
-        csvLocations = newLocations;
-    }
+//    private static ArrayList<Location> csvLocations;
+//
+//    public static ArrayList<Location> getCsvLocations() {
+//        return csvLocations;
+//    }
+//
+//    public static void setCsvLocations(ArrayList<Location> newLocations) {
+//        csvLocations = newLocations;
+//    }
 
     public static void setCurrentLocation(Location location) { currentLocation = location; }
 
@@ -52,8 +52,8 @@ public class Locations {
         return locations.containsKey(locationName);
     }
 
-    public static Location[] getAllLocations() {
-        return (Location[]) locations.values().toArray();
+    public static ArrayList<Location> getAllLocations() {
+        return new ArrayList<Location>(locations.values());
     }
 
 }

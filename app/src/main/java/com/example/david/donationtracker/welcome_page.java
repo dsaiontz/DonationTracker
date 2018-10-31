@@ -10,6 +10,7 @@ import android.widget.Button;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class welcome_page extends AppCompatActivity {
 
@@ -51,7 +52,7 @@ public class welcome_page extends AppCompatActivity {
     }
 
     private void readLocationData() {
-        ArrayList<Location> locations = new ArrayList<>();
+        Locations locations = new Locations();
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
@@ -59,6 +60,7 @@ public class welcome_page extends AppCompatActivity {
             String space = " ";
             String comma = ", ";
             String line;
+            reader.readLine();
             while ((line = reader.readLine())!= null) {
                 String[] words = line.split(",");
                 String name = words[1];
@@ -78,8 +80,8 @@ public class welcome_page extends AppCompatActivity {
             Log.w("Location Data", "Reading Location Data crashed" + "\n" + e.getMessage());
         }
         // corrects for reading in the column headers
-        locations.remove(0);
-        Locations.setCsvLocations(locations);
+//        locations.remove(0);
+//        Locations.setCsvLocations(locations);
     }
 
 

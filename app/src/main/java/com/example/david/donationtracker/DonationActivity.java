@@ -42,10 +42,10 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         final Location location = Locations.getCurrentLocation();
 
         //setting values for spinner for choosing location
-        registerLocationOptions = new Object[Locations.getCsvLocations().size()+1];
+        registerLocationOptions = new Object[Locations.getAllLocations().size()+1];
         registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
         int m = 1;
-        for (Location i: Locations.getCsvLocations()) {
+        for (Location i: Locations.getAllLocations()) {
             registerLocationOptions[m++] = i.getName();
         }
 

@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import java.lang.reflect.Array;
@@ -63,13 +65,23 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     Context context = v.getContext();
                     int pos = getAdapterPosition();
                     Location clickedItem = locationData.get(pos);
-                    Locations.setCurrentLocation(clickedItem);
+                    Log.e("","clickedItem: " + clickedItem + ", currentuser.getlocation: " + Credentials.getCurrentUser().getLocation());
+                    //not working properly
+//                    if ((Credentials.getCurrentUser().getLocation() != clickedItem)
+//                            && (Credentials.getCurrentUser().getUserType() == UserType.EMPLOYEE)) {
+//                        //employee does not have access to this location
+//                        int duration = Toast.LENGTH_SHORT;
+//                        Toast toast = Toast.makeText(context, "Employee does not have access to this location", duration);
+//                        toast.show();
+//                    } else {
+                        Locations.setCurrentLocation(clickedItem);
 
-                    Intent intent = new Intent(context, DetailActivity.class);
+                        Intent intent = new Intent(context, DetailActivity.class);
 
-                    Log.e("", "This is before starting the new activity");
+                        Log.e("", "This is before starting the new activity");
 
-                    context.startActivity(intent);
+                        context.startActivity(intent);
+//                    }
                 }
             });
         }
