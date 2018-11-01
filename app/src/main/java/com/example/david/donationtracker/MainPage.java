@@ -34,9 +34,9 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        Intent intent = getIntent();
+        Intent currentIntent = getIntent();
 
-        user = intent.getParcelableExtra("currentUser");
+        user = currentIntent.getParcelableExtra("currentUser");
 
         //logout button should set current user to null, return to login activity
         Button logoutButton = (Button) findViewById(R.id.logoutButton);
@@ -60,12 +60,15 @@ public class MainPage extends AppCompatActivity {
 
     private void logout() {
         Credentials.setCurrentUser(null);
-        startActivity(new Intent(MainPage.this, LoginActivity.class));
+        Intent intent = new Intent(MainPage.this, LoginActivity.class);
+        startActivity(intent);
         finish();
     }
 
     private void toLocation() {
-        startActivity(new Intent(MainPage.this, LocationActivity.class));
+        Intent intent = new Intent(MainPage.this, LocationActivity.class);
+        intent.putExtra("currentUser", user);
+        startActivity(intent);
         finish();
     }
 
