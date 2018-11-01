@@ -161,11 +161,12 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         }
                     });
 
-            Map<String, Object> userType = new HashMap<>();
-            userType.put("userType", userSpinner.getSelectedItem());
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("userType", userSpinner.getSelectedItem());
+            userInfo.put("location", locationSpinner.getSelectedItem());
 
-            db.collection("users").document(emailText)
-                    .set(userType)
+            DocumentReference docref = db.collection("users").document(emailText);
+                    docref.set(userInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
