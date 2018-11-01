@@ -34,7 +34,7 @@ public class LocationActivity extends AppCompatActivity {
                 backToMainPage();
             }
         });
-        Button searchButton = (Button) findViewById(R.id.searchButton);
+        Button searchButton = (Button) findViewById(R.id.toSearchActivityButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,10 +42,7 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-
-        // reads in location data
         locations = Locations.getAllLocations();
-
 
         // configures the recycler view
         adapter = new LocationAdapter(locations, null, username);
