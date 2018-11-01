@@ -3,10 +3,13 @@ package com.example.david.donationtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -16,6 +19,8 @@ public class SearchActivity extends AppCompatActivity {
     private Spinner donationCategorySpinner;
     private Object[] searchTypeOptions;
     private Object[] donationCategoryOptions;
+    private RecyclerView donationRecyclerView;
+    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,11 @@ public class SearchActivity extends AppCompatActivity {
         searchTypeOptions[2] =  "By Donation Value";
         searchTypeOptions[3] =  "By Category";
 
+
+    }
+
+    private void setDonations(ArrayList<Donation> donations) {
+        adapter = new SearchAdapter(donations, null);
     }
 
     public void backToMainPage() {
