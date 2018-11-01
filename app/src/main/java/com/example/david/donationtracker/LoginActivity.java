@@ -51,8 +51,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final int REQUEST_READ_CONTACTS = 0;
 
     private static HashMap<String, String> CREDENTIALS = new HashMap<>();
-    private static final String DEFAULT_EMAIL = "user@example.com";
-    private static final String DEFAULT_PASSWORD = "abc123";
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -107,9 +105,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
-
-        // Add the default email and password to the valid credentials hashmap
-        CREDENTIALS.put(DEFAULT_EMAIL, DEFAULT_PASSWORD);
     }
 
     private void populateAutoComplete() {
