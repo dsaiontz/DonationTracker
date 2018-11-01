@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="32dp"
         android:background="@android:color/holo_blue_bright"
         android:text="Back"
 <<<<<<< HEAD
@@ -20,18 +22,39 @@
         tools:layout_editor_absoluteY="384dp" />
 =======
         android:textColor="@android:color/white"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="417dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="32dp"
         android:background="@color/colorPrimaryDark"
         android:text="Search"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="236dp"
-        tools:layout_editor_absoluteY="417dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/searchActivityText"
+        android:layout_width="383dp"
+        android:layout_height="132dp"
+        android:text="Search By..."
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="43dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="108dp"
+        android:layout_height="30dp"
+        android:popupBackground="@color/colorPrimaryDark"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="95dp" />
 
 >>>>>>> 6868b9e2d2ad6c5c6d21d1b02750e8d822e2944e
 </android.support.constraint.ConstraintLayout>
