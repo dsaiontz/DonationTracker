@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "483618558090-hn2pap7kr7ug8d2dn8mdi0c4qgiur38q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.david.donationtracker",
+            "certificate_hash": "8644fb96ca6773b50f394c3b70df2ca02d07484d"
+          }
+        },
+        {
           "client_id": "483618558090-uua1fo60g2mt0so4hguoi8r1v9od8798.apps.googleusercontent.com",
           "client_type": 3
         }
