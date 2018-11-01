@@ -12,7 +12,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private EditText searchText;
     private Spinner searchTypeSpinner;
+    private Spinner donationCategorSpinner;
     private Object[] searchTypeOptions;
+    private Object[] donationCategoryOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,20 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        // set up spinner for search options
         searchTypeOptions = new Object[4];
         searchTypeOptions[0] =  "Please Select Search Type";
         searchTypeOptions[1] =  "By Keywords";
         searchTypeOptions[2] =  "By Donation Value";
         searchTypeOptions[3] =  "By Category";
+
+        //setting values for spinner for choosing donation category
+        donationCategoryOptions = new Object[DonationCategory.values().length+1];
+        donationCategoryOptions[0] = (Object) "Please Select Category";
+        int k = 1;
+        for (DonationCategory i: DonationCategory.values()) {
+            donationCategoryOptions[k++] = i;
+        }
 
     }
 

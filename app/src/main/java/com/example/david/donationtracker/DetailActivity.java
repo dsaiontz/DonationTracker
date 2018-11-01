@@ -1,6 +1,7 @@
 package com.example.david.donationtracker;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +50,7 @@ public class DetailActivity extends AppCompatActivity {
                     + "\nPhone Number: " + location.getPhoneNumber() + "\n";
             textView.setText(detailText);
         }
+        textView.setTextColor(Color.parseColor("#FFFFFF"));
 
 
         //Button for adding donation, displays toast if just a USER
