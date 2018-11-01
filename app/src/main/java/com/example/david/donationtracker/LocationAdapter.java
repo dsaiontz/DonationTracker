@@ -33,6 +33,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         this.locationData = locationData;
         this.context = context;
         this.username = username;
+
     }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
