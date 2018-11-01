@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/DarkGrey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -18,8 +19,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="106dp"
-        android:text="Logout" />
+        android:layout_marginBottom="72dp"
+        android:background="@android:color/holo_blue_bright"
+        android:text="Logout"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/locationButton"
@@ -27,7 +32,12 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/logoutButton"
         android:layout_centerHorizontal="true"
-        android:text="View Location Data" />
+        android:layout_marginBottom="33dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Location Data"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/textView"
@@ -35,8 +45,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="57dp"
-        android:text="You've logged in!" />
+        android:layout_marginBottom="499dp"
+        android:text="You've logged in!"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/imageView"

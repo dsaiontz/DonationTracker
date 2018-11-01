@@ -57,6 +57,7 @@ public class Donation implements Serializable {
         //this.time = LocalDateTime.now();
     }
 
+<<<<<<< HEAD
 //    public Donation(String location, String shortDescription,
 //                    String fullDescription, double value, DonationCategory category) {
 //        this.location = location;
@@ -76,6 +77,8 @@ public class Donation implements Serializable {
         this.donationId = donationId;
     }
 
+=======
+>>>>>>> master
     public String getTime() {
         org.threeten.bp.format.DateTimeFormatter formatter = org.threeten.bp.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -157,7 +160,7 @@ public class Donation implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Donation donation = (Donation) o;
         return Double.compare(donation.getValue(), getValue()) == 0 &&
-//                Objects.equals(getTime(), donation.getTime()) &&
+                Objects.equals(getTime(), donation.getTime()) &&
                 Objects.equals(getLocation(), donation.getLocation()) &&
                 getCategory() == donation.getCategory();
     }
@@ -165,7 +168,7 @@ public class Donation implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(//getTime(),
+        return Objects.hash(getTime(),
                 getLocation(), getValue(), getCategory());
     }
 

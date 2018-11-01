@@ -2,6 +2,7 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import java.lang.reflect.Array;
@@ -21,7 +24,7 @@ import java.lang.reflect.Array;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private static ArrayList<Location> locationData; ///////is static rn?
+    private static ArrayList<Location> locationData;
     private Context context;
     private static String username;
 
@@ -63,13 +66,23 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     Context context = v.getContext();
                     int pos = getAdapterPosition();
                     Location clickedItem = locationData.get(pos);
-                    Locations.setCurrentLocation(clickedItem);
+                    Log.e("","clickedItem: " + clickedItem + ", currentuser.getlocation: " + Credentials.getCurrentUser().getLocation());
+                    //not working properly
+//                    if ((Credentials.getCurrentUser().getLocation() != clickedItem)
+//                            && (Credentials.getCurrentUser().getUserType() == UserType.EMPLOYEE)) {
+//                        //employee does not have access to this location
+//                        int duration = Toast.LENGTH_SHORT;
+//                        Toast toast = Toast.makeText(context, "Employee does not have access to this location", duration);
+//                        toast.show();
+//                    } else {
+                        Locations.setCurrentLocation(clickedItem);
 
-                    Intent intent = new Intent(context, DetailActivity.class);
+                        Intent intent = new Intent(context, DetailActivity.class);
 
-                    Log.e("", "This is before starting the new activity");
+                        Log.e("", "This is before starting the new activity");
 
-                    context.startActivity(intent);
+                        context.startActivity(intent);
+//                    }
                 }
             });
         }
@@ -98,10 +111,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         Location location = locationData.get(position);
 
+
         viewHolder.name.setText(location.getName());
+//        viewHolder.name.setTextColor(Color.parseColor("#FFFFFF"));  // Use this to change the color of the text in a recycler view
         viewHolder.type.setText(location.getType());
-        viewHolder.longitude.setText(location.getLongitude());
-        viewHolder.latitude.setText(location.getLatitude());
+//        viewHolder.longitude.setText(location.getLongitude());
+//        viewHolder.latitude.setText(location.getLatitude());
         viewHolder.address.setText(location.getAddress());
         viewHolder.phoneNumber.setText(location.getPhoneNumber());
     }

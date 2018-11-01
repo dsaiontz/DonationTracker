@@ -15,7 +15,7 @@ import java.util.ArrayList;
 class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private static ArrayList<Donation> donationData; ///////is static rn?
+    private static ArrayList<Donation> donationData;
     private Context context;
     private static String locationName;
 
@@ -65,16 +65,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
                     Donation clickedItem = donationData.get(pos);
 
                     Intent intent = new Intent(context, DonationDetailActivity.class);
-                    // locationName is used to get the donations for a location
-//                    intent.putExtra("time", clickedItem.getTime());
-//                    intent.putExtra("location", clickedItem.getLocation().toString());
-//                    intent.putExtra("short description", clickedItem.getShortDescription());
-//                    intent.putExtra("full description", clickedItem.getFullDescription());
-//                    intent.putExtra("value", String.valueOf(clickedItem.getValue()));
-//                    intent.putExtra("category", clickedItem.getCategory().toString());
-                    //intent.putExtra("donation", (Serializable) clickedItem);
                     Donations.setCurrentDonation(clickedItem);
-                    Log.e("","before starting new activity");
 
                     context.startActivity(intent);
                 }

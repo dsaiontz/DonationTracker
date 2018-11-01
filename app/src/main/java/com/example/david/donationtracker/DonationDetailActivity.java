@@ -17,12 +17,6 @@ public class DonationDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        //Donation donation = (Donation) intent.getSerializableExtra("donation");
-//        Donation donation = new Donation(intent.getStringExtra("donation"),
-//                Locations.get(intent.getStringExtra("location")), intent.getStringExtra("short description"),
-//                intent.getStringExtra("full description"), Double.parseDouble(intent.getStringExtra("value")),
-//                DonationCategory.valueOf(intent.getStringExtra("category")));
-
         TextView textView = (TextView) findViewById(R.id.donation);
         textView.setText(Donations.getCurrentDonation().toString());
     }
