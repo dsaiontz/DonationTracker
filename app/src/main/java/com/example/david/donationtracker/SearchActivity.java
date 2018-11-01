@@ -30,12 +30,22 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         nameSearchText = (EditText) findViewById(R.id.nameSearchText);
+        //nameSearchText.setOnEditorActionListener();
 
         valueSearchText = (EditText) findViewById(R.id.valueSearchText);
+        //valueSearchText.setOnEditorActionListener();
 
         searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
 
+        //setting values for spinner for choosing donation category
+        donationCategoryOptions = new Object[DonationCategory.values().length+1];
+        donationCategoryOptions[0] = (Object) "Please Select Category";
+        int k = 1;
+        for (DonationCategory i: DonationCategory.values()) {
+            donationCategoryOptions[k++] = i;
+        }
         donationCategorySpinner = (Spinner) findViewById(R.id.categorySpinner);
+        //donationCategorySpinner.
 
         Button locationSearchButton = findViewById(R.id.locationSearchButton);
         locationSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -75,14 +85,6 @@ public class SearchActivity extends AppCompatActivity {
         searchTypeOptions[1] =  "By Keywords";
         searchTypeOptions[2] =  "By Donation Value";
         searchTypeOptions[3] =  "By Category";
-
-        //setting values for spinner for choosing donation category
-        donationCategoryOptions = new Object[DonationCategory.values().length+1];
-        donationCategoryOptions[0] = (Object) "Please Select Category";
-        int k = 1;
-        for (DonationCategory i: DonationCategory.values()) {
-            donationCategoryOptions[k++] = i;
-        }
 
     }
 
