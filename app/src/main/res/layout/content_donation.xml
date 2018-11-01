@@ -53,22 +53,27 @@
 
     <Spinner
         android:id="@+id/addDonationSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
+        android:layout_width="249dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="44dp"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.579" />
+        app:layout_constraintVertical_bias="0.612" />
 
     <Spinner
         android:id="@+id/addDonationLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="240dp"
+        android:layout_width="252dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="@android:color/holo_blue_bright"
+        app:layout_constraintBottom_toTopOf="@+id/addDonationSpinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.931" />
 
     <Button
         android:id="@+id/addDonationButton"
