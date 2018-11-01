@@ -60,6 +60,9 @@ public class DetailActivity extends AppCompatActivity {
 
         //Button for adding donation, displays toast if just a USER
         Button donationButton = findViewById(R.id.donationButton);
+
+        //UNCOMMENT THIS WHEN POSSIBLE
+
 //        donationButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
