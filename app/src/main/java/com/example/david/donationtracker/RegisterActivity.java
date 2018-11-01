@@ -140,10 +140,10 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
+                                // Sign up success, update UI with the signed-in user's information
                                 Log.d("creationSuccess", "createUserWithEmail:success");
                             } else {
-                                // If sign in fails, display a message to the user.
+                                // If sign up fails, display a message to the user.
                                 Log.w("creationSuccess", "createUserWithEmail:failure", task.getException());
                                 Toast.makeText(context, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();

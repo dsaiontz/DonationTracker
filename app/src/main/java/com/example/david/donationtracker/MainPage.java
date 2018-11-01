@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
@@ -25,13 +27,16 @@ import java.util.ArrayList;
 
 public class MainPage extends AppCompatActivity {
 
-    private User user;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        Intent intent = getIntent();
+
+        user = intent.getParcelableExtra("currentUser");
 
         //logout button should set current user to null, return to login activity
         Button logoutButton = (Button) findViewById(R.id.logoutButton);
