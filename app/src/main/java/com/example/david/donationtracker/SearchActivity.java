@@ -3,11 +3,14 @@ package com.example.david.donationtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -31,10 +34,28 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         nameSearchText = (EditText) findViewById(R.id.nameSearchText);
-        //nameSearchText.setOnEditorActionListener();
+        nameSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    handleClickNameSearchButton();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         valueSearchText = (EditText) findViewById(R.id.valueSearchText);
-        //valueSearchText.setOnEditorActionListener();
+        valueSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    handleClickValueSearchButton();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
         ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Locations.getAllLocations());
