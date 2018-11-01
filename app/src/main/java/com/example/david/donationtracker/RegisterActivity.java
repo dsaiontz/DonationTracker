@@ -2,10 +2,8 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,13 +12,6 @@ import android.widget.Spinner;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,14 +36,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     // Regex Patterns
     private Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-    private FirebaseAuth mAuth;
-
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mAuth = FirebaseAuth.getInstance();
         creds = new Credentials();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -131,30 +117,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             email.setError("This email is already registered!");
             email.requestFocus();
         } else {
-            final Context context = getApplicationContext();
             creds.add(new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));
-
-            //ADDING USER TO FIREBASE
-            mAuth.createUserWithEmailAndPassword(emailText, passText1)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("creationSuccess", "createUserWithEmail:success");
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("creationSuccess", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(context, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));
-                                finish();
-                            }
-                        }
-                    });
-
-
-
+            Context context = getApplicationContext();
             CharSequence text = "You have been registered!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
