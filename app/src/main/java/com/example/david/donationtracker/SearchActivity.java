@@ -6,13 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText nameSearchText;
     private EditText valueSearchText;
@@ -58,9 +59,11 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
+        searchLocationSpinner.setOnItemSelectedListener(this);
         ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Locations.getAllLocations());
         adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchLocationSpinner.setAdapter(adapterLoc);
+        searchLocationSpinner.setOnItemSelectedListener(this);
 
         //setting values for spinner for choosing donation category
         donationCategoryOptions = new Object[DonationCategory.values().length+1];
@@ -73,6 +76,7 @@ public class SearchActivity extends AppCompatActivity {
         ArrayAdapter<DonationActivity> adapterCat = new ArrayAdapter(this, android.R.layout.simple_spinner_item, donationCategoryOptions);
         adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         donationCategorySpinner.setAdapter(adapterCat);
+        donationCategorySpinner.setOnItemSelectedListener(this);
 
         Button locationSearchButton = findViewById(R.id.locationSearchButton);
         locationSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -147,5 +151,14 @@ public class SearchActivity extends AppCompatActivity {
 
 
         finish();
+    }
+
+    //methods for spinner
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        parent.getItemAtPosition(position);
+    }
+
+    public void onNothingSelected(AdapterView parent) {
+        // Do nothing.
     }
 }
