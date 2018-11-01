@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class SearchActivity extends AppCompatActivity {
 
     private EditText searchText;
@@ -15,6 +17,10 @@ public class SearchActivity extends AppCompatActivity {
     private Spinner donationCategorSpinner;
     private Object[] searchTypeOptions;
     private Object[] donationCategoryOptions;
+
+    FirebaseUser user;
+
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,11 @@ public class SearchActivity extends AppCompatActivity {
                 handleClickLocationSearchButton();
             }
         });
+
+        //Getting current user
+        Intent currentIntent = getIntent();
+        user = currentIntent.getParcelableExtra("currentUser");
+        username = user.getEmail(); //equivalent to username from previous versions
 
         Button nameSearchButton = findViewById(R.id.nameSearchButton);
         nameSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +90,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void backToMainPage() {
         Intent backToMain = new Intent(SearchActivity.this, MainPage.class);
+        backToMain.putExtra("currentUser", user);
         startActivity(backToMain);
         finish();
     }
