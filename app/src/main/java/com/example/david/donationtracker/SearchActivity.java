@@ -22,6 +22,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private Object[] searchTypeOptions;
     private Object[] donationCategoryOptions;
 
+    Donations donos = new Donations(); // In memory of Jackson's object naming
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         });
 
         searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
-        searchLocationSpinner.setOnItemSelectedListener(this);
         ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Locations.getAllLocations());
         adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchLocationSpinner.setAdapter(adapterLoc);
@@ -126,30 +127,26 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickLocationSearchButton() {
-
-
-
+        if (true) {
+            donos.getDonations(null);
+        } else {
+            donos.getAllDonations();
+        }
         finish();
     }
 
     public void handleClickNameSearchButton() {
-
-
-
+        donos.filterByName("");
         finish();
     }
 
     public void handleClickCategorySearchButton() {
-
-
-
+        donos.filterByCategory(null);
         finish();
     }
 
     public void handleClickValueSearchButton() {
-
-
-
+        donos.filterByValue(0, 0);
         finish();
     }
 
