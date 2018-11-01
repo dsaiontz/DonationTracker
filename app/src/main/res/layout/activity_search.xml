@@ -16,8 +16,8 @@
         android:text="Back"
 
         android:textColor="@android:color/white"
-        tools:layout_editor_absoluteX="60dp"
-        tools:layout_editor_absoluteY="417dp" />
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="435dp" />
 
     <Button
         android:id="@+id/locationSearchButton"
