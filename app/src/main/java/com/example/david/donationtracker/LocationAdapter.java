@@ -112,8 +112,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
         viewHolder.name.setText(location.getName());
         viewHolder.type.setText(location.getType());
-        viewHolder.longitude.setText(location.getLongitude());
-        viewHolder.latitude.setText(location.getLatitude());
+//        viewHolder.longitude.setText(location.getLongitude());
+//        viewHolder.latitude.setText(location.getLatitude());
         viewHolder.address.setText(location.getAddress());
         viewHolder.phoneNumber.setText(location.getPhoneNumber());
     }
