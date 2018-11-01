@@ -38,6 +38,8 @@ public class SearchActivity extends AppCompatActivity {
 
         searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
         ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Locations.getAllLocations());
+        adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        searchLocationSpinner.setAdapter(adapterLoc);
 
         //setting values for spinner for choosing donation category
         donationCategoryOptions = new Object[DonationCategory.values().length+1];
@@ -48,7 +50,8 @@ public class SearchActivity extends AppCompatActivity {
         }
         donationCategorySpinner = (Spinner) findViewById(R.id.categorySpinner);
         ArrayAdapter<DonationActivity> adapterCat = new ArrayAdapter(this, android.R.layout.simple_spinner_item, donationCategoryOptions);
-        //donationCategorySpinner.
+        adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        donationCategorySpinner.setAdapter(adapterCat);
 
         Button locationSearchButton = findViewById(R.id.locationSearchButton);
         locationSearchButton.setOnClickListener(new View.OnClickListener() {
