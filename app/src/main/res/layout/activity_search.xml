@@ -26,8 +26,8 @@
         android:background="@color/colorPrimaryDark"
         android:text="Search"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="236dp"
-        tools:layout_editor_absoluteY="417dp" />
+        tools:layout_editor_absoluteX="77dp"
+        tools:layout_editor_absoluteY="90dp" />
 
     <Button
         android:id="@+id/nameSearchButton"
@@ -36,8 +36,8 @@
         android:background="@color/colorPrimaryDark"
         android:text="Search"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="236dp"
-        tools:layout_editor_absoluteY="417dp" />
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="157dp" />
 
     <Button
         android:id="@+id/categorySearchButton"
@@ -46,8 +46,8 @@
         android:background="@color/colorPrimaryDark"
         android:text="Search"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="236dp"
-        tools:layout_editor_absoluteY="417dp" />
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="240dp" />
 
     <Button
         android:id="@+id/valueSearchButton"
@@ -56,7 +56,7 @@
         android:background="@color/colorPrimaryDark"
         android:text="Search"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="236dp"
-        tools:layout_editor_absoluteY="417dp" />
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="337dp" />
 
 </android.support.constraint.ConstraintLayout>
