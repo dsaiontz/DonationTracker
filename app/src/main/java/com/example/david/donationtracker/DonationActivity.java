@@ -43,7 +43,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 
         //setting values for spinner for choosing location
         registerLocationOptions = new Object[Locations.getAllLocations().size()+1];
-        registerLocationOptions[0] = (Object) "PLEASE SELECT LOCATION";
+        registerLocationOptions[0] = (Object) "Please Select Location";
         int m = 1;
         for (Location i: Locations.getAllLocations()) {
             registerLocationOptions[m++] = i.getName();
@@ -51,7 +51,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 
         //setting values for spinner for choosing donation category
         registerSpinnerOptions = new Object[DonationCategory.values().length+1];
-        registerSpinnerOptions[0] = (Object) "PLEASE SELECT CATEGORY";
+        registerSpinnerOptions[0] = (Object) "Please Select Category";
         int k = 1;
         for (DonationCategory i: DonationCategory.values()) {
             registerSpinnerOptions[k++] = i;

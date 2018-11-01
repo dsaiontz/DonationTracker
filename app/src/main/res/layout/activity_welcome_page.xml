@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/DarkGrey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".welcome_page">
@@ -21,8 +22,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="71dp"
-        android:layout_marginBottom="146dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginBottom="69dp"
         android:text="LogIn" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="177dp"
+        android:fontFamily="serif-monospace"
+        android:text="Welcome"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        android:typeface="serif" />
 
 </RelativeLayout>
