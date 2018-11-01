@@ -20,7 +20,37 @@
         tools:layout_editor_absoluteY="417dp" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/locationSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="Search"
+        android:textColor="@android:color/background_light"
+        tools:layout_editor_absoluteX="236dp"
+        tools:layout_editor_absoluteY="417dp" />
+
+    <Button
+        android:id="@+id/nameSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="Search"
+        android:textColor="@android:color/background_light"
+        tools:layout_editor_absoluteX="236dp"
+        tools:layout_editor_absoluteY="417dp" />
+
+    <Button
+        android:id="@+id/categorySearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="Search"
+        android:textColor="@android:color/background_light"
+        tools:layout_editor_absoluteX="236dp"
+        tools:layout_editor_absoluteY="417dp" />
+
+    <Button
+        android:id="@+id/valueSearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"

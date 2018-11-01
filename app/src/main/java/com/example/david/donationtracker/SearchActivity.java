@@ -28,11 +28,35 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        Button searchButton = findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        Button locationSearchButton = findViewById(R.id.locationSearchButton);
+        locationSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleClickSearchButton();
+                handleClickLocationSearchButton();
+            }
+        });
+
+        Button nameSearchButton = findViewById(R.id.nameSearchButton);
+        nameSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickNameSearchButton();
+            }
+        });
+
+        Button categorySearchButton = findViewById(R.id.categorySearchButton);
+        categorySearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickCategorySearchButton();
+            }
+        });
+
+        Button valueSearchButton = findViewById(R.id.valueSearchButton);
+        valueSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickValueSearchButton();
             }
         });
 
@@ -59,7 +83,28 @@ public class SearchActivity extends AppCompatActivity {
         finish();
     }
 
-    public void handleClickSearchButton() {
+    public void handleClickLocationSearchButton() {
+
+
+
+        finish();
+    }
+
+    public void handleClickNameSearchButton() {
+
+
+
+        finish();
+    }
+
+    public void handleClickCategorySearchButton() {
+
+
+
+        finish();
+    }
+
+    public void handleClickValueSearchButton() {
 
 
 
