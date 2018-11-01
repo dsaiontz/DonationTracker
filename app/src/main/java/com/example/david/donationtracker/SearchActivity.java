@@ -33,7 +33,9 @@ public class SearchActivity extends AppCompatActivity {
 
         valueSearchText = (EditText) findViewById(R.id.valueSearchText);
 
+        searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
 
+        donationCategorySpinner = (Spinner) findViewById(R.id.categorySpinner);
 
         Button locationSearchButton = findViewById(R.id.locationSearchButton);
         locationSearchButton.setOnClickListener(new View.OnClickListener() {
