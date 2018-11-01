@@ -11,12 +11,10 @@
         android:id="@+id/WelcomePageRegisterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/WelcomePageLoginButton"
         android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/WelcomePageLoginButton"
         android:layout_marginEnd="71dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="Register"
-        android:textColor="@android:color/white" />
+        android:text="Register" />
 
     <Button
         android:id="@+id/WelcomePageLoginButton"
@@ -26,9 +24,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="69dp"
         android:layout_marginBottom="69dp"
-        android:background="@android:color/holo_blue_bright"
-        android:text="LogIn"
-        android:textColor="@android:color/white" />
+        android:text="LogIn" />
 
     <TextView
         android:id="@+id/textView2"
@@ -41,8 +37,8 @@
         android:text="Welcome"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="36sp"
-        android:textStyle="bold|italic"
+        android:textSize="24sp"
+        android:textStyle="italic"
         android:typeface="serif" />
 
 </RelativeLayout>
