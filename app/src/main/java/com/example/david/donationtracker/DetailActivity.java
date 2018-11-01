@@ -30,14 +30,14 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-<<<<<<< HEAD
+
         AndroidThreeTen.init(this);
 
         Intent grabbedIntent = getIntent();
 
-=======
+
         //user and location are static variables that represent the current user and current location being used
->>>>>>> master
+
         final User user = Credentials.getCurrentUser();
         final Location location = Locations.getCurrentLocation();
 
@@ -72,14 +72,13 @@ public class DetailActivity extends AppCompatActivity {
                         (user.getUserType() == UserType.ADMIN) ||
                         (user.getUserType() == UserType.MANAGER)) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-<<<<<<< HEAD
+
                     intent.putExtra("location", location.getName());
                     intent.putExtra("username", username);
                     //final LocalDateTime time = LocalDateTime.now();
                     final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
-=======
-                    final LocalDateTime time = LocalDateTime.now();
->>>>>>> master
+
+
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();

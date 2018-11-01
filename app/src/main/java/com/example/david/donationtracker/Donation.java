@@ -57,7 +57,7 @@ public class Donation implements Serializable {
         //this.time = LocalDateTime.now();
     }
 
-<<<<<<< HEAD
+
 //    public Donation(String location, String shortDescription,
 //                    String fullDescription, double value, DonationCategory category) {
 //        this.location = location;
@@ -77,8 +77,7 @@ public class Donation implements Serializable {
         this.donationId = donationId;
     }
 
-=======
->>>>>>> master
+
     public String getTime() {
         org.threeten.bp.format.DateTimeFormatter formatter = org.threeten.bp.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

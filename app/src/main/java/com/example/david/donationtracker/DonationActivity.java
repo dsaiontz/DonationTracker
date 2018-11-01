@@ -190,7 +190,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
        //String donationId = mRootReference.push().getKey();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(null);
+        DatabaseReference myRef = database.getReference();
         myRef.setValue("Hello, world!");
 
        //Donation donation = new Donation(Locations.getCurrentLocation(), shortDescription.getText().toString(),
