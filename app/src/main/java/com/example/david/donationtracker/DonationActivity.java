@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,10 +15,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DonationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    public static final String ADD_DATA = "addData";
+    public static final String ADD_REAL_TIME_ATTEMPT = "addRealTimeAttempt";
     private Spinner donationLocation;
     private EditText shortDescription;
     private EditText longDescription;
@@ -31,6 +43,12 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     // location name should be passed with most intents
     private String username;
     private String locationName;
+
+    //Firebase add ons
+    //private DocumentReference mDocRef = FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
+    DatabaseReference mRootReference;
+    DatabaseReference conditionRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +102,10 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                             longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
+                    //Call add method
+                    addRealTimeAttempt();
+                    //addDataFireStoreAttempt();
+
                     toLocationActivity();
                     finish();
                 }
@@ -110,6 +132,57 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                 finish();
             }
         });
+    }
+
+
+    public void addRealTimeAttempt() {
+       mRootReference = FirebaseDatabase.getInstance().getReference("desc");
+       String donationId = mRootReference.push().getKey();
+       Donation donation = new Donation(donationId,Locations.getCurrentLocation(), shortDescription.getText().toString(),
+               longDescription.getText().toString(),
+               Double.parseDouble(donationValue.getText().toString()),
+               (DonationCategory) donationCategorySpinner.getSelectedItem());
+       mRootReference.child(donationId).setValue(donation).addOnSuccessListener(new OnSuccessListener<Void>() {
+           @Override
+           public void onSuccess(Void aVoid) {
+               Log.e(ADD_REAL_TIME_ATTEMPT,"Successfully added donation!");
+           }
+       }).addOnFailureListener(new OnFailureListener() {
+           @Override
+           public void onFailure(@NonNull Exception e) {
+               Log.e(ADD_REAL_TIME_ATTEMPT,"Error adding donation :(");
+           }
+       });
+    }
+
+    public void addDataFireStoreAttempt(){
+        db = FirebaseFirestore.getInstance();
+        String sampleTest = shortDescription.getText().toString();
+        Map<String,Object> dataToSave = new HashMap<>();
+        dataToSave.put("Desc_Short",sampleTest);
+        db.collection("desc").add(dataToSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.e(ADD_DATA, "DocumentSnapshot added with ID: " + documentReference.getId());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(ADD_DATA,"Error adding document");
+            }
+        });
+        //db.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+        //    @Override
+        //    public void onSuccess(Void aVoid) {
+        //        Log.e(ADD_DATA,"Document successfully saved!");
+        //    }
+        //}).addOnFailureListener(new OnFailureListener() {
+        //    @Override
+        //    public void onFailure(@NonNull Exception e) {
+        //        Log.e(ADD_DATA,"Document save fail :(");
+        //    }
+        //});
+
     }
 
     //methods for spinner

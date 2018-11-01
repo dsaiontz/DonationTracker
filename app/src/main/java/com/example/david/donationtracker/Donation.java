@@ -18,6 +18,7 @@ public class Donation implements Serializable {
     private DonationCategory category;
     private String comments;
     private String pictureURI;
+    private String donationId;
 
 //    public Donation(Time time, Location location, String shortDescription,
 //                    String fullDescription, double value, DonationCategory category,
@@ -44,6 +45,18 @@ public class Donation implements Serializable {
         //this.time = LocalDateTime.now();
     }
 
+    public Donation(String donationId, Location location, String shortDescription,
+                    String fullDescription, double value, DonationCategory category) {
+        this.donationId = donationId;
+        this.location = location;
+        this.shortDescription = shortDescription;
+        this.fullDescription = fullDescription;
+        this.value = value;
+        this.category = category;
+        this.time = org.threeten.bp.LocalDateTime.now();
+        //this.time = LocalDateTime.now();
+    }
+
 //    public Donation(String location, String shortDescription,
 //                    String fullDescription, double value, DonationCategory category) {
 //        this.location = location;
@@ -53,6 +66,15 @@ public class Donation implements Serializable {
 //        this.category = category;
 //        this.time = LocalDateTime.now();
 //    }
+
+
+    public String getDonationId() {
+        return donationId;
+    }
+
+    public void setDonationId(String donationId) {
+        this.donationId = donationId;
+    }
 
     public String getTime() {
         org.threeten.bp.format.DateTimeFormatter formatter = org.threeten.bp.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
