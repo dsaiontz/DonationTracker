@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     private FirebaseAuth mAuth;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
