@@ -10,9 +10,10 @@ import android.widget.Spinner;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private EditText searchText;
-    private Spinner searchTypeSpinner;
-    private Spinner donationCategorSpinner;
+    private EditText nameSearchText;
+    private EditText valueSearchText;
+    private Spinner searchLocationSpinner;
+    private Spinner donationCategorySpinner;
     private Object[] searchTypeOptions;
     private Object[] donationCategoryOptions;
 
