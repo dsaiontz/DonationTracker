@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/DarkGrey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -35,8 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="57dp"
-        android:text="You've logged in!" />
+        android:layout_marginBottom="499dp"
+        android:text="You've logged in!"
+        android:textColor="@android:color/white"
+        android:textSize="24sp" />
 
     <ImageView
         android:id="@+id/imageView"

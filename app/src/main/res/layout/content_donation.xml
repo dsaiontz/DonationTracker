@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/DarkGrey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -17,7 +18,8 @@
         android:layout_marginTop="11dp"
         android:ems="10"
         android:hint="Short Description"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/addDonationLongDescription"
@@ -27,7 +29,8 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Long Description"
-        android:inputType="textCapSentences|textPersonName" />
+        android:inputType="textCapSentences|textPersonName"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/addDonationValue"
@@ -37,38 +40,45 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Value"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@android:color/white" />
 
     <Spinner
         android:id="@+id/addDonationSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_alignStart="@+id/addDonationLocation"
+        android:layout_centerVertical="true" />
 
     <Spinner
         android:id="@+id/addDonationLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp" />
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="181dp" />
 
     <Button
         android:id="@+id/addDonationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="106dp"
-        android:text="Add Donation" />
+        android:layout_marginStart="118dp"
+        android:layout_marginBottom="43dp"
+        android:layout_toEndOf="@+id/addDonationSpinner"
+        android:text="Donate"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/donationBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/addDonationSpinner"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp"
-        android:text="Back" />
+        android:layout_marginEnd="-50dp"
+        android:layout_marginBottom="43dp"
+        android:text="Back"
+        android:textAllCaps="false" />
 
 </RelativeLayout>
