@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -21,6 +23,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private Spinner donationCategorySpinner;
     private Object[] searchTypeOptions;
     private Object[] donationCategoryOptions;
+    private RecyclerView donationRecyclerView;
+    private RecyclerView.Adapter adapter;
 
     Donations donos = new Donations(); // In memory of Jackson's object naming
 
@@ -118,6 +122,11 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         searchTypeOptions[2] =  "By Donation Value";
         searchTypeOptions[3] =  "By Category";
 
+
+    }
+
+    private void setDonations(ArrayList<Donation> donations) {
+        adapter = new SearchAdapter(donations, null);
     }
 
     public void backToMainPage() {
@@ -127,8 +136,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickLocationSearchButton() {
-        if (true) {
-            donos.getDonations(null);
+        if (!searchLocationSpinner.getSelectedItem().equals("All")) {
+            donos.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
         } else {
             donos.getAllDonations();
         }
