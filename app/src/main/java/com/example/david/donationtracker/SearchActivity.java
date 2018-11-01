@@ -29,6 +29,8 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        nameSearchText = (EditText) findViewById(R.id.nameSearchText);
+
         Button locationSearchButton = findViewById(R.id.locationSearchButton);
         locationSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
