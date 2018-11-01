@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    private static HashMap<String, String> CREDENTIALS = new HashMap<>();
+//    private static HashMap<String, String> CREDENTIALS = new HashMap<>();
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
