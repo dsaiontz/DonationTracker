@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -36,6 +37,7 @@ public class SearchActivity extends AppCompatActivity {
         //valueSearchText.setOnEditorActionListener();
 
         searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
+        ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Locations.getAllLocations());
 
         //setting values for spinner for choosing donation category
         donationCategoryOptions = new Object[DonationCategory.values().length+1];
@@ -45,6 +47,7 @@ public class SearchActivity extends AppCompatActivity {
             donationCategoryOptions[k++] = i;
         }
         donationCategorySpinner = (Spinner) findViewById(R.id.categorySpinner);
+        ArrayAdapter<DonationActivity> adapterCat = new ArrayAdapter(this, android.R.layout.simple_spinner_item, donationCategoryOptions);
         //donationCategorySpinner.
 
         Button locationSearchButton = findViewById(R.id.locationSearchButton);
