@@ -57,13 +57,13 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             registerSpinnerOptions[k++] = i;
         }
 
-        //location spinner
-        donationLocation = (Spinner) findViewById(R.id.addDonationLocation);
-        donationLocation.setOnItemSelectedListener(this);
-        ArrayAdapter<DonationCategory> adapterOne = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerLocationOptions);
-        adapterOne.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        donationLocation.setAdapter(adapterOne);
-        donationLocation.setOnItemSelectedListener(this);
+//        //location spinner
+//        donationLocation = (Spinner) findViewById(R.id.addDonationLocation);
+//        donationLocation.setOnItemSelectedListener(this);
+//        ArrayAdapter<DonationCategory> adapterOne = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerLocationOptions);
+//        adapterOne.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        donationLocation.setAdapter(adapterOne);
+//        donationLocation.setOnItemSelectedListener(this);
 
 
         //EditTexts for descriptions and value
