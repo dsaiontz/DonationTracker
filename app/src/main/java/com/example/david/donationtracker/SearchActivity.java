@@ -28,7 +28,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private RecyclerView donationRecyclerView;
     private RecyclerView.Adapter adapter;
 
-    Donations donos = new Donations(); // In memory of Jackson's object naming
+    Donations donations = new Donations();
     FirebaseUser user;
 
     private String username;
@@ -147,26 +147,29 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickLocationSearchButton() {
+        ArrayList<Donation> searchResults = new ArrayList<>();
         if (!searchLocationSpinner.getSelectedItem().equals("All")) {
-            donos.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
+            searchResults = donations.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
         } else {
-            donos.getAllDonations();
+            searchResults = donations.getAllDonations();
         }
+        adapter = new SearchAdapter(searchResults, null);
         finish();
     }
 
     public void handleClickNameSearchButton() {
-        donos.filterByName("");
+        donations.filterByName("");
         finish();
     }
 
     public void handleClickCategorySearchButton() {
-        donos.filterByCategory(null);
+        donationRecyclerView.setAdapter();
+        donations.filterByCategory(null);
         finish();
     }
 
     public void handleClickValueSearchButton() {
-        donos.filterByValue(0, 0);
+        donations.filterByValue(0, 0);
         finish();
     }
 
