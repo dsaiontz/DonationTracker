@@ -55,8 +55,7 @@ public class welcome_page extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseDatabase fdb= FirebaseDatabase.getInstance();
                 DatabaseReference myRef = fdb.getReference();
-
-                User testUser = new User("t@t.com","abc123", UserType.ADMIN);
+                User testUser = new User("Update@update.com","update", UserType.ADMIN);
                 myRef.setValue(testUser);
             }
         });
