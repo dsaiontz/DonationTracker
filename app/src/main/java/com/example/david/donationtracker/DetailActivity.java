@@ -38,6 +38,8 @@ public class DetailActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    DocumentSnapshot userTypeInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +56,32 @@ public class DetailActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
         username = user.getEmail();
 
+        final Button donationButton = findViewById(R.id.donationButton);
 
         DocumentReference docRef = db.collection("users").document(user.getEmail());
-        final Task<DocumentSnapshot> userTypeInfoTask = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        Task<DocumentSnapshot> userTypeInfoTask = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    userTypeInfo = task.getResult();
                     userType = (String) (document.get("userType"));
+                    donationButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if ((userTypeInfo.get("userType").equals("EMPLOYEE")) ||
+                                    (userTypeInfo.get("userType").equals("ADMIN")) ||
+                                    (userTypeInfo.get("userType").equals("MANAGER"))) {
+                                Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                String text = "You don't have permission to access this.";
+                                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    });
                     if (document.exists()) {
                         Log.d("getUserType", "DocumentSnapshot data: " + document.getData());
                     } else {
@@ -72,19 +92,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
-        while (!userTypeInfoTask.isComplete()) {
-
-        }
-
-        if (!userTypeInfoTask.isSuccessful()) {
-            Intent newIntent = new Intent(DetailActivity.this, DetailActivity.class);
-            newIntent.putExtras(currentIntent.getExtras());
-            startActivity(newIntent);
-            finish();
-        }
-
-        final DocumentSnapshot userTypeInfo = userTypeInfoTask.getResult();
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
         adapter = new DonationAdapter(donos.getDonations(location), null, username);
@@ -119,28 +126,6 @@ public class DetailActivity extends AppCompatActivity {
             textView.setText(detailText);
         }
         textView.setTextColor(Color.parseColor("#FFFFFF"));
-
-        //Button for adding donation, displays toast if just a USER
-        Button donationButton = findViewById(R.id.donationButton);
-
-        donationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((userTypeInfo.get("userType").equals("EMPLOYEE")) ||
-                        (userTypeInfo.get("userType").equals("ADMIN")) ||
-                        (userTypeInfo.get("userType").equals("MANAGER"))) {
-                    Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-                    final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
-                    intent.putExtra("time", time);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    String text = "You don't have permission to access this.";
-                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-            }
-        });
 
         docRef = db.collection("users").document(user.getEmail());
         DocumentSnapshot document;
