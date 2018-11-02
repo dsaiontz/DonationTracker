@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Donation implements Serializable {
 
-    private LocalDateTime time;
+    private org.threeten.bp.LocalDateTime time;
     private Location location;
     private String shortDescription;
     private String fullDescription;
@@ -18,6 +18,7 @@ public class Donation implements Serializable {
     private DonationCategory category;
     private String comments;
     private String pictureURI;
+    private String donationId;
 
 //    public Donation(Time time, Location location, String shortDescription,
 //                    String fullDescription, double value, DonationCategory category,
@@ -40,15 +41,51 @@ public class Donation implements Serializable {
         this.fullDescription = fullDescription;
         this.value = value;
         this.category = category;
-        this.time = LocalDateTime.now();
+        this.time = org.threeten.bp.LocalDateTime.now();
+        //this.time = LocalDateTime.now();
     }
+
+    public Donation(String donationId, Location location, String shortDescription,
+                    String fullDescription, double value, DonationCategory category) {
+        this.donationId = donationId;
+        this.location = location;
+        this.shortDescription = shortDescription;
+        this.fullDescription = fullDescription;
+        this.value = value;
+        this.category = category;
+        this.time = org.threeten.bp.LocalDateTime.now();
+        //this.time = LocalDateTime.now();
+    }
+
+
+//    public Donation(String location, String shortDescription,
+//                    String fullDescription, double value, DonationCategory category) {
+//        this.location = location;
+//        this.shortDescription = shortDescription;
+//        this.fullDescription = fullDescription;
+//        this.value = value;
+//        this.category = category;
+//        this.time = LocalDateTime.now();
+//    }
+
+
+    public String getDonationId() {
+        return donationId;
+    }
+
+    public void setDonationId(String donationId) {
+        this.donationId = donationId;
+    }
+
 
     public String getTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        org.threeten.bp.format.DateTimeFormatter formatter = org.threeten.bp.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return time.format(formatter);
+
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(org.threeten.bp.LocalDateTime time) {
         this.time = time;
     }
 

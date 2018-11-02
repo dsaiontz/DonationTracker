@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,13 +15,28 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DonationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    public static final String ADD_DATA = "addData";
+    public static final String ADD_REAL_TIME_ATTEMPT = "addRealTimeAttempt";
     private Spinner donationLocation;
     private EditText shortDescription;
     private EditText longDescription;
@@ -35,6 +51,12 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     // location name should be passed with most intents
     private String username;
     private String locationName;
+
+    //Firebase add ons
+    //private DocumentReference mDocRef = FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
+    DatabaseReference mRootReference;
+    DatabaseReference conditionRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +150,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             }
         });
     }
-
+    
     //methods for spinner
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);

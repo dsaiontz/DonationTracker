@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import java.time.Clock;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +37,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private FirebaseUser user;
 
+    private FirebaseUser user;
     private FirebaseFirestore db;
 
     @Override
@@ -41,8 +45,16 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        db = FirebaseFirestore.getInstance();
 
+        AndroidThreeTen.init(this);
+
+        Intent grabbedIntent = getIntent();
+
+
+        //user and location are static variables that represent the current user and current location being used
+
+        final User user = Credentials.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
         //user and location are static variables that represent the current user and current location being used
         final Location location = Locations.getCurrentLocation();
 
@@ -93,6 +105,21 @@ public class DetailActivity extends AppCompatActivity {
         DocumentSnapshot document;
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
+            public void onClick(View v) {
+                if ((user.getUserType() == UserType.EMPLOYEE) ||
+                        (user.getUserType() == UserType.ADMIN) ||
+                        (user.getUserType() == UserType.MANAGER)) {
+                    Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
+
+                    intent.putExtra("location", location.getName());
+                    intent.putExtra("username", username);
+                    //final LocalDateTime time = LocalDateTime.now();
+                    final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
+
+
+                    intent.putExtra("time", time);
+                    startActivity(intent);
+                    finish();
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
