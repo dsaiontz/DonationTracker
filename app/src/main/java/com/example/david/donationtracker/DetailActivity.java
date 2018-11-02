@@ -28,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView locationRecyclerView;
 
-    Donations donos = new Donations();
+    private Donations donos = new Donations();
 
     private FirebaseUser user;
 
@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    DocumentSnapshot userTypeInfo;
+    private DocumentSnapshot userTypeInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +92,9 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //NEED ARRAYLIST OF DONATIONS
+//        db.collection("locations").document(location.getName()).collection("donations");
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
         adapter = new DonationAdapter(donos.getDonations(location), null, username);
