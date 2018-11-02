@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -183,7 +185,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickValueSearchButton() {
-        donations.filterByValue(0, 10);
+        ArrayList<Donation> searchResults = donations.filterByValue(0, Double.parseDouble(valueSearchText.getText().toString()));
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
         finish();
     }
 
