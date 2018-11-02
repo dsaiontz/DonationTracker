@@ -173,7 +173,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickValueSearchButton() {
-        setDonations(donos.filterByValue(0, 0));
+//        setDonations(donos.filterByValue(0, valueSearchText.getText()));
     }
 
     //methods for spinner
