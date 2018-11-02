@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-<<<<<<< HEAD
-import android.view.KeyEvent;
-=======
->>>>>>> master
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
@@ -131,27 +127,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        /*
-        adapter = new SearchAdapter(donos.getDonations(Locations.get("" + searchLocationSpinner.getSelectedItemId())), null);
-        donationRecyclerView.findViewById(R.id.searchRecyclerView);
-        donationRecyclerView.setHasFixedSize(true);
-        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        donationRecyclerView.setAdapter(adapter);
-        */
-
-
         // set up spinner for search options
-        /*searchTypeOptions = new Object[4];
+        searchTypeOptions = new Object[4];
         searchTypeOptions[0] =  "Please Select Search Type";
         searchTypeOptions[1] =  "By Keywords";
         searchTypeOptions[2] =  "By Donation Value";
-<<<<<<< HEAD
-        searchTypeOptions[3] =  "By Category";*/
-
-
-=======
         searchTypeOptions[3] =  "By Category";
->>>>>>> master
     }
 
     private void setDonations(ArrayList<Donation> donations) {
@@ -168,24 +149,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     public void handleClickLocationSearchButton() {
         ArrayList<Donation> searchResults;
         if (!searchLocationSpinner.getSelectedItem().equals("All")) {
-<<<<<<< HEAD
-            setDonations(donos.getDonations(Locations.get(searchLocationSpinner.getSelectedItem().toString())));
-        } else {
-            setDonations(donos.getAllDonations());
-        }
-    }
-
-    public void handleClickNameSearchButton() {
-        setDonations(donos.filterByName(nameSearchText.getText().toString()));
-    }
-
-    public void handleClickCategorySearchButton() {
-        setDonations(donos.filterByCategory((DonationCategory) donationCategorySpinner.getSelectedItem()));
-    }
-
-    public void handleClickValueSearchButton() {
-//        setDonations(donos.filterByValue(0, valueSearchText.getText()));
-=======
             searchResults = donations.getDonations(Locations.get(searchLocationSpinner.getSelectedItem().toString()));
         } else {
             searchResults = donations.getAllDonations();
@@ -224,7 +187,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
->>>>>>> master
     }
 
     //methods for spinner
