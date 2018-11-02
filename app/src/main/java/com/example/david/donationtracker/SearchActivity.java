@@ -204,11 +204,16 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         Log.e("","Just called handleclickvaluesearchbutton");
         ArrayList<Donation> searchResults = donations.filterByValue(Double.parseDouble(valueSearchTextMin.getText().toString()),
                 Double.parseDouble(valueSearchTextMax.getText().toString()));
-        adapter = new SearchAdapter(searchResults, null);
-        donationRecyclerView = findViewById(R.id.locationRecyclerView);
-        donationRecyclerView.setHasFixedSize(true);
-        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        donationRecyclerView.setAdapter(adapter);
+        if (searchResults.size() == 0) {
+            Log.e("","searchresults is empty, does nothing rn");
+        } else {
+            Log.e("", "first donation in search results: " + searchResults.get(0));
+            adapter = new SearchAdapter(searchResults, null);
+            donationRecyclerView = findViewById(R.id.locationRecyclerView);
+            donationRecyclerView.setHasFixedSize(true);
+            donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            donationRecyclerView.setAdapter(adapter);
+        }
         Log.e("","After setting recycler view adapter to search results");
     }
 
