@@ -123,19 +123,20 @@ public class DetailActivity extends AppCompatActivity {
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("pulledUserType", "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d("pulledUserType", "No such document");
-                    }
-                } else {
-                    Log.d("pulledUserType", "get failed with ", task.getException());
-                }
-            }
-        });
+
+        //    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+        //        if (task.isSuccessful()) {
+        //            DocumentSnapshot document = task.getResult();
+        //            if (document.exists()) {
+        //                Log.d("pulledUserType", "DocumentSnapshot data: " + document.getData());
+        //            } else {
+        //                Log.d("pulledUserType", "No such document");
+        //            }
+        //        } else {
+        //            Log.d("pulledUserType", "get failed with ", task.getException());
+        //        }
+        //    }
+        //});
 
 
 
@@ -177,6 +178,8 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
     }
+    }
+}
 
    //public void readFromFirebase() {
    //    //if (locationName == "")
@@ -205,7 +208,7 @@ public class DetailActivity extends AppCompatActivity {
     //        locationRecyclerView.setAdapter(adapter);
     //    }
     //}
-}
+
 
 
 
