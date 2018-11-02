@@ -1,5 +1,6 @@
 package com.example.david.donationtracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -47,6 +48,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private String username;
 
     FirebaseFirestore db;
+
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +170,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         searchTypeOptions[1] =  "By Keywords";
         searchTypeOptions[2] =  "By Donation Value";
         searchTypeOptions[3] =  "By Category";
+
+        context = this;
     }
 
     private void setDonations(ArrayList<Donation> donations) {
@@ -202,38 +207,38 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                                     results.add(donation);
                                 }
                                 adapter = new DonationAdapter(results, null, username);
-
-                                //Sets text for detailed information of location
-                                TextView textView = (TextView) findViewById(R.id.detailText);
-                                if (location != null) {
-                                    String detailText = "Name: " + location.getName();
-                                    detailText = detailText + "\nType: " + location.getType()
-                                            + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
-                                            + location.getLatitude() + "\nAddress: " + location.getAddress()
-                                            + "\nPhone Number: " + location.getPhoneNumber() + "\n";
-                                    textView.setText(detailText);
+                                if (results.size() == 0) {
+                                    Log.e("","searchresults is empty, does nothing rn");
+                                    TextView emptyMessage = findViewById(R.id.emptyMessageView);
+                                    emptyMessage.setText("search results for " + searchLocationSpinner.getSelectedItem().toString()
+                                            + " is empty");
+                                } else {
+                                    adapter = new SearchAdapter(results, null);
+                                    donationRecyclerView = findViewById(R.id.donationsRecyclerView);
+                                    donationRecyclerView.setHasFixedSize(false);
+                                    donationRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                                    donationRecyclerView.setAdapter(adapter);
                                 }
-                                textView.setTextColor(Color.parseColor("#FFFFFF"));
                             } else {
                                 Log.d("retrievedDonation", "Error getting documents: ", task.getException());
                             }
                         }
                     });
-
         } else {
             searchResults = donations.getAllDonations();
-        }
-        if (searchResults.size() == 0) {
-            Log.e("","searchresults is empty, does nothing rn");
-            TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for " + searchLocationSpinner.getSelectedItem().toString()
-                    + " is empty");
-        } else {
-            adapter = new SearchAdapter(searchResults, null);
-            donationRecyclerView = findViewById(R.id.donationsRecyclerView);
-            donationRecyclerView.setHasFixedSize(false);
-            donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            donationRecyclerView.setAdapter(adapter);
+            
+            if (searchResults.size() == 0) {
+                Log.e("","searchresults is empty, does nothing rn");
+                TextView emptyMessage = findViewById(R.id.emptyMessageView);
+                emptyMessage.setText("search results for " + searchLocationSpinner.getSelectedItem().toString()
+                        + " is empty");
+            } else {
+                adapter = new SearchAdapter(searchResults, null);
+                donationRecyclerView = findViewById(R.id.donationsRecyclerView);
+                donationRecyclerView.setHasFixedSize(false);
+                donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                donationRecyclerView.setAdapter(adapter);
+            }
         }
     }
 
