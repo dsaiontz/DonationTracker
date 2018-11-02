@@ -149,7 +149,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     public void handleClickLocationSearchButton() {
         ArrayList<Donation> searchResults;
         if (!searchLocationSpinner.getSelectedItem().equals("All")) {
-            searchResults = donations.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
+            searchResults = donations.getDonations(Locations.get(searchLocationSpinner.getSelectedItem().toString()));
         } else {
             searchResults = donations.getAllDonations();
         }
