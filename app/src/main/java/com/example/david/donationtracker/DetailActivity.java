@@ -67,7 +67,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
         DocumentReference docRef = db.collection("users").document(user.getEmail());
-        final DocumentSnapshot userTypeInfo = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        final Task<DocumentSnapshot> userTypeInfoTask = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -82,7 +82,20 @@ public class DetailActivity extends AppCompatActivity {
                     Log.d("getUserType", "get failed with ", task.getException());
                 }
             }
-        }).getResult();
+        });
+
+        while (!userTypeInfoTask.isComplete()) {
+
+        }
+
+        if (!userTypeInfoTask.isSuccessful()) {
+            Intent newIntent = new Intent(DetailActivity.this, DetailActivity.class);
+            newIntent.putExtras(currentIntent.getExtras());
+            startActivity(newIntent);
+            finish();
+        }
+
+        final DocumentSnapshot userTypeInfo = userTypeInfoTask.getResult();
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
         adapter = new DonationAdapter(donos.getDonations(location), null, username);
