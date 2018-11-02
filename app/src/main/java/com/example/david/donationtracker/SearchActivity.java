@@ -72,7 +72,13 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         });
 
         searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
-        ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Locations.getAllLocations());
+
+        ArrayList<String> locs = new ArrayList<>();
+        locs.add("All");
+        for (int x = 0; x < Locations.getAllLocations().size(); x++) {
+            locs.add(Locations.getAllLocations().get(x).getName());
+        }
+        ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, locs);
         adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchLocationSpinner.setAdapter(adapterLoc);
         searchLocationSpinner.setOnItemSelectedListener(this);
