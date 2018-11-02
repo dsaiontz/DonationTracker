@@ -128,7 +128,8 @@ public class DetailActivity extends AppCompatActivity {
                         (userTypeInfo.get("userType").equals("ADMIN")) ||
                         (userTypeInfo.get("userType").equals("MANAGER"))) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-                    final LocalDateTime time = LocalDateTime.now();
+                    //final LocalDateTime time = LocalDateTime.now();
+                    final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
