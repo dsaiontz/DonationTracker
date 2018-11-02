@@ -167,7 +167,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickLocationSearchButton() {
-        ArrayList<Donation> searchResults = new ArrayList<>();
+        ArrayList<Donation> searchResults;
         if (!searchLocationSpinner.getSelectedItem().toString().equals("All")) {
             searchResults = donations.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
         } else {
@@ -193,7 +193,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         if (searchResults.size() == 0) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for the range ");
+            emptyMessage.setText("search results for the name " + searchText + " is empty");
         } else {
             adapter = new SearchAdapter(searchResults, null);
             donationRecyclerView = findViewById(R.id.locationRecyclerView);
@@ -209,7 +209,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         if (searchResults.size() == 0) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results is empty");
+            emptyMessage.setText("search results for " + category + "is empty");
         } else {
             adapter = new SearchAdapter(searchResults, null);
             donationRecyclerView = findViewById(R.id.locationRecyclerView);
@@ -226,7 +226,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         if (searchResults.size() == 0) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results is empty");
+            emptyMessage.setText("search results for value range " + valueSearchTextMin.getText().toString() + "-" + valueSearchTextMax.getText().toString() + " empty");
         } else {
             Log.e("", "first donation in search results: " + searchResults.get(0));
             adapter = new SearchAdapter(searchResults, null);
