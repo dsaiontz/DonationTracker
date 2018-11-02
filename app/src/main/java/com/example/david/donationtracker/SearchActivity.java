@@ -178,7 +178,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
-        finish();
     }
 
     public void handleClickNameSearchButton() {
@@ -189,7 +188,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
-        finish();
     }
 
     public void handleClickCategorySearchButton() {
@@ -200,7 +198,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
-        finish();
     }
 
     public void handleClickValueSearchButton() {
