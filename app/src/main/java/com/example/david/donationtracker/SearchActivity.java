@@ -1,7 +1,9 @@
 package com.example.david.donationtracker;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -16,9 +18,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -37,6 +46,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     private String username;
 
+    FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +59,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 backToMainPage();
             }
         });
+
+        db = FirebaseFirestore.getInstance();
 
         nameSearchText = (EditText) findViewById(R.id.nameSearchText);
         nameSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -92,6 +105,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         for (int x = 0; x < Locations.getAllLocations().size(); x++) {
             locs.add(Locations.getAllLocations().get(x).getName());
         }
+
         ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, locs);
         adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchLocationSpinner.setAdapter(adapterLoc);
@@ -167,9 +181,45 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickLocationSearchButton() {
-        ArrayList<Donation> searchResults;
+        ArrayList<Donation> searchResults = new ArrayList<>();
         if (!searchLocationSpinner.getSelectedItem().toString().equals("All")) {
-            searchResults = donations.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
+            final ArrayList<Donation> results = new ArrayList<>();
+            final Location location = Locations.get((String) (searchLocationSpinner.getSelectedItem()));
+            db.collection("locations").document((String) (searchLocationSpinner.getSelectedItem())).collection("donations")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("retrievedDonation", document.getId() + " => " + document.getData());
+                                    Map<String, Object> data = document.getData();
+                                    double dub = (double) data.get("donationValue");
+                                    Donation donation = new Donation(location,
+                                            (String) (data.get("shortDescription")),
+                                            (String) (data.get("longDescription")), dub,
+                                            (DonationCategory.valueOf((String) data.get("donationCategory"))));
+                                    results.add(donation);
+                                }
+                                adapter = new DonationAdapter(results, null, username);
+
+                                //Sets text for detailed information of location
+                                TextView textView = (TextView) findViewById(R.id.detailText);
+                                if (location != null) {
+                                    String detailText = "Name: " + location.getName();
+                                    detailText = detailText + "\nType: " + location.getType()
+                                            + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
+                                            + location.getLatitude() + "\nAddress: " + location.getAddress()
+                                            + "\nPhone Number: " + location.getPhoneNumber() + "\n";
+                                    textView.setText(detailText);
+                                }
+                                textView.setTextColor(Color.parseColor("#FFFFFF"));
+                            } else {
+                                Log.d("retrievedDonation", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+
         } else {
             searchResults = donations.getAllDonations();
         }
