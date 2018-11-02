@@ -15,12 +15,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.time.LocalDateTime;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -37,10 +36,14 @@ public class DetailActivity extends AppCompatActivity {
 
     private String userType;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        mAuth = FirebaseAuth.getInstance();
 
 //        AndroidThreeTen.init(this);
 
@@ -48,7 +51,7 @@ public class DetailActivity extends AppCompatActivity {
         final Location location = Locations.getCurrentLocation();
 
         Intent currentIntent = getIntent();
-        user = currentIntent.getParcelableExtra("currentUser");
+        user = mAuth.getCurrentUser();
         username = user.getEmail();
 
 
@@ -127,7 +130,6 @@ public class DetailActivity extends AppCompatActivity {
                         (userTypeInfo.get("userType").equals("ADMIN")) ||
                         (userTypeInfo.get("userType").equals("MANAGER"))) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-                    //final LocalDateTime time = LocalDateTime.now();
                     final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);

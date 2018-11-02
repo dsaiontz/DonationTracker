@@ -133,4 +133,14 @@
         android:hint="Max"
         android:inputType="textPersonName" />
 
+    <TextView
+        android:id="@+id/emptyMessageView"
+        android:layout_width="324dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/valueSearchTextMin"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="190dp"
+        android:layout_marginEnd="-266dp"
+        android:text="TextView" />
+
 </RelativeLayout>
