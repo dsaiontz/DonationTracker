@@ -180,8 +180,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                     + " is empty");
         } else {
             adapter = new SearchAdapter(searchResults, null);
-            donationRecyclerView = findViewById(R.id.locationRecyclerView);
-            donationRecyclerView.setHasFixedSize(true);
+            donationRecyclerView = findViewById(R.id.donationsRecyclerView);
+            donationRecyclerView.setHasFixedSize(false);
             donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             donationRecyclerView.setAdapter(adapter);
         }
@@ -196,8 +196,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             emptyMessage.setText("search results for the name " + searchText + " is empty");
         } else {
             adapter = new SearchAdapter(searchResults, null);
-            donationRecyclerView = findViewById(R.id.locationRecyclerView);
-            donationRecyclerView.setHasFixedSize(true);
+            donationRecyclerView = findViewById(R.id.donationsRecyclerView);
+            donationRecyclerView.setHasFixedSize(false);
             donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             donationRecyclerView.setAdapter(adapter);
         }
@@ -212,7 +212,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             emptyMessage.setText("search results for " + category + "is empty");
         } else {
             adapter = new SearchAdapter(searchResults, null);
-            donationRecyclerView = findViewById(R.id.locationRecyclerView);
+            donationRecyclerView = findViewById(R.id.donationsRecyclerView);
             donationRecyclerView.setHasFixedSize(true);
             donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             donationRecyclerView.setAdapter(adapter);
@@ -230,8 +230,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         } else {
             Log.e("", "first donation in search results: " + searchResults.get(0));
             adapter = new SearchAdapter(searchResults, null);
-            donationRecyclerView = findViewById(R.id.locationRecyclerView);
-            donationRecyclerView.setHasFixedSize(true);
+            donationRecyclerView = findViewById(R.id.donationsRecyclerView);
+            donationRecyclerView.setHasFixedSize(false);
             donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             donationRecyclerView.setAdapter(adapter);
         }
