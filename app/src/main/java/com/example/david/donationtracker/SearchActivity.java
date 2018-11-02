@@ -126,11 +126,13 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
+        /*
         adapter = new SearchAdapter(donos.getDonations(Locations.get("" + searchLocationSpinner.getSelectedItemId())), null);
         donationRecyclerView.findViewById(R.id.searchRecyclerView);
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
+        */
 
 
         // set up spinner for search options
@@ -156,26 +158,22 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void handleClickLocationSearchButton() {
         if (!searchLocationSpinner.getSelectedItem().equals("All")) {
-            donos.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
+            setDonations(donos.getDonations(Locations.get(searchLocationSpinner.getSelectedItem().toString())));
         } else {
-            donos.getAllDonations();
+            setDonations(donos.getAllDonations());
         }
-        finish();
     }
 
     public void handleClickNameSearchButton() {
-        donos.filterByName("");
-        finish();
+        setDonations(donos.filterByName(nameSearchText.getText().toString()));
     }
 
     public void handleClickCategorySearchButton() {
-        donos.filterByCategory(null);
-        finish();
+        setDonations(donos.filterByCategory((DonationCategory) donationCategorySpinner.getSelectedItem()));
     }
 
     public void handleClickValueSearchButton() {
-        donos.filterByValue(0, 0);
-        finish();
+        setDonations(donos.filterByValue(0, 0));
     }
 
     //methods for spinner
