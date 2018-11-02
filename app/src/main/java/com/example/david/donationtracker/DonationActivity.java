@@ -58,8 +58,6 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     //Firebase add ons
     //private DocumentReference mDocRef = FirebaseFirestore.getInstance();
     FirebaseFirestore db;
-    DatabaseReference mRootReference;
-    DatabaseReference conditionRef;
 
     private FirebaseAuth mAuth;
 
@@ -70,6 +68,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         donations = new Donations();
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         Intent currentIntent = getIntent();
 
@@ -135,7 +134,12 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 //                    addDonationToFirebase(donation);
 
                     //ADDING DONATIONS TO FIREBASE
-                    
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("shortDescription", shortDescription.getText().toString());
+                    data.put("longDescription", longDescription.getText().toString());
+                    data.put("donationValue", Double.parseDouble(donationValue.getText().toString()));
+                    data.put("donationCategory", ((DonationCategory) donationCategorySpinner.getSelectedItem()).toString());
+                    db.collection("locations").document(location.getName()).collection("donations").add(data);
 
                     toLocationActivity();
                     finish();
@@ -188,15 +192,6 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         backToDetailActivity.putExtra("location", locationName);
         startActivity(backToDetailActivity);
         finish();
-    }
-
-    private void addDonationToFirebase(Donation donation) {
-        fdb = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = fdb.getReference();
-
-        myRef.setValue(donation);
-//        User testUser = new User("t@t.com","abc123", UserType.ADMIN);
-//        myRef.setValue(testUser);
     }
 
 }
