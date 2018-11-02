@@ -13,6 +13,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.time.Clock;
@@ -36,6 +41,8 @@ public class DetailActivity extends AppCompatActivity {
     Donations donos = new Donations();
     private FirebaseUser user;
     private FirebaseFirestore db;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,7 @@ public class DetailActivity extends AppCompatActivity {
             locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             locationRecyclerView.setAdapter(adapter);
         }
+
 
 
         //Sets text for detailed information of location
@@ -130,6 +138,8 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
+
+
         //WILL UNCOMMENT WHEN DATABASE SYSTEM IS WORKING
 
 //        donationButton.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +173,39 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+            }
+        }
     }
 
+   //public void readFromFirebase() {
+   //    //if (locationName == "")
+   //    //set int i accordingly
+   //    myRef = database.getReference();
+
+   //    myRef.addValueEventListener(new ValueEventListener() {
+   //        @Override
+   //        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+   //            showData(dataSnapshot);
+   //        }
+
+   //        @Override
+   //        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+   //        }
+   //    });
+   //}
+
+    //public void showData(DataSnapshot dataSnapshot) {
+    //    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+    //        adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
+    //        locationRecyclerView = findViewById(R.id.donationsRecyclerView);
+    //        locationRecyclerView.setHasFixedSize(true);
+    //        locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    //        locationRecyclerView.setAdapter(adapter);
+    //    }
+    //}
 }
+
+
+

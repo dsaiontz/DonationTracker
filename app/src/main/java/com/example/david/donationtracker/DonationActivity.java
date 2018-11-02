@@ -176,7 +176,6 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     private void addDonationToFirebase(Donation donation) {
         fdb = FirebaseDatabase.getInstance();
         DatabaseReference myRef = fdb.getReference();
-
         myRef.setValue(donation);
 //        User testUser = new User("t@t.com","abc123", UserType.ADMIN);
 //        myRef.setValue(testUser);
