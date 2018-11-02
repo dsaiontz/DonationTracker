@@ -25,12 +25,11 @@ import java.time.Clock;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.time.LocalDateTime;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -49,10 +48,16 @@ public class DetailActivity extends AppCompatActivity {
 
     private String userType;
 
+    private FirebaseAuth mAuth;
+
+    DocumentSnapshot userTypeInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        mAuth = FirebaseAuth.getInstance();
 
 //        AndroidThreeTen.init(this);
 
@@ -60,16 +65,35 @@ public class DetailActivity extends AppCompatActivity {
         final Location location = Locations.getCurrentLocation();
 
         Intent currentIntent = getIntent();
-        user = currentIntent.getParcelableExtra("currentUser");
+        user = mAuth.getCurrentUser();
         username = user.getEmail();
 
+        final Button donationButton = findViewById(R.id.donationButton);
+
         DocumentReference docRef = db.collection("users").document(user.getEmail());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        Task<DocumentSnapshot> userTypeInfoTask = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    userTypeInfo = task.getResult();
                     userType = (String) (document.get("userType"));
+                    donationButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if ((userTypeInfo.get("userType").equals("EMPLOYEE")) ||
+                                    (userTypeInfo.get("userType").equals("ADMIN")) ||
+                                    (userTypeInfo.get("userType").equals("MANAGER"))) {
+                                Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                String text = "You don't have permission to access this.";
+                                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    });
                     if (document.exists()) {
                         Log.d("getUserType", "DocumentSnapshot data: " + document.getData());
                     } else {
@@ -116,6 +140,7 @@ public class DetailActivity extends AppCompatActivity {
         }
         textView.setTextColor(Color.parseColor("#FFFFFF"));
 
+<<<<<<< HEAD
         //Button for adding donation, displays toast if just a USER
         Button donationButton = findViewById(R.id.donationButton);
 
@@ -156,6 +181,8 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+=======
+>>>>>>> master
         docRef = db.collection("users").document(user.getEmail());
         DocumentSnapshot document;
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

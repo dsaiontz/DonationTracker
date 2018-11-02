@@ -36,7 +36,11 @@ public class Donations {
     }
 
     public ArrayList<Donation> getDonations(Location location) {
-        return donations.get(location);
+        if (donations.containsKey(location)) {
+            return donations.get(location);
+        } else {
+            return new ArrayList<Donation>();
+        }
     }
 
     public static Location linkedLocation(Donation donation) {
