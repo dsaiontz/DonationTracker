@@ -176,7 +176,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         if (searchResults.size() == 0) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results is empty");
+            emptyMessage.setText("search results for " + searchLocationSpinner.getSelectedItem().toString()
+                    + " is empty");
         } else {
             adapter = new SearchAdapter(searchResults, null);
             donationRecyclerView = findViewById(R.id.locationRecyclerView);
@@ -192,7 +193,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         if (searchResults.size() == 0) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results is empty");
+            emptyMessage.setText("search results for the range ");
         } else {
             adapter = new SearchAdapter(searchResults, null);
             donationRecyclerView = findViewById(R.id.locationRecyclerView);
