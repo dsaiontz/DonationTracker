@@ -16,12 +16,19 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,13 +54,15 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     private FirebaseAuth mAuth;
 
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         creds = new Credentials();
+
+        db = FirebaseFirestore.getInstance();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         registerSpinnerOptions = new Object[UserType.values().length+1];
@@ -154,7 +163,24 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         }
                     });
 
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("userType", ((UserType) userSpinner.getSelectedItem()).getUserType());
+            userInfo.put("location", locationSpinner.getSelectedItem());
 
+            db.collection("users").document("test")
+                    .set(userInfo)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("userTypeAdded", "DocumentSnapshot successfully written!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("userTypeAdded", "Error writing document", e);
+                        }
+                    });
 
             CharSequence text = "You have been registered!";
             int duration = Toast.LENGTH_SHORT;
