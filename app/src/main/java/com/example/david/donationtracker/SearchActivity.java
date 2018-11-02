@@ -3,6 +3,8 @@ package com.example.david.donationtracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,12 +17,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText nameSearchText;
-    private EditText valueSearchText;
+    private EditText valueSearchTextMin;
+    private EditText valueSearchTextMax;
     private Spinner searchLocationSpinner;
     private Spinner donationCategorySpinner;
     private Object[] searchTypeOptions;
@@ -28,7 +32,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private RecyclerView donationRecyclerView;
     private RecyclerView.Adapter adapter;
 
-    Donations donos = new Donations(); // In memory of Jackson's object naming
+    Donations donations = new Donations();
     FirebaseUser user;
 
     private String username;
@@ -57,8 +61,20 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        valueSearchText = (EditText) findViewById(R.id.valueSearchText);
-        valueSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        valueSearchTextMin = (EditText) findViewById(R.id.valueSearchTextMin);
+        valueSearchTextMin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                    handleClickValueSearchButton();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        valueSearchTextMax = (EditText) findViewById(R.id.valueSearchTextMax);
+        valueSearchTextMax.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
@@ -70,7 +86,13 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         });
 
         searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
-        ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Locations.getAllLocations());
+
+        ArrayList<String> locs = new ArrayList<>();
+        locs.add("All");
+        for (int x = 0; x < Locations.getAllLocations().size(); x++) {
+            locs.add(Locations.getAllLocations().get(x).getName());
+        }
+        ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter(this, android.R.layout.simple_spinner_item, locs);
         adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchLocationSpinner.setAdapter(adapterLoc);
         searchLocationSpinner.setOnItemSelectedListener(this);
@@ -131,8 +153,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         searchTypeOptions[1] =  "By Keywords";
         searchTypeOptions[2] =  "By Donation Value";
         searchTypeOptions[3] =  "By Category";
-
-
     }
 
     private void setDonations(ArrayList<Donation> donations) {
@@ -147,27 +167,52 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickLocationSearchButton() {
+        ArrayList<Donation> searchResults;
         if (!searchLocationSpinner.getSelectedItem().equals("All")) {
-            donos.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
+            searchResults = donations.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
         } else {
-            donos.getAllDonations();
+            searchResults = donations.getAllDonations();
         }
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
         finish();
     }
 
     public void handleClickNameSearchButton() {
-        donos.filterByName("");
+        String searchText = nameSearchText.getText().toString();
+        ArrayList<Donation> searchResults = donations.filterByName(searchText);
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
         finish();
     }
 
     public void handleClickCategorySearchButton() {
-        donos.filterByCategory(null);
+        String category = (String) donationCategorySpinner.getSelectedItem();
+        ArrayList<Donation> searchResults = donations.filterByCategory(DonationCategory.valueOf(category));
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
         finish();
     }
 
     public void handleClickValueSearchButton() {
-        donos.filterByValue(0, 0);
-        finish();
+        Log.e("","Just called handleclickvaluesearchbutton");
+        ArrayList<Donation> searchResults = donations.filterByValue(Double.parseDouble(valueSearchTextMin.getText().toString()),
+                Double.parseDouble(valueSearchTextMax.getText().toString()));
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
+        Log.e("","After setting recycler view adapter to search results");
     }
 
     //methods for spinner

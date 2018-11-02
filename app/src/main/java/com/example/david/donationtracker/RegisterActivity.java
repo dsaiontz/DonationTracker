@@ -120,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     //goes to login activity, registers user
     private void register() {
-        String emailText = email.getText().toString();
+        final String emailText = email.getText().toString();
         String passText1 = pass1.getText().toString();
         String passText2 = pass2.getText().toString();
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailText);
@@ -137,9 +137,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         } else if (pass1.length() < minPasswordLength) {
             pass1.setError("Password must be at least " + minPasswordLength + " characters long");
             pass1.requestFocus();
-        } else if (creds.containsKey(emailText)){
-            email.setError("This email is already registered!");
-            email.requestFocus();
         } else {
             final Context context = getApplicationContext();
             creds.add(new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));
@@ -152,10 +149,30 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                             if (task.isSuccessful()) {
                                 // Sign up success, update UI with the signed-in user's information
                                 Log.d("creationSuccess", "createUserWithEmail:success");
+
+                                Map<String, Object> userInfo = new HashMap<>();
+                                userInfo.put("userType", ((UserType) userSpinner.getSelectedItem()).getUserType());
+                                userInfo.put("location", locationSpinner.getSelectedItem());
+
+                                db.collection("users").document(emailText)
+                                        .set(userInfo)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("userTypeAdded", "DocumentSnapshot successfully written!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w("userTypeAdded", "Error writing document", e);
+                                            }
+                                        });
+
                             } else {
                                 // If sign up fails, display a message to the user.
                                 Log.w("creationSuccess", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(context, "Authentication failed.",
+                                Toast.makeText(context, "Email is already associated with account",
                                         Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));
                                 finish();
@@ -163,25 +180,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         }
                     });
 
-            Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("userType", ((UserType) userSpinner.getSelectedItem()).getUserType());
-            userInfo.put("location", locationSpinner.getSelectedItem());
-
-            db.collection("users").document("test")
-                    .set(userInfo)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("userTypeAdded", "DocumentSnapshot successfully written!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("userTypeAdded", "Error writing document", e);
-                        }
-                    });
-
+            FirebaseAuth.getInstance().signOut();
             CharSequence text = "You have been registered!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);

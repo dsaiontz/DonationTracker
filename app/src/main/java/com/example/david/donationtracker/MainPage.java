@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
@@ -60,6 +61,7 @@ public class MainPage extends AppCompatActivity {
 
     private void logout() {
         Credentials.setCurrentUser(null);
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(MainPage.this, LoginActivity.class);
         startActivity(intent);
         finish();

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.time.Clock;
+=======
+>>>>>>> master
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,7 +32,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -39,32 +41,46 @@ public class DetailActivity extends AppCompatActivity {
     private RecyclerView locationRecyclerView;
 
     Donations donos = new Donations();
+
     private FirebaseUser user;
+
     private FirebaseFirestore db;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
+
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+//        AndroidThreeTen.init(this);
 
-        AndroidThreeTen.init(this);
-
-        Intent grabbedIntent = getIntent();
-
-
-        //user and location are static variables that represent the current user and current location being used
-
-        final User user = Credentials.getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        //user and location are static variables that represent the current user and current location being used
         final Location location = Locations.getCurrentLocation();
 
         Intent currentIntent = getIntent();
         user = currentIntent.getParcelableExtra("currentUser");
+        username = user.getEmail();
 
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    userType = (String) (document.get("userType"));
+                    if (document.exists()) {
+                        Log.d("getUserType", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d("getUserType", "No such document");
+                    }
+                } else {
+                    Log.d("getUserType", "get failed with ", task.getException());
+                }
+            }
+        });
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
         adapter = new DonationAdapter(donos.getDonations(location), null, username);
@@ -77,13 +93,15 @@ public class DetailActivity extends AppCompatActivity {
         } else if (user.getEmail() == null) {
             Log.e("userError", "instance of user didn't have an email");
         }
-        if (Donations.getDonations(location) != null) {
-            adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
-            locationRecyclerView = findViewById(R.id.donationsRecyclerView);
-            locationRecyclerView.setHasFixedSize(true);
-            locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            locationRecyclerView.setAdapter(adapter);
-        }
+
+        //UNCOMMENT AND FIX WHEN DATABASE IS WORKING
+//        if (Donations.getDonations(location) != null) {
+//            adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
+//            locationRecyclerView = findViewById(R.id.donationsRecyclerView);
+//            locationRecyclerView.setHasFixedSize(true);
+//            locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//            locationRecyclerView.setAdapter(adapter);
+//        }
 
 
 
@@ -102,27 +120,18 @@ public class DetailActivity extends AppCompatActivity {
         //Button for adding donation, displays toast if just a USER
         Button donationButton = findViewById(R.id.donationButton);
 
-        //UNCOMMENT THIS WHEN POSSIBLE
-
-        DocumentReference docRef = db.collection("users").document(user.getEmail());
-        DocumentSnapshot document;
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((user.getUserType() == UserType.EMPLOYEE) ||
-                        (user.getUserType() == UserType.ADMIN) ||
-                        (user.getUserType() == UserType.MANAGER)) {
+                if ((userType.equals("EMPLOYEE")) ||
+                        (userType.equals("ADMIN")) ||
+                        (userType.equals("MANAGER"))) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-
-                    intent.putExtra("location", location.getName());
-                    intent.putExtra("username", username);
-                    //final LocalDateTime time = LocalDateTime.now();
-                    final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
-
-
+                    final LocalDateTime time = LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
+<<<<<<< HEAD
 
         //    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
         //        if (task.isSuccessful()) {
@@ -139,28 +148,33 @@ public class DetailActivity extends AppCompatActivity {
         //});
 
 
+=======
+                } else {
+                    String text = "You don't have permission to access this.";
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
 
-
-        //WILL UNCOMMENT WHEN DATABASE SYSTEM IS WORKING
-
-//        donationButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if ((user.getUserType() == UserType.EMPLOYEE) ||
-//                        (user.getUserType() == UserType.ADMIN) ||
-//                        (user.getUserType() == UserType.MANAGER)) {
-//                    Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-//                    final LocalDateTime time = LocalDateTime.now();
-//                    intent.putExtra("time", time);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    String text = "You don't have permission to access this.";
-//                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-//                    toast.show();
-//                }
-//            }
-//        });
+        docRef = db.collection("users").document(user.getEmail());
+        DocumentSnapshot document;
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("pulledUserType", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d("pulledUserType", "No such document");
+                    }
+                } else {
+                    Log.d("pulledUserType", "get failed with ", task.getException());
+                }
+            }
+        });
+>>>>>>> master
 
 
         //Back button returns to locationactivity

@@ -71,7 +71,7 @@
         android:id="@+id/valueSearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/valueSearchText"
+        android:layout_above="@+id/valueSearchTextMin"
         android:layout_alignStart="@+id/locationSearchButton"
         android:layout_marginBottom="-60dp"
         android:background="@color/colorPrimaryDark"
@@ -81,13 +81,13 @@
         tools:layout_editor_absoluteY="251dp" />
 
     <EditText
-        android:id="@+id/valueSearchText"
-        android:layout_width="wrap_content"
+        android:id="@+id/valueSearchTextMin"
+        android:layout_width="67dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/nameSearchText"
-        android:layout_marginTop="14dp"
-        android:text="TextView"
+        android:layout_alignStart="@+id/categorySpinner"
+        android:layout_marginTop="24dp"
+        android:hint="Min"
         tools:layout_editor_absoluteX="66dp"
         tools:layout_editor_absoluteY="251dp" />
 
@@ -121,5 +121,16 @@
         android:layout_marginStart="16dp"
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/valueSearchTextMax"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/valueSearchTextMin"
+        android:layout_marginEnd="2dp"
+        android:layout_toStartOf="@+id/backButton"
+        android:ems="10"
+        android:hint="Max"
+        android:inputType="textPersonName" />
 
 </RelativeLayout>

@@ -17,11 +17,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -52,6 +52,8 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     private String username;
     private String locationName;
 
+    private FirebaseUser user;
+
     //Firebase add ons
     //private DocumentReference mDocRef = FirebaseFirestore.getInstance();
     FirebaseFirestore db;
@@ -64,7 +66,11 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.content_donation);
         donations = new Donations();
 
-        final User username = Credentials.getCurrentUser();
+        Intent currentIntent = getIntent();
+
+        user = currentIntent.getParcelableExtra("currentUser");
+        username = user.getEmail();
+
         final Location location = Locations.getCurrentLocation();
 
         //setting values for spinner for choosing location
