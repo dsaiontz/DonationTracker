@@ -20,8 +20,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.time.LocalDateTime;
-
 public class DetailActivity extends AppCompatActivity {
 
     private String username;
@@ -127,9 +125,6 @@ public class DetailActivity extends AppCompatActivity {
                         (userTypeInfo.get("userType").equals("ADMIN")) ||
                         (userTypeInfo.get("userType").equals("MANAGER"))) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-                    org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
-                    //final LocalDateTime time = LocalDateTime.now();
-                    //final LocalDateTime time = LocalDateTime.now();
                     final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);
