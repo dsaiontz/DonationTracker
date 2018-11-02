@@ -175,7 +175,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                             } else {
                                 // If sign up fails, display a message to the user.
                                 Log.w("creationSuccess", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(context, "Authentication failed.",
+                                Toast.makeText(context, "Email is already associated with account",
                                         Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));
                                 finish();
@@ -183,6 +183,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         }
                     });
 
+            FirebaseAuth.getInstance().signOut();
             CharSequence text = "You have been registered!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);

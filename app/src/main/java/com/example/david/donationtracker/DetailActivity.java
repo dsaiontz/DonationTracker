@@ -37,8 +37,9 @@ public class DetailActivity extends AppCompatActivity {
 
     private FirebaseUser user;
 
-    private FirebaseUser user;
     private FirebaseFirestore db;
+
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +54,31 @@ public class DetailActivity extends AppCompatActivity {
 
         //user and location are static variables that represent the current user and current location being used
 
-        final User user = Credentials.getCurrentUser();
         db = FirebaseFirestore.getInstance();
         //user and location are static variables that represent the current user and current location being used
         final Location location = Locations.getCurrentLocation();
 
         Intent currentIntent = getIntent();
         user = currentIntent.getParcelableExtra("currentUser");
+        username = user.getEmail();
 
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    userType = (String) (document.get("userType"));
+                    if (document.exists()) {
+                        Log.d("getUserType", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d("getUserType", "No such document");
+                    }
+                } else {
+                    Log.d("getUserType", "get failed with ", task.getException());
+                }
+            }
+        });
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
         adapter = new DonationAdapter(donos.getDonations(location), null, username);
@@ -99,27 +117,29 @@ public class DetailActivity extends AppCompatActivity {
         //Button for adding donation, displays toast if just a USER
         Button donationButton = findViewById(R.id.donationButton);
 
-        //UNCOMMENT THIS WHEN POSSIBLE
-
-        DocumentReference docRef = db.collection("users").document(user.getEmail());
-        DocumentSnapshot document;
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((user.getUserType() == UserType.EMPLOYEE) ||
-                        (user.getUserType() == UserType.ADMIN) ||
-                        (user.getUserType() == UserType.MANAGER)) {
+                if ((userType.equals("EMPLOYEE")) ||
+                        (userType.equals("ADMIN")) ||
+                        (userType.equals("MANAGER"))) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-
-                    intent.putExtra("location", location.getName());
-                    intent.putExtra("username", username);
-                    //final LocalDateTime time = LocalDateTime.now();
-                    final org.threeten.bp.LocalDateTime time = org.threeten.bp.LocalDateTime.now();
-
-
+                    final LocalDateTime time = LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
+                } else {
+                    String text = "You don't have permission to access this.";
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+
+        docRef = db.collection("users").document(user.getEmail());
+        DocumentSnapshot document;
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
@@ -133,28 +153,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-        //WILL UNCOMMENT WHEN DATABASE SYSTEM IS WORKING
-
-//        donationButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if ((user.getUserType() == UserType.EMPLOYEE) ||
-//                        (user.getUserType() == UserType.ADMIN) ||
-//                        (user.getUserType() == UserType.MANAGER)) {
-//                    Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
-//                    final LocalDateTime time = LocalDateTime.now();
-//                    intent.putExtra("time", time);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    String text = "You don't have permission to access this.";
-//                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-//                    toast.show();
-//                }
-//            }
-//        });
 
 
         //Back button returns to locationactivity
