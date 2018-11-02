@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.KeyEvent;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -159,7 +158,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
-        finish();
     }
 
     public void handleClickNameSearchButton() {
@@ -170,7 +168,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
-        finish();
     }
 
     public void handleClickCategorySearchButton() {
@@ -181,7 +178,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
-        finish();
     }
 
     public void handleClickValueSearchButton() {
@@ -191,7 +187,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationRecyclerView.setHasFixedSize(true);
         donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         donationRecyclerView.setAdapter(adapter);
-        finish();
     }
 
     //methods for spinner
