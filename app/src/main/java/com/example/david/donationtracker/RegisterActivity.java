@@ -137,9 +137,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         } else if (pass1.length() < minPasswordLength) {
             pass1.setError("Password must be at least " + minPasswordLength + " characters long");
             pass1.requestFocus();
-        } else if (creds.containsKey(emailText)){
-            email.setError("This email is already registered!");
-            email.requestFocus();
         } else {
             final Context context = getApplicationContext();
             creds.add(new User(emailText, passText1, (UserType) userSpinner.getSelectedItem()));

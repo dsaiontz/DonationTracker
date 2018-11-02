@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+<<<<<<< HEAD
 import android.view.KeyEvent;
+=======
+>>>>>>> master
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -16,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -29,7 +34,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private RecyclerView donationRecyclerView;
     private RecyclerView.Adapter adapter;
 
-    Donations donos = new Donations(); // In memory of Jackson's object naming
+    Donations donations = new Donations();
     FirebaseUser user;
 
     private String username;
@@ -140,9 +145,13 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         searchTypeOptions[0] =  "Please Select Search Type";
         searchTypeOptions[1] =  "By Keywords";
         searchTypeOptions[2] =  "By Donation Value";
+<<<<<<< HEAD
         searchTypeOptions[3] =  "By Category";*/
 
 
+=======
+        searchTypeOptions[3] =  "By Category";
+>>>>>>> master
     }
 
     private void setDonations(ArrayList<Donation> donations) {
@@ -157,7 +166,9 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickLocationSearchButton() {
+        ArrayList<Donation> searchResults;
         if (!searchLocationSpinner.getSelectedItem().equals("All")) {
+<<<<<<< HEAD
             setDonations(donos.getDonations(Locations.get(searchLocationSpinner.getSelectedItem().toString())));
         } else {
             setDonations(donos.getAllDonations());
@@ -174,6 +185,46 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void handleClickValueSearchButton() {
 //        setDonations(donos.filterByValue(0, valueSearchText.getText()));
+=======
+            searchResults = donations.getDonations(Locations.get(searchLocationSpinner.getSelectedItem().toString()));
+        } else {
+            searchResults = donations.getAllDonations();
+        }
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
+    }
+
+    public void handleClickNameSearchButton() {
+        String searchText = nameSearchText.getText().toString();
+        ArrayList<Donation> searchResults = donations.filterByName(searchText);
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
+    }
+
+    public void handleClickCategorySearchButton() {
+        String category = (String) donationCategorySpinner.getSelectedItem();
+        ArrayList<Donation> searchResults = donations.filterByCategory(DonationCategory.valueOf(category));
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
+    }
+
+    public void handleClickValueSearchButton() {
+        ArrayList<Donation> searchResults = donations.filterByValue(0, Double.parseDouble(valueSearchText.getText().toString()));
+        adapter = new SearchAdapter(searchResults, null);
+        donationRecyclerView = findViewById(R.id.locationRecyclerView);
+        donationRecyclerView.setHasFixedSize(true);
+        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        donationRecyclerView.setAdapter(adapter);
+>>>>>>> master
     }
 
     //methods for spinner

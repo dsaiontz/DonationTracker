@@ -1,26 +1,35 @@
 package com.example.david.donationtracker;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class welcome_page extends AppCompatActivity {
+
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
+
+        db = FirebaseFirestore.getInstance();
 
         //login button goes to login activity
         Button LoginButton = (Button) findViewById(R.id.WelcomePageLoginButton);
@@ -69,7 +78,34 @@ public class welcome_page extends AppCompatActivity {
             String line;
             reader.readLine();
             while ((line = reader.readLine())!= null) {
-                String[] words = line.split(",");
+                final String[] words = line.split(",");
+
+                Map<String, Object> data = new HashMap<>();
+                data.put("name", words[1]);
+                data.put("latitude", words[2]);
+                data.put("longitude", words[3]);
+                data.put("streetAddress", words[4]);
+                data.put("city", words[5]);
+                data.put("state", words[6]);
+                data.put("address", data.get("streetAddress") + space + data.get("city") + comma + data.get("state"));
+                data.put("type", words[8]);
+                data.put("phoneNumber", words[9]);
+
+                db.collection("locations").document(words[1])
+                        .set(data)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("locationAdded", "DocumentSnapshot successfully written: " + words[1]);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("locationAdded", "Error writing document", e);
+                            }
+                        });
+
                 String name = words[1];
                 String latitude = words[2];
                 String longitude = words[3];
