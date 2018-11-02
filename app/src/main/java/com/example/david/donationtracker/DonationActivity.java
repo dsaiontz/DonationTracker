@@ -132,7 +132,11 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                             (DonationCategory) donationCategorySpinner.getSelectedItem());
                     double value = Double.parseDouble(donationValue.getText().toString());
                     donations.addDonation(donation);
-                    addDonationToFirebase(donation);
+//                    addDonationToFirebase(donation);
+
+                    //ADDING DONATIONS TO FIREBASE
+                    
+
                     toLocationActivity();
                     finish();
                 }
@@ -172,7 +176,9 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void toLocationActivity() {
-        startActivity(new Intent(DonationActivity.this, LocationActivity.class));
+        Intent intent = new Intent(DonationActivity.this, LocationActivity.class);
+        intent.putExtra("currentUser", user);
+        startActivity(intent);
         finish();
     }
 
