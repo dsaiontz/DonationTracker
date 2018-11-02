@@ -39,11 +39,18 @@ public class DetailActivity extends AppCompatActivity {
 
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
-        adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
-        locationRecyclerView = findViewById(R.id.donationsRecyclerView);
-        locationRecyclerView.setHasFixedSize(true);
-        locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        locationRecyclerView.setAdapter(adapter);
+        if (user == null) {
+            Log.e("userError", "The passed in instance of user is null");
+        } else if (user.getEmail() == null) {
+            Log.e("userError", "instance of user didn't have an email");
+        }
+        if (Donations.getDonations(location) != null) {
+            adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
+            locationRecyclerView = findViewById(R.id.donationsRecyclerView);
+            locationRecyclerView.setHasFixedSize(true);
+            locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            locationRecyclerView.setAdapter(adapter);
+        }
 
 
         //Sets text for detailed information of location

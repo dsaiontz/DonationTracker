@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.time.LocalDateTime;
 
 public class DonationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -26,6 +29,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     private Object[] registerSpinnerOptions;
     private Object[] registerLocationOptions;
     private Donations donations;
+    private FirebaseDatabase fdb;
 
     // username must be passed with every intent
     // location name should be passed with most intents
@@ -82,18 +86,20 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 
 
         //add donation button should to to location activity after adding donation to Donations
-        Button addDonationButton = (Button) findViewById(R.id.addDonationButton);
+        final Button addDonationButton = (Button) findViewById(R.id.addDonationButton);
         addDonationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try
                 {
                     //need to add more test cases to send to catch block
-                    double value = Double.parseDouble(donationValue.getText().toString());
-                    donations.addDonation(new Donation(location, shortDescription.getText().toString(),
+                    Donation donation = new Donation(location, shortDescription.getText().toString(),
                             longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
-                            (DonationCategory) donationCategorySpinner.getSelectedItem()));
+                            (DonationCategory) donationCategorySpinner.getSelectedItem());
+                    double value = Double.parseDouble(donationValue.getText().toString());
+                    donations.addDonation(donation);
+                    addDonationToFirebase(donation);
                     toLocationActivity();
                     finish();
                 }
@@ -143,6 +149,15 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         backToDetailActivity.putExtra("location", locationName);
         startActivity(backToDetailActivity);
         finish();
+    }
+
+    private void addDonationToFirebase(Donation donation) {
+        fdb = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = fdb.getReference();
+
+        myRef.setValue(donation);
+//        User testUser = new User("t@t.com","abc123", UserType.ADMIN);
+//        myRef.setValue(testUser);
     }
 
 }
