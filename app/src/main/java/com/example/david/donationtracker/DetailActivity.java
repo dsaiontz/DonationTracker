@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.time.Clock;
-=======
->>>>>>> master
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
@@ -131,7 +130,7 @@ public class DetailActivity extends AppCompatActivity {
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
-<<<<<<< HEAD
+
 
         //    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
         //        if (task.isSuccessful()) {
@@ -148,7 +147,7 @@ public class DetailActivity extends AppCompatActivity {
         //});
 
 
-=======
+
                 } else {
                     String text = "You don't have permission to access this.";
                     Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
@@ -174,7 +173,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
->>>>>>> master
+
 
 
         //Back button returns to locationactivity
@@ -191,9 +190,9 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         }
-    }
-    }
-}
+
+
+
 
    //public void readFromFirebase() {
    //    //if (locationName == "")
