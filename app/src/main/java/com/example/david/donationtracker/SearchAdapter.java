@@ -60,7 +60,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 //                    } else {
                     //Locations.setCurrentLocation(clickedItem);
 
-                    Intent intent = new Intent(context, DetailActivity.class);
+                    Intent intent = new Intent(context, DonationDetailActivity.class);
+                    Donations.setCurrentDonation(clickedItem);
 
                     Log.e("", "This is before starting the new activity");
 
