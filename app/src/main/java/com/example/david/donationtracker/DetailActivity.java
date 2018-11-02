@@ -49,7 +49,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Intent currentIntent = getIntent();
         user = currentIntent.getParcelableExtra("currentUser");
-        username = user.getDisplayName();
+        username = user.getEmail();
 
         DocumentReference docRef = db.collection("users").document(user.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
