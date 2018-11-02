@@ -206,8 +206,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void handleClickCategorySearchButton() {
         boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
-        String category = (String) donationCategorySpinner.getSelectedItem();
-        ArrayList<Donation> searchResults = donations.filterByCategory(DonationCategory.valueOf(category), isAllLocs, searchLocationSpinner.getSelectedItem().toString());
+        DonationCategory category = (DonationCategory) donationCategorySpinner.getSelectedItem();
+        ArrayList<Donation> searchResults = donations.filterByCategory(category, isAllLocs, searchLocationSpinner.getSelectedItem().toString());
         if (searchResults.size() == 0) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
