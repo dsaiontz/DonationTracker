@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         userSpinner.setAdapter(adapterNext);
         userSpinner.setOnItemSelectedListener(this);
 
+
         locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
         locationSpinner.setOnItemSelectedListener(this);
         ArrayAdapter<DonationActivity> adapterNew = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerLocationOptions);

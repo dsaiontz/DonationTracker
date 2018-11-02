@@ -35,7 +35,7 @@ public class Donations {
         }
     }
 
-    public static ArrayList<Donation> getDonations(Location location) {
+    public ArrayList<Donation> getDonations(Location location) {
         return donations.get(location);
     }
 

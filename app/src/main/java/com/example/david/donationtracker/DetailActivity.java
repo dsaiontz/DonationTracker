@@ -25,6 +25,8 @@ public class DetailActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView locationRecyclerView;
 
+    Donations donos = new Donations();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
-        adapter = new DonationAdapter(Donations.getDonations(location), null, username);
+        adapter = new DonationAdapter(donos.getDonations(location), null, username);
         locationRecyclerView = findViewById(R.id.donationsRecyclerView);
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
