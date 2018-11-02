@@ -167,48 +167,73 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickLocationSearchButton() {
-        ArrayList<Donation> searchResults;
+        ArrayList<Donation> searchResults = new ArrayList<>();
         if (!searchLocationSpinner.getSelectedItem().toString().equals("All")) {
             searchResults = donations.getDonations(Locations.get((String) searchLocationSpinner.getSelectedItem()));
         } else {
             searchResults = donations.getAllDonations();
         }
-        adapter = new SearchAdapter(searchResults, null);
-        donationRecyclerView = findViewById(R.id.locationRecyclerView);
-        donationRecyclerView.setHasFixedSize(true);
-        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        donationRecyclerView.setAdapter(adapter);
+        if (searchResults.size() == 0) {
+            Log.e("","searchresults is empty, does nothing rn");
+            TextView emptyMessage = findViewById(R.id.emptyMessageView);
+            emptyMessage.setText("search results is empty");
+        } else {
+            adapter = new SearchAdapter(searchResults, null);
+            donationRecyclerView = findViewById(R.id.locationRecyclerView);
+            donationRecyclerView.setHasFixedSize(true);
+            donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            donationRecyclerView.setAdapter(adapter);
+        }
     }
 
     public void handleClickNameSearchButton() {
         String searchText = nameSearchText.getText().toString();
         ArrayList<Donation> searchResults = donations.filterByName(searchText);
-        adapter = new SearchAdapter(searchResults, null);
-        donationRecyclerView = findViewById(R.id.locationRecyclerView);
-        donationRecyclerView.setHasFixedSize(true);
-        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        donationRecyclerView.setAdapter(adapter);
+        if (searchResults.size() == 0) {
+            Log.e("","searchresults is empty, does nothing rn");
+            TextView emptyMessage = findViewById(R.id.emptyMessageView);
+            emptyMessage.setText("search results is empty");
+        } else {
+            adapter = new SearchAdapter(searchResults, null);
+            donationRecyclerView = findViewById(R.id.locationRecyclerView);
+            donationRecyclerView.setHasFixedSize(true);
+            donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            donationRecyclerView.setAdapter(adapter);
+        }
     }
 
     public void handleClickCategorySearchButton() {
         String category = (String) donationCategorySpinner.getSelectedItem();
         ArrayList<Donation> searchResults = donations.filterByCategory(DonationCategory.valueOf(category));
-        adapter = new SearchAdapter(searchResults, null);
-        donationRecyclerView = findViewById(R.id.locationRecyclerView);
-        donationRecyclerView.setHasFixedSize(true);
-        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        donationRecyclerView.setAdapter(adapter);
+        if (searchResults.size() == 0) {
+            Log.e("","searchresults is empty, does nothing rn");
+            TextView emptyMessage = findViewById(R.id.emptyMessageView);
+            emptyMessage.setText("search results is empty");
+        } else {
+            adapter = new SearchAdapter(searchResults, null);
+            donationRecyclerView = findViewById(R.id.locationRecyclerView);
+            donationRecyclerView.setHasFixedSize(true);
+            donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            donationRecyclerView.setAdapter(adapter);
+        }
     }
 
     public void handleClickValueSearchButton() {
         Log.e("","Just called handleclickvaluesearchbutton");
         ArrayList<Donation> searchResults = donations.filterByValue(Double.parseDouble(valueSearchTextMin.getText().toString()),
                 Double.parseDouble(valueSearchTextMax.getText().toString()));
-        adapter = new SearchAdapter(searchResults, null);
-        donationRecyclerView = findViewById(R.id.locationRecyclerView);
-        donationRecyclerView.setHasFixedSize(true);
-        donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        donationRecyclerView.setAdapter(adapter);
+        if (searchResults.size() == 0) {
+            Log.e("","searchresults is empty, does nothing rn");
+            TextView emptyMessage = findViewById(R.id.emptyMessageView);
+            emptyMessage.setText("search results is empty");
+        } else {
+            Log.e("", "first donation in search results: " + searchResults.get(0));
+            adapter = new SearchAdapter(searchResults, null);
+            donationRecyclerView = findViewById(R.id.locationRecyclerView);
+            donationRecyclerView.setHasFixedSize(true);
+            donationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            donationRecyclerView.setAdapter(adapter);
+        }
         Log.e("","After setting recycler view adapter to search results");
     }
 
