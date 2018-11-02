@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,10 +15,28 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DonationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    public static final String ADD_DATA = "addData";
+    public static final String ADD_REAL_TIME_ATTEMPT = "addRealTimeAttempt";
     private Spinner donationLocation;
     private EditText shortDescription;
     private EditText longDescription;
@@ -26,11 +45,20 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     private Object[] registerSpinnerOptions;
     private Object[] registerLocationOptions;
     private Donations donations;
+    private FirebaseDatabase fdb;
 
     // username must be passed with every intent
     // location name should be passed with most intents
     private String username;
     private String locationName;
+
+    private FirebaseUser user;
+
+    //Firebase add ons
+    //private DocumentReference mDocRef = FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
+    DatabaseReference mRootReference;
+    DatabaseReference conditionRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +66,11 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.content_donation);
         donations = new Donations();
 
-        final User username = Credentials.getCurrentUser();
+        Intent currentIntent = getIntent();
+
+        user = currentIntent.getParcelableExtra("currentUser");
+        username = user.getEmail();
+
         final Location location = Locations.getCurrentLocation();
 
         //setting values for spinner for choosing location
@@ -82,18 +114,20 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 
 
         //add donation button should to to location activity after adding donation to Donations
-        Button addDonationButton = (Button) findViewById(R.id.addDonationButton);
+        final Button addDonationButton = (Button) findViewById(R.id.addDonationButton);
         addDonationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try
                 {
                     //need to add more test cases to send to catch block
-                    double value = Double.parseDouble(donationValue.getText().toString());
-                    donations.addDonation(new Donation(location, shortDescription.getText().toString(),
+                    Donation donation = new Donation(location, shortDescription.getText().toString(),
                             longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
-                            (DonationCategory) donationCategorySpinner.getSelectedItem()));
+                            (DonationCategory) donationCategorySpinner.getSelectedItem());
+                    double value = Double.parseDouble(donationValue.getText().toString());
+                    donations.addDonation(donation);
+                    addDonationToFirebase(donation);
                     toLocationActivity();
                     finish();
                 }
@@ -122,7 +156,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             }
         });
     }
-
+    
     //methods for spinner
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
@@ -143,6 +177,15 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         backToDetailActivity.putExtra("location", locationName);
         startActivity(backToDetailActivity);
         finish();
+    }
+
+    private void addDonationToFirebase(Donation donation) {
+        fdb = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = fdb.getReference();
+
+        myRef.setValue(donation);
+//        User testUser = new User("t@t.com","abc123", UserType.ADMIN);
+//        myRef.setValue(testUser);
     }
 
 }

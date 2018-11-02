@@ -3,6 +3,7 @@ package com.example.david.donationtracker;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import java.time.Clock;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,15 +35,50 @@ public class DetailActivity extends AppCompatActivity {
 
     Donations donos = new Donations();
 
+    private FirebaseUser user;
+
+    private FirebaseFirestore db;
+
+    private String userType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+
+        AndroidThreeTen.init(this);
+
+        Intent grabbedIntent = getIntent();
+
+
         //user and location are static variables that represent the current user and current location being used
-        final User user = Credentials.getCurrentUser();
+
+        db = FirebaseFirestore.getInstance();
+        //user and location are static variables that represent the current user and current location being used
         final Location location = Locations.getCurrentLocation();
 
+        Intent currentIntent = getIntent();
+        user = currentIntent.getParcelableExtra("currentUser");
+        username = user.getEmail();
+
+        DocumentReference docRef = db.collection("users").document(user.getEmail());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    userType = (String) (document.get("userType"));
+                    if (document.exists()) {
+                        Log.d("getUserType", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d("getUserType", "No such document");
+                    }
+                } else {
+                    Log.d("getUserType", "get failed with ", task.getException());
+                }
+            }
+        });
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
         adapter = new DonationAdapter(donos.getDonations(location), null, username);
@@ -40,6 +86,20 @@ public class DetailActivity extends AppCompatActivity {
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         locationRecyclerView.setAdapter(adapter);
+        if (user == null) {
+            Log.e("userError", "The passed in instance of user is null");
+        } else if (user.getEmail() == null) {
+            Log.e("userError", "instance of user didn't have an email");
+        }
+
+        //UNCOMMENT AND FIX WHEN DATABASE IS WORKING
+//        if (Donations.getDonations(location) != null) {
+//            adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
+//            locationRecyclerView = findViewById(R.id.donationsRecyclerView);
+//            locationRecyclerView.setHasFixedSize(true);
+//            locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//            locationRecyclerView.setAdapter(adapter);
+//        }
 
 
         //Sets text for detailed information of location
@@ -54,15 +114,15 @@ public class DetailActivity extends AppCompatActivity {
         }
         textView.setTextColor(Color.parseColor("#FFFFFF"));
 
-
         //Button for adding donation, displays toast if just a USER
         Button donationButton = findViewById(R.id.donationButton);
+
         donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((user.getUserType() == UserType.EMPLOYEE) ||
-                        (user.getUserType() == UserType.ADMIN) ||
-                        (user.getUserType() == UserType.MANAGER)) {
+                if ((userType.equals("EMPLOYEE")) ||
+                        (userType.equals("ADMIN")) ||
+                        (userType.equals("MANAGER"))) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
                     final LocalDateTime time = LocalDateTime.now();
                     intent.putExtra("time", time);
@@ -76,6 +136,24 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        docRef = db.collection("users").document(user.getEmail());
+        DocumentSnapshot document;
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("pulledUserType", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d("pulledUserType", "No such document");
+                    }
+                } else {
+                    Log.d("pulledUserType", "get failed with ", task.getException());
+                }
+            }
+        });
+
 
         //Back button returns to locationactivity
         Button backButton = findViewById(R.id.backButton);
@@ -83,6 +161,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent toLocationActivity = new Intent(DetailActivity.this, LocationActivity.class);
+                toLocationActivity.putExtra("currentUser", user);
                 startActivity(toLocationActivity);
                 finish();
             }
