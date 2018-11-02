@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.time.Clock;
@@ -33,6 +34,8 @@ public class DetailActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView locationRecyclerView;
 
+    private String userNameFromAdapter;
+
     Donations donos = new Donations();
 
     private FirebaseUser user;
@@ -41,11 +44,13 @@ public class DetailActivity extends AppCompatActivity {
 
     private String userType;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+        mAuth = FirebaseAuth.getInstance();
 
         AndroidThreeTen.init(this);
 
@@ -59,7 +64,7 @@ public class DetailActivity extends AppCompatActivity {
         final Location location = Locations.getCurrentLocation();
 
         Intent currentIntent = getIntent();
-        user = currentIntent.getParcelableExtra("currentUser");
+        user = mAuth.getCurrentUser();
         username = user.getEmail();
 
         DocumentReference docRef = db.collection("users").document(user.getEmail());
