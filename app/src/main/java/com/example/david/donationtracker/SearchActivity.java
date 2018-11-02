@@ -188,7 +188,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickNameSearchButton() {
-        boolean isAllLocs;
+        boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
         String searchText = nameSearchText.getText().toString();
         ArrayList<Donation> searchResults = donations.filterByName(searchText, isAllLocs, searchLocationSpinner.getSelectedItem().toString());
         if (searchResults.size() == 0) {
@@ -205,7 +205,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickCategorySearchButton() {
-        boolean isAllLocs;
+        boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
         String category = (String) donationCategorySpinner.getSelectedItem();
         ArrayList<Donation> searchResults = donations.filterByCategory(DonationCategory.valueOf(category), isAllLocs, searchLocationSpinner.getSelectedItem().toString());
         if (searchResults.size() == 0) {
@@ -222,7 +222,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickValueSearchButton() {
-        boolean isAllLocs;
+        boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
         Log.e("","Just called handleclickvaluesearchbutton");
         ArrayList<Donation> searchResults = donations.filterByValue(Double.parseDouble(valueSearchTextMin.getText().toString()),
                 Double.parseDouble(valueSearchTextMax.getText().toString()), isAllLocs, searchLocationSpinner.getSelectedItem().toString());
