@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     private FirebaseAuth mAuth;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,11 +163,12 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         }
                     });
 
-            Map<String, Object> userType = new HashMap<>();
-            userType.put("userType", userSpinner.getSelectedItem());
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("userType", ((UserType) userSpinner.getSelectedItem()).getUserType());
+            userInfo.put("location", locationSpinner.getSelectedItem());
 
-            db.collection("users").document(emailText)
-                    .set(userType)
+            db.collection("users").document("test")
+                    .set(userInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
