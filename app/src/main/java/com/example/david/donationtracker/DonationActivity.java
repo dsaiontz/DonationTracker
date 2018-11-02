@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -60,15 +61,19 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     DatabaseReference mRootReference;
     DatabaseReference conditionRef;
 
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_donation);
         donations = new Donations();
 
+        mAuth = FirebaseAuth.getInstance();
+
         Intent currentIntent = getIntent();
 
-        user = currentIntent.getParcelableExtra("currentUser");
+        user = mAuth.getCurrentUser();
         username = user.getEmail();
 
         final Location location = Locations.getCurrentLocation();
