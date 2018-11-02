@@ -30,11 +30,9 @@ public class DetailActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView locationRecyclerView;
 
-<<<<<<< HEAD
     Donations donos = new Donations();
-=======
+
     private FirebaseUser user;
->>>>>>> Spencer's
 
     private FirebaseFirestore db;
 
@@ -63,13 +61,15 @@ public class DetailActivity extends AppCompatActivity {
         } else if (user.getEmail() == null) {
             Log.e("userError", "instance of user didn't have an email");
         }
-        if (Donations.getDonations(location) != null) {
-            adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
-            locationRecyclerView = findViewById(R.id.donationsRecyclerView);
-            locationRecyclerView.setHasFixedSize(true);
-            locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            locationRecyclerView.setAdapter(adapter);
-        }
+
+        //UNCOMMENT AND FIX WHEN DATABASE IS WORKING
+//        if (Donations.getDonations(location) != null) {
+//            adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
+//            locationRecyclerView = findViewById(R.id.donationsRecyclerView);
+//            locationRecyclerView.setHasFixedSize(true);
+//            locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//            locationRecyclerView.setAdapter(adapter);
+//        }
 
 
         //Sets text for detailed information of location
