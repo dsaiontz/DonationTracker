@@ -1,5 +1,6 @@
 package com.example.david.donationtracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -40,10 +47,14 @@ public class DetailActivity extends AppCompatActivity {
 
     private DocumentSnapshot userTypeInfo;
 
+    private ArrayList<Donation> listForAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        listForAdapter = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -93,15 +104,48 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        final Context context = this;
+
         //NEED ARRAYLIST OF DONATIONS
-//        db.collection("locations").document(location.getName()).collection("donations");
+        db.collection("locations").document(location.getName()).collection("donations")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("retrievedDonation", document.getId() + " => " + document.getData());
+                                Map<String, Object> data = document.getData();
+                                double dub = (double) data.get("donationValue");
+                                Donation donation = new Donation(location, (String) (data.get("shortDescription")),
+                                        (String) (data.get("longDescription")), dub,
+                                        (DonationCategory.valueOf((String) data.get("donationCategory"))));
+                                listForAdapter.add(donation);
+                            }
+                            adapter = new DonationAdapter(listForAdapter, null, username);
+                            locationRecyclerView = findViewById(R.id.donationsRecyclerView);
+                            locationRecyclerView.setHasFixedSize(true);
+                            locationRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                            locationRecyclerView.setAdapter(adapter);
+
+                            //Sets text for detailed information of location
+                            TextView textView = (TextView) findViewById(R.id.detailText);
+                            if (location != null) {
+                                String detailText = "Name: " + location.getName();
+                                detailText = detailText + "\nType: " + location.getType()
+                                        + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
+                                        + location.getLatitude() + "\nAddress: " + location.getAddress()
+                                        + "\nPhone Number: " + location.getPhoneNumber() + "\n";
+                                textView.setText(detailText);
+                            }
+                            textView.setTextColor(Color.parseColor("#FFFFFF"));
+                        } else {
+                            Log.d("retrievedDonation", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         //configures the recycler view that holds the location detail activity as well as donations at that location
-        adapter = new DonationAdapter(donos.getDonations(location), null, username);
-        locationRecyclerView = findViewById(R.id.donationsRecyclerView);
-        locationRecyclerView.setHasFixedSize(true);
-        locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        locationRecyclerView.setAdapter(adapter);
         if (user == null) {
             Log.e("userError", "The passed in instance of user is null");
         } else if (user.getEmail() == null) {
@@ -119,16 +163,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
         //Sets text for detailed information of location
-        TextView textView = (TextView) findViewById(R.id.detailText);
-        if (location != null) {
-            String detailText = "Name: " + location.getName();
-            detailText = detailText + "\nType: " + location.getType()
-                    + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
-                    + location.getLatitude() + "\nAddress: " + location.getAddress()
-                    + "\nPhone Number: " + location.getPhoneNumber() + "\n";
-            textView.setText(detailText);
-        }
-        textView.setTextColor(Color.parseColor("#FFFFFF"));
 
         docRef = db.collection("users").document(user.getEmail());
         DocumentSnapshot document;

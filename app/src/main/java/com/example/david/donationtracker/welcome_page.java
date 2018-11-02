@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -92,7 +93,7 @@ public class welcome_page extends AppCompatActivity {
                 data.put("phoneNumber", words[9]);
 
                 db.collection("locations").document(words[1])
-                        .set(data)
+                        .set(data, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
