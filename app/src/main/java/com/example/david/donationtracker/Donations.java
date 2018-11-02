@@ -63,38 +63,67 @@ public class Donations {
 
     }
 
-    public ArrayList<Donation> filterByCategory(DonationCategory category) {
+    public ArrayList<Donation> filterByCategory(DonationCategory category, boolean allDonos, String loc) {
         ArrayList<Donation> filteredList = new ArrayList<>();
-        for (Donation donation : getAllDonations()) {
-            if (donation.getCategory() == category) {
-                filteredList.add(donation);
+        if (allDonos) {
+            for (Donation donation : getAllDonations()) {
+                if (donation.getCategory() == category) {
+                    filteredList.add(donation);
+                }
+            }
+        } else {
+            for (Donation donation : getDonations(Locations.get(loc))) {
+                if (donation.getCategory() == category) {
+                    filteredList.add(donation);
+                }
             }
         }
         return filteredList;
     }
 
-    public ArrayList<Donation> filterByName(String searchText) {
+    public ArrayList<Donation> filterByName(String searchText, boolean allDonos, String loc) {
         ArrayList<Donation> filteredList = new ArrayList<>();
 //        searchText = removeInvalidCharacters(searchText); test to see if this is correctly removing invalid characters
         Pattern pattern;
-        for (Donation donation : getAllDonations()) {
-            pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
-            if (pattern.matcher(donation.getFullDescription()).matches()) {
-                filteredList.add(donation);
-            } else if (pattern.matcher(donation.getShortDescription()).matches()) {
-                filteredList.add(donation);
-            } else if (pattern.matcher(donation.getCategory().toString()).matches()) {
-                filteredList.add(donation);
+        if (allDonos) {
+            for (Donation donation : getAllDonations()) {
+                pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
+                if (pattern.matcher(donation.getFullDescription()).matches()) {
+                    filteredList.add(donation);
+                } else if (pattern.matcher(donation.getShortDescription()).matches()) {
+                    filteredList.add(donation);
+                } else if (pattern.matcher(donation.getCategory().toString()).matches()) {
+                    filteredList.add(donation);
+                }
+            }
+        } else {
+            for (Donation donation : getDonations(Locations.get(loc))) {
+                pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
+                if (pattern.matcher(donation.getFullDescription()).matches()) {
+                    filteredList.add(donation);
+                } else if (pattern.matcher(donation.getShortDescription()).matches()) {
+                    filteredList.add(donation);
+                } else if (pattern.matcher(donation.getCategory().toString()).matches()) {
+                    filteredList.add(donation);
+                }
             }
         }
         return filteredList;
     }
 
-    public ArrayList<Donation> filterByValue(double min, double max) {
+    public ArrayList<Donation> filterByValue(double min, double max, boolean allDonos, String loc) {
         ArrayList<Donation> filteredList = new ArrayList<>();
-        for (Donation donation : getAllDonations()) {
-            if (donation.getValue() > min && donation.getValue() < max) {
-                filteredList.add(donation);
+        if (allDonos) {
+            for (Donation donation : getAllDonations()) {
+                if (donation.getValue() > min && donation.getValue() < max) {
+                    filteredList.add(donation);
+                }
+            }
+        } else {
+            for (Donation donation : getDonations(Locations.get(loc))) {
+                if (donation.getValue() > min && donation.getValue() < max) {
+                    filteredList.add(donation);
+                }
             }
         }
         return filteredList;
