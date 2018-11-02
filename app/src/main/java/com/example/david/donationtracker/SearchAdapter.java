@@ -40,8 +40,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            shortDescription = (TextView) view.findViewById(R.id.shortDescription);
-            value = (TextView) view.findViewById(R.id.value);
+            shortDescription = (TextView) view.findViewById(R.id.donationShortDescription);
+            value = (TextView) view.findViewById(R.id.donationValue);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -49,7 +49,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     Context context = v.getContext();
                     int pos = getAdapterPosition();
                     Donation clickedItem = donationData.get(pos);
-                    Log.e("","clickedItem: " + clickedItem + ", currentuser.getlocation: " + Credentials.getCurrentUser().getLocation());
+                    //Log.e("","clickedItem: " + clickedItem + ", currentuser.getlocation: " + Credentials.getCurrentUser().getLocation());
                     //not working properly
 //                    if ((Credentials.getCurrentUser().getLocation() != clickedItem)
 //                            && (Credentials.getCurrentUser().getUserType() == UserType.EMPLOYEE)) {
@@ -92,7 +92,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
 
         Donation donation = donationData.get(position);
-
+        Log.e("",Double.toString(donation.getValue()));
+        Log.e("",donation.getShortDescription());
 
         viewHolder.shortDescription.setText(donation.getShortDescription());
 //        viewHolder.name.setTextColor(Color.parseColor("#FFFFFF"));  // Use this to change the color of the text in a recycler view
