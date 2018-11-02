@@ -116,13 +116,6 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                             longDescription.getText().toString(),
                             Double.parseDouble(donationValue.getText().toString()),
                             (DonationCategory) donationCategorySpinner.getSelectedItem()));
-                    //writeToCSV();
-                    //Ignore these: They will be used in the future when I get firebase to fully work...Note they
-                    //Don't currently work, I got reading+writing to work with some other code which I will update later
-                    //Call add method
-                    addRealTimeAttempt();
-                    //addDataFireStoreAttempt();
-
                     toLocationActivity();
                     finish();
                 }
@@ -151,95 +144,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             }
         });
     }
-
-    public void writeToCSV() {
-        String baseDir = android.os.Environment.getExternalStorageDirectory().getAbsolutePath();
-        String fileName = "items.csv";
-        String filePath = baseDir + File.separator + fileName;
-        File f = new File(filePath );
-        CSVWriter writer;
-// File exist
-        if(f.exists() && !f.isDirectory()){
-            try {FileWriter mFileWriter = new FileWriter(filePath , true);
-                writer = new CSVWriter(mFileWriter);}
-            catch (IOException e){
-                Log.e("writeToCSV()","Error reading file");
-            }
-        }
-        else {
-            try {writer = new CSVWriter(new FileWriter(filePath)); }
-            catch (IOException e) {
-                Log.e("writeToCSV()","Error reading file");
-            }
-        }
-        String[] data = {Locations.getCurrentLocation().toString(), shortDescription.getText().toString(),
-                longDescription.getText().toString(),
-                donationValue.getText().toString(), donationCategorySpinner.getSelectedItem().toString()};
-        //writer.writeNext(data);
-
-
-        //try {writer.close();}
-        //catch (IOException i) {
-        //    Log.e("writeToCSV()","Error closing file");
-        //}
-    }
-
-
-    public void addRealTimeAttempt() {
-      // mRootReference = FirebaseDatabase.getInstance().getReference();
-       //String donationId = mRootReference.push().getKey();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        myRef.setValue("Hello, world!");
-
-       //Donation donation = new Donation(Locations.getCurrentLocation(), shortDescription.getText().toString(),
-       //        longDescription.getText().toString(),
-       //        Double.parseDouble(donationValue.getText().toString()),
-       //        (DonationCategory) donationCategorySpinner.getSelectedItem());
-       //myRef.setValue(donation).addOnSuccessListener(new OnSuccessListener<Void>() {
-       //    @Override
-       //    public void onSuccess(Void aVoid) {
-       //        Log.e(ADD_REAL_TIME_ATTEMPT,"Successfully added donation!");
-       //    }
-       //}).addOnFailureListener(new OnFailureListener() {
-       //    @Override
-       //    public void onFailure(@NonNull Exception e) {
-       //        Log.e(ADD_REAL_TIME_ATTEMPT,"Error adding donation :(");
-       //    }
-       //});
-    }
-
-    public void addDataFireStoreAttempt(){
-        db = FirebaseFirestore.getInstance();
-        String sampleTest = shortDescription.getText().toString();
-        Map<String,Object> dataToSave = new HashMap<>();
-        dataToSave.put("Desc_Short",sampleTest);
-        db.collection("desc").add(dataToSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.e(ADD_DATA, "DocumentSnapshot added with ID: " + documentReference.getId());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(ADD_DATA,"Error adding document");
-            }
-        });
-        //db.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
-        //    @Override
-        //    public void onSuccess(Void aVoid) {
-        //        Log.e(ADD_DATA,"Document successfully saved!");
-        //    }
-        //}).addOnFailureListener(new OnFailureListener() {
-        //    @Override
-        //    public void onFailure(@NonNull Exception e) {
-        //        Log.e(ADD_DATA,"Document save fail :(");
-        //    }
-        //});
-
-    }
-
+    
     //methods for spinner
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
