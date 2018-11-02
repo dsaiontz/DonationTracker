@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Donation implements Serializable {
 
-    private org.threeten.bp.LocalDateTime time;
+    private LocalDateTime time;
     private Location location;
     private String shortDescription;
     private String fullDescription;
@@ -41,8 +41,8 @@ public class Donation implements Serializable {
         this.fullDescription = fullDescription;
         this.value = value;
         this.category = category;
-        this.time = org.threeten.bp.LocalDateTime.now();
-        //this.time = LocalDateTime.now();
+//        this.time = org.threeten.bp.LocalDateTime.now();
+        this.time = LocalDateTime.now();
     }
 
     public Donation(String donationId, Location location, String shortDescription,
@@ -53,7 +53,7 @@ public class Donation implements Serializable {
         this.fullDescription = fullDescription;
         this.value = value;
         this.category = category;
-        this.time = org.threeten.bp.LocalDateTime.now();
+        this.time = LocalDateTime.now();
         //this.time = LocalDateTime.now();
     }
 
@@ -79,13 +79,12 @@ public class Donation implements Serializable {
 
 
     public String getTime() {
-        org.threeten.bp.format.DateTimeFormatter formatter = org.threeten.bp.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return time.format(formatter);
+        return time.toString();
 
     }
 
-    public void setTime(org.threeten.bp.LocalDateTime time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
