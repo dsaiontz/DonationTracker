@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +24,8 @@ public class LocationActivity extends AppCompatActivity {
     private RecyclerView locationRecyclerView;
     private RecyclerView.Adapter adapter;
     private String username;
+
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +48,12 @@ public class LocationActivity extends AppCompatActivity {
 
         locations = Locations.getAllLocations();
 
+        //Get current user
+        Intent currentIntent = getIntent();
+        user = currentIntent.getParcelableExtra("currentUser");
+
         // configures the recycler view
-        adapter = new LocationAdapter(locations, null, username);
+        adapter = new LocationAdapter(locations, null, user.getEmail());
         locationRecyclerView = findViewById(R.id.locationRecyclerView);
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -54,6 +62,7 @@ public class LocationActivity extends AppCompatActivity {
 
     public void toSearchPage() {
         Intent toSearch = new Intent(LocationActivity.this, SearchActivity.class);
+        toSearch.putExtra("currentUser", user);
         startActivity(toSearch);
         finish();
     }
@@ -61,6 +70,7 @@ public class LocationActivity extends AppCompatActivity {
     //back button returns to the main page
     public void backToMainPage() {
         Intent backToMain = new Intent(LocationActivity.this, MainPage.class);
+        backToMain.putExtra("currentUser", user);
         startActivity(backToMain);
         finish();
     }

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -27,6 +29,9 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private RecyclerView.Adapter adapter;
 
     Donations donos = new Donations(); // In memory of Jackson's object naming
+    FirebaseUser user;
+
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +96,11 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
+        //Getting current user
+        Intent currentIntent = getIntent();
+        user = currentIntent.getParcelableExtra("currentUser");
+        username = user.getEmail(); //equivalent to username from previous versions
+
         Button nameSearchButton = findViewById(R.id.nameSearchButton);
         nameSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +141,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void backToMainPage() {
         Intent backToMain = new Intent(SearchActivity.this, MainPage.class);
+        backToMain.putExtra("currentUser", user);
         startActivity(backToMain);
         finish();
     }

@@ -67,7 +67,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     Context context = v.getContext();
                     int pos = getAdapterPosition();
                     Location clickedItem = locationData.get(pos);
-                    Log.e("","clickedItem: " + clickedItem + ", currentuser.getlocation: " + Credentials.getCurrentUser().getLocation());
                     //not working properly
 //                    if ((Credentials.getCurrentUser().getLocation() != clickedItem)
 //                            && (Credentials.getCurrentUser().getUserType() == UserType.EMPLOYEE)) {
@@ -79,9 +78,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                         Locations.setCurrentLocation(clickedItem);
 
                         Intent intent = new Intent(context, DetailActivity.class);
-
-                        Log.e("", "This is before starting the new activity");
-
                         context.startActivity(intent);
 //                    }
                 }

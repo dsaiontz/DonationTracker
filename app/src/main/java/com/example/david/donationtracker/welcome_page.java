@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -34,6 +37,18 @@ public class welcome_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 register();
+            }
+        });
+
+        Button dbButton = (Button) findViewById(R.id.dbButton);
+        dbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase fdb= FirebaseDatabase.getInstance();
+                DatabaseReference myRef = fdb.getReference();
+
+                User testUser = new User("t@t.com","abc123", UserType.ADMIN);
+                myRef.setValue(testUser);
             }
         });
 
