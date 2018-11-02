@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.ArrayList;
 
 /**
@@ -24,14 +21,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     private Context context;
     private static String username;
 
-    FirebaseAuth auth;
-
-    FirebaseUser user;
 
     public LocationAdapter (ArrayList<Location> locationData, Context context, String username) {
         this.locationData = locationData;
         this.context = context;
         this.username = username;
+
     }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -76,7 +71,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                         Locations.setCurrentLocation(clickedItem);
 
                         Intent intent = new Intent(context, DetailActivity.class);
-                        intent.putExtra("currentUserUsername", username);
                         context.startActivity(intent);
 //                    }
                 }
