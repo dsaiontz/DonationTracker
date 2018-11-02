@@ -92,6 +92,8 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
+        //WILL UNCOMMENT WHEN DATABASE SYSTEM IS WORKING
+
 //        donationButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -118,6 +120,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent toLocationActivity = new Intent(DetailActivity.this, LocationActivity.class);
+                toLocationActivity.putExtra("currentUser", user);
                 startActivity(toLocationActivity);
                 finish();
             }

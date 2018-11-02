@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -162,11 +163,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     });
 
             Map<String, Object> userInfo = new HashMap<>();
-            userInfo.put("userType", userSpinner.getSelectedItem());
+            userInfo.put("userType", ((UserType) userSpinner.getSelectedItem()).getUserType());
             userInfo.put("location", locationSpinner.getSelectedItem());
 
-            DocumentReference docref = db.collection("users").document(emailText);
-                    docref.set(userInfo)
+            db.collection("users").document("test")
+                    .set(userInfo)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
