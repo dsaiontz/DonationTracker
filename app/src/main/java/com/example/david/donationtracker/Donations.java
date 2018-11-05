@@ -1,6 +1,15 @@
 package com.example.david.donationtracker;
 
 import android.service.autofill.RegexValidator;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
@@ -8,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,6 +25,8 @@ public class Donations {
 
     private static HashMap<Location, ArrayList<Donation>> donations = new HashMap<>();
     private static Donation currentDonation;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public static Donation getCurrentDonation() {
         return currentDonation;
@@ -33,6 +45,45 @@ public class Donations {
         } else {
             donations.get(location).add(donation);
         }
+    }
+
+    public void getAllDonationsFromDatabase() {
+        db.collection("locations")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("getCollection", document.getId() + " => " + document.getData());
+                                DocumentReference doc = document.getReference();
+                                Map<String, Object> locationData = document.getData();
+                                final Location location = new Location((String) locationData.get("name"),
+                                        (String) locationData.get("type"), (String) locationData.get("longitude"),
+                                        (String) locationData.get("latitude"), (String) locationData.get("address"),
+                                        (String) locationData.get("phoneNumber"));
+                                doc.collection("donations").get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("getIndividualDonation", "Successfully retrieved donation");
+                                                    for (QueryDocumentSnapshot currentDonation : task.getResult()) {
+                                                        Map<String, Object> donationData = currentDonation.getData();
+                                                        Donation curr = new Donation(location,
+                                                                (String) donationData.get("shortDescription"), (String) donationData.get("longDescription"),
+                                                                (double) donationData.get("donationValue"), DonationCategory.valueOf((String) donationData.get("donationCategory")));
+                                                        addDonation(curr);
+                                                    }
+                                                }
+                                            }
+                                        });
+                            }
+                        } else {
+                            Log.d("getCollection", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     public ArrayList<Donation> getDonations(Location location) {

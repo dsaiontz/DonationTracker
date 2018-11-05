@@ -172,6 +172,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         searchTypeOptions[3] =  "By Category";
 
         context = this;
+
+        donations.getAllDonationsFromDatabase();
     }
 
     private void setDonations(ArrayList<Donation> donations) {
@@ -246,6 +248,9 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
         String searchText = nameSearchText.getText().toString();
         ArrayList<Donation> searchResults = donations.filterByName(searchText, isAllLocs, searchLocationSpinner.getSelectedItem().toString());
+
+        final ArrayList<Donation> results = new ArrayList<>();
+
         if (searchResults.size() == 0) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
