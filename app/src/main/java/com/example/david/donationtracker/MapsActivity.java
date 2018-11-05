@@ -3,6 +3,7 @@ package com.example.david.donationtracker;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -39,17 +40,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        // LatLng sydney = new LatLng(-34, 151);
-        // mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
         ArrayList<Location> locations = Locations.getAllLocations();
+        LatLng marker;
+        double latitude;
+        double longitude;
         for (Location location : locations) {
-            double latitude = Double.parseDouble(location.getLatitude());
-            double longitude = Double.parseDouble(location.getLatitude());
-            LatLng marker = new LatLng(latitude, longitude);
+            latitude = Double.parseDouble(location.getLatitude());
+            longitude = Double.parseDouble(location.getLatitude());
+            marker = new LatLng(latitude, longitude);
             mMap.addMarker(new MarkerOptions().position(marker).title(location.getName()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
         }
     }
 }
