@@ -1,6 +1,5 @@
 package com.example.david.donationtracker;
 
-import android.service.autofill.RegexValidator;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -11,14 +10,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Donations {
@@ -132,31 +126,18 @@ public class Donations {
         return filteredList;
     }
 
-    public ArrayList<Donation> filterByName(String searchText, boolean allDonos, String loc) {
+    public ArrayList<Donation> filterByName(String searchText, String loc) {
         ArrayList<Donation> filteredList = new ArrayList<>();
 //        searchText = removeInvalidCharacters(searchText); test to see if this is correctly removing invalid characters
         Pattern pattern;
-        if (allDonos) {
-            for (Donation donation : getAllDonations()) {
-                pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
-                if (pattern.matcher(donation.getFullDescription()).matches()) {
-                    filteredList.add(donation);
-                } else if (pattern.matcher(donation.getShortDescription()).matches()) {
-                    filteredList.add(donation);
-                } else if (pattern.matcher(donation.getCategory().toString()).matches()) {
-                    filteredList.add(donation);
-                }
-            }
-        } else {
-            for (Donation donation : getDonations(Locations.get(loc))) {
-                pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
-                if (pattern.matcher(donation.getFullDescription()).matches()) {
-                    filteredList.add(donation);
-                } else if (pattern.matcher(donation.getShortDescription()).matches()) {
-                    filteredList.add(donation);
-                } else if (pattern.matcher(donation.getCategory().toString()).matches()) {
-                    filteredList.add(donation);
-                }
+        for (Donation donation : getAllDonations()) {
+            pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
+            if (pattern.matcher(donation.getFullDescription()).matches()) {
+                filteredList.add(donation);
+            } else if (pattern.matcher(donation.getShortDescription()).matches()) {
+                filteredList.add(donation);
+            } else if (pattern.matcher(donation.getCategory().toString()).matches()) {
+                filteredList.add(donation);
             }
         }
         return filteredList;
