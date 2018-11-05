@@ -1,21 +1,15 @@
 package com.example.david.donationtracker;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class LocationActivity extends AppCompatActivity {
@@ -23,7 +17,6 @@ public class LocationActivity extends AppCompatActivity {
     private ArrayList<Location> locations;
     private RecyclerView locationRecyclerView;
     private RecyclerView.Adapter adapter;
-    private String username;
 
     FirebaseUser user;
 
@@ -38,11 +31,20 @@ public class LocationActivity extends AppCompatActivity {
                 backToMainPage();
             }
         });
+
         Button searchButton = (Button) findViewById(R.id.toSearchActivityButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toSearchPage();
+            }
+        });
+
+        Button mapButton = (Button) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toMapPage();
             }
         });
 
@@ -72,6 +74,13 @@ public class LocationActivity extends AppCompatActivity {
         Intent backToMain = new Intent(LocationActivity.this, MainPage.class);
         backToMain.putExtra("currentUser", user);
         startActivity(backToMain);
+        finish();
+    }
+
+    public void toMapPage() {
+        Intent toMap = new Intent(LocationActivity.this, MapsActivity.class);
+        toMap.putExtra("currentUser", user);
+        startActivity(toMap);
         finish();
     }
 }

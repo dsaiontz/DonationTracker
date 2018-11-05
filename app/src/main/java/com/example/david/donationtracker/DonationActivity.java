@@ -2,35 +2,22 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,15 +79,6 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         for (DonationCategory i: DonationCategory.values()) {
             registerSpinnerOptions[k++] = i;
         }
-
-//        //location spinner
-//        donationLocation = (Spinner) findViewById(R.id.addDonationLocation);
-//        donationLocation.setOnItemSelectedListener(this);
-//        ArrayAdapter<DonationCategory> adapterOne = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerLocationOptions);
-//        adapterOne.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        donationLocation.setAdapter(adapterOne);
-//        donationLocation.setOnItemSelectedListener(this);
-
 
         //EditTexts for descriptions and value
         shortDescription = (EditText) findViewById(R.id.addDonationShortDescription);
