@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private float initialZoomLevel = 10f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +53,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             latitude = Double.parseDouble(location.getLatitude());
             longitude = Double.parseDouble(location.getLongitude());
             LatLng marker = new LatLng(latitude, longitude);
-            mMap.addMarker(new MarkerOptions().position(marker).title(location.toString()));
+            mMap.addMarker(new MarkerOptions().position(marker).title(location.toString() + "\n" + location.getPhoneNumber()));
         }
         Location firstLocation = locations.get(0);
         latitude = Double.parseDouble(firstLocation.getLatitude());
         longitude = Double.parseDouble(firstLocation.getLongitude());
         LatLng forCamera = new LatLng(latitude, longitude);
         // don't add this marker to the map, only grabbed like this to move camera which didn't work in the loop...
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(forCamera));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(forCamera, initialZoomLevel));
 
     }
 }
