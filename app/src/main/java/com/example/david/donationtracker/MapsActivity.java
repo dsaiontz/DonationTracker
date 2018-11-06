@@ -40,16 +40,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        ArrayList<Location> locations = Locations.getAllLocations();
-        LatLng marker;
+        // Add a marker in Sydney, Australia, and move the camera.
+//        LatLng sydney = new LatLng(-34, 151);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         double latitude;
         double longitude;
+
+        ArrayList<Location> locations = Locations.getAllLocations();
         for (Location location : locations) {
             latitude = Double.parseDouble(location.getLatitude());
-            longitude = Double.parseDouble(location.getLatitude());
-            marker = new LatLng(latitude, longitude);
-            mMap.addMarker(new MarkerOptions().position(marker).title(location.getName()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
+            longitude = Double.parseDouble(location.getLongitude());
+            LatLng marker = new LatLng(latitude, longitude);
+            mMap.addMarker(new MarkerOptions().position(marker).title(location.toString()));
         }
+        Location firstLocation = locations.get(0);
+        latitude = Double.parseDouble(firstLocation.getLatitude());
+        longitude = Double.parseDouble(firstLocation.getLongitude());
+        LatLng forCamera = new LatLng(latitude, longitude);
+        // don't add this marker to the map, only grabbed like this to move camera which didn't work in the loop...
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(forCamera));
+
     }
 }
