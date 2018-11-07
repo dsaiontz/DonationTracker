@@ -57,7 +57,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToMainPage();
+                backToLocationActivity();
             }
         });
 
@@ -178,10 +178,10 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         adapter = new SearchAdapter(donations, null);
     }
 
-    public void backToMainPage() {
-        Intent backToMain = new Intent(SearchActivity.this, MainPage.class);
-        backToMain.putExtra("currentUser", user);
-        startActivity(backToMain);
+    public void backToLocationActivity() {
+        Intent backToLocationActivity = new Intent(SearchActivity.this, LocationActivity.class);
+        backToLocationActivity.putExtra("currentUser", user);
+        startActivity(backToLocationActivity);
         finish();
     }
 
