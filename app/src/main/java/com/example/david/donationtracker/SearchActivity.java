@@ -2,14 +2,13 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -27,7 +26,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -245,14 +243,11 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void handleClickNameSearchButton() {
-        boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
         String searchText = nameSearchText.getText().toString();
-        ArrayList<Donation> searchResults = donations.filterByName(searchText, isAllLocs, searchLocationSpinner.getSelectedItem().toString());
-
-        final ArrayList<Donation> results = new ArrayList<>();
+        ArrayList<Donation> searchResults = donations.filterByName(searchText, searchLocationSpinner.getSelectedItem().toString());
 
         if (searchResults.size() == 0) {
-            Log.e("","searchresults is empty, does nothing rn");
+            Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
             emptyMessage.setText("search results for the name " + searchText + " is empty");
         } else {
@@ -269,7 +264,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         DonationCategory category = (DonationCategory) donationCategorySpinner.getSelectedItem();
         ArrayList<Donation> searchResults = donations.filterByCategory(category, isAllLocs, searchLocationSpinner.getSelectedItem().toString());
         if (searchResults.size() == 0) {
-            Log.e("","searchresults is empty, does nothing rn");
+            Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
             emptyMessage.setText("search results for " + category + "is empty");
         } else {
