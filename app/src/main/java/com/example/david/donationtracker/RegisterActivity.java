@@ -160,6 +160,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d("userTypeAdded", "DocumentSnapshot successfully written!");
+                                                FirebaseAuth.getInstance().signOut();
+                                                CharSequence text = "You have been registered!";
+                                                int duration = Toast.LENGTH_SHORT;
+                                                Toast toast = Toast.makeText(context, text, duration);
+                                                toast.show();
+                                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                                finish();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -179,14 +186,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                             }
                         }
                     });
-
-            FirebaseAuth.getInstance().signOut();
-            CharSequence text = "You have been registered!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-            finish();
         }
     }
 
