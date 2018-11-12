@@ -109,6 +109,9 @@ public class Donations {
     }
 
     public ArrayList<Donation> filterByCategory(DonationCategory category, boolean allDonos, String loc) {
+        if (category == null) {
+            throw new NullPointerException("Donation category can't be null for searching");
+        }
         ArrayList<Donation> filteredList = new ArrayList<>();
         if (allDonos) {
             for (Donation donation : getAllDonations()) {
@@ -117,7 +120,7 @@ public class Donations {
                 }
             }
         } else {
-            for (Donation donation : getDonations(Locations.get(loc))) {
+            for (Donation donation : getAllDonations()) {
                 if (donation.getCategory() == category) {
                     filteredList.add(donation);
                 }
