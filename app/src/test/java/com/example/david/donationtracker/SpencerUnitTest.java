@@ -1,46 +1,31 @@
 package com.example.david.donationtracker;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import org.junit.Test;
 
-import java.util.ArrayList;
-
-import static android.support.test.InstrumentationRegistry.getContext;
-import static com.example.david.donationtracker.Locations.getAllLocations;
-
 public class SpencerUnitTest {
-    FirebaseFirestore db;
-    ArrayList<Donation> donations = new ArrayList<Donation>();
 
     @Test
-    public void filterByCategoryIsCorrect() {
+    public void validateUsernameIsCorrect() {
+        String[] validUsernames = {"user@example.com", "a@a.org", "ASDFGHJKL@pEIKOrewq.gov",
+                "q2w3e4r5t6y@u8hji9.sixlet", "+spencer_%_sho.ok+@place-name.EDU",
+                "tricky_But.True7+7@\u006e\u0069\u0063\u0065.\u0063\u006f\u006d"};
 
-        db = FirebaseFirestore.getInstance(FirebaseApp.initializeApp(getContext()));
+        String[] invalidUsernames = {"username", "", "steve@jobs", "bill@gates.m",
+                "~username@example.com", "`fancy@feast.meow", "!name@place.ext",
+                "user@@example.sigh", "(sneaky)@place.com", "tooLong@asdfasdf.toooLong",
+                "\"System.out.println(\"hacks\");\"@hacks.com",
+                "tricky_and_False7+7@\u006e\u0069\u0063\u005d.\u0063\u006f\u006d"};
 
-        ArrayList<DonationCategory> donationCategories = new ArrayList<>();
-        donationCategories.add(DonationCategory.CLOTHING);
-        donationCategories.add(DonationCategory.ELECTRONICS);
-        donationCategories.add(DonationCategory.HAT);
-        donationCategories.add(DonationCategory.HOUSEHOLD);
-        donationCategories.add(DonationCategory.KITCHEN);
-        donationCategories.add(DonationCategory.OTHER);
+        // "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"
 
-        ArrayList<Location> locations = getAllLocations();
-        int size = donations.size();
-        int count = 0;
-        Donations myDonationRef = new Donations();
-
-        for (DonationCategory category : donationCategories) {
-            ArrayList<Donation> filteredList = myDonationRef.filterByCategory(category, false);
-            for (Donation donation : filteredList) {
-                assert (donation.getCategory().equals(category));
-            }
-            count += filteredList.size();
+        for (String s : validUsernames) {
+            System.out.println(s);
+            assert(Credentials.isValidUsername(s));
         }
-        assert (count == size); // should grab and count each donation if we search by each category
 
-
+        for (String s : invalidUsernames) {
+            System.out.println(s);
+            assert(!Credentials.isValidUsername(s));
+        }
     }
 }

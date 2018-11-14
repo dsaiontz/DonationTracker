@@ -1,11 +1,12 @@
 package com.example.david.donationtracker;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+import java.util.regex.Pattern;
 
 public class Credentials {
+
+    // Regex Patterns
+    private static Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     private static HashMap<String, User> users = new HashMap<>();
 
@@ -34,6 +35,10 @@ public class Credentials {
 
     public static boolean containsKey(String key) {
         return users.containsKey(key);
+    }
+
+    public static boolean isValidUsername(String username) {
+        return VALID_EMAIL_ADDRESS_REGEX.matcher(username).find();
     }
 
 }
