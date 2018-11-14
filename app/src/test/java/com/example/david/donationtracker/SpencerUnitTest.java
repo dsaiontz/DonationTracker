@@ -1,15 +1,23 @@
 package com.example.david.donationtracker;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static android.support.test.InstrumentationRegistry.getContext;
 import static com.example.david.donationtracker.Locations.getAllLocations;
 
 public class SpencerUnitTest {
+    FirebaseFirestore db;
+    ArrayList<Donation> donations = new ArrayList<Donation>();
+
     @Test
     public void filterByCategoryIsCorrect() {
-        Donations donations = new Donations();
+
+        db = FirebaseFirestore.getInstance(FirebaseApp.initializeApp(getContext()));
 
         ArrayList<DonationCategory> donationCategories = new ArrayList<>();
         donationCategories.add(DonationCategory.CLOTHING);
@@ -20,14 +28,12 @@ public class SpencerUnitTest {
         donationCategories.add(DonationCategory.OTHER);
 
         ArrayList<Location> locations = getAllLocations();
-
-        ArrayList<Donation> allDonations = donations.getAllDonations();
-        int size = allDonations.size();
+        int size = donations.size();
         int count = 0;
-        String locationName = locations.get(0).getName();
+        Donations myDonationRef = new Donations();
 
         for (DonationCategory category : donationCategories) {
-            ArrayList<Donation> filteredList = donations.filterByCategory(category, false, locationName);
+            ArrayList<Donation> filteredList = myDonationRef.filterByCategory(category, false);
             for (Donation donation : filteredList) {
                 assert (donation.getCategory().equals(category));
             }
