@@ -41,4 +41,8 @@ public class Credentials {
         return VALID_EMAIL_ADDRESS_REGEX.matcher(username).find();
     }
 
+    public static boolean isValidPassword(String password) {
+        return password.length() >= 6;
+    }
+
 }
