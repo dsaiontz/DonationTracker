@@ -101,9 +101,9 @@ public class DetailActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             String userType = (String) userTypeInfo.get("userType");
-                            if ((userType.equals("EMPLOYEE")) ||
-                                    (userType.equals("ADMIN")) ||
-                                    (userType.equals("MANAGER"))) {
+                            if (("EMPLOYEE".equals(userType)) ||
+                                    ("ADMIN".equals(userType)) ||
+                                    ("MANAGER".equals(userType))) {
                                 Intent intent =
                                         new Intent(DetailActivity.this,
                                                 DonationActivity.class);

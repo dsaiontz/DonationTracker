@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,9 +21,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,7 +76,9 @@ public class RegisterActivity extends AppCompatActivity
             k++;
         }
 
-        Object[] registerLocationOptions = new Object[Locations.getAllLocations().size() + 1];
+        List<Location> locList = Locations.getAllLocations();
+
+        Object[] registerLocationOptions = new Object[locList.size() + 1];
         registerLocationOptions[0] = "PLEASE SELECT LOCATION";
         int m = 1;
         for (Location i : Locations.getAllLocations()) {
@@ -122,12 +129,16 @@ public class RegisterActivity extends AppCompatActivity
 
     //goes to login activity, registers user
     private void register() {
-        final String emailText = email.getText().toString();
-        String passText1 = pass1.getText().toString();
-        String passText2 = pass2.getText().toString();
+        Editable emailEdit = email.getText();
+        Editable pass1Edit = pass1.getText();
+        Editable pass2Edit = pass2.getText();
+        final String emailText = emailEdit.toString();
+        String passText1 = pass1Edit.toString();
+        String passText2 = pass2Edit.toString();
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailText);
         int minPasswordLength = 6;
-        if (userSpinner.getSelectedItem().equals(registerSpinnerOptions[0])) {
+        Object selected = userSpinner.getSelectedItem();
+        if (selected.equals(registerSpinnerOptions[0])) {
             email.setError("Please choose a user type!");
             email.requestFocus();
         } else if (!matcher.find()) {
@@ -144,8 +155,10 @@ public class RegisterActivity extends AppCompatActivity
             final Context context = getApplicationContext();
 
             //ADDING USER TO FIREBASE
-            mAuth.createUserWithEmailAndPassword(emailText, passText1)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+            Task<AuthResult> addUserTask = mAuth
+                    .createUserWithEmailAndPassword(emailText, passText1);
+            addUserTask.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -157,14 +170,17 @@ public class RegisterActivity extends AppCompatActivity
                                         .getUserType());
                                 userInfo.put("location", locationSpinner.getSelectedItem());
 
-                                db.collection("users").document(emailText)
-                                        .set(userInfo)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                CollectionReference userColl = db.collection("users");
+                                DocumentReference docuRef = userColl.document(emailText);
+                                Task<Void> userInfoTask = docuRef.set(userInfo);
+                                userInfoTask.addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Log.d("userTypeAdded",
-                                                        "DocumentSnapshot successfully written!");
-                                                FirebaseAuth.getInstance().signOut();
+                                                        "DocumentSnapshot " +
+                                                                "successfully written!");
+                                                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                                mAuth.signOut();
                                                 CharSequence text = "You have been registered!";
                                                 int duration = Toast.LENGTH_SHORT;
                                                 Toast toast = Toast.makeText(context,
@@ -175,8 +191,8 @@ public class RegisterActivity extends AppCompatActivity
                                                         LoginActivity.class));
                                                 finish();
                                             }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
+                                        });
+                                        userInfoTask.addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 Log.w("userTypeAdded", "Error writing document", e);
@@ -187,9 +203,10 @@ public class RegisterActivity extends AppCompatActivity
                                 // If sign up fails, display a message to the user.
                                 Log.w("creationSuccess", "createUserWithEmail:failure",
                                         task.getException());
-                                Toast.makeText(context, "Email is already " +
+                                Toast toast = Toast.makeText(context, "Email is already " +
                                                 "associated with account",
-                                        Toast.LENGTH_SHORT).show();
+                                        Toast.LENGTH_SHORT);
+                                toast.show();
                                 startActivity(new Intent(RegisterActivity.this,
                                         RegisterActivity.class));
                                 finish();

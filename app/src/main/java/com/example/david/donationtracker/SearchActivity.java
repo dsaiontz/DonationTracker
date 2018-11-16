@@ -194,7 +194,10 @@ public class SearchActivity extends AppCompatActivity
     @SuppressWarnings("ConstantConditions")
     private void handleClickLocationSearchButton() {
         ArrayList<Donation> searchResults;
-        if (!searchLocationSpinner.getSelectedItem().toString().equals("All")) {
+        searchLocationSpinner.getSelectedItem().toString();
+        Object item = searchLocationSpinner.getSelectedItem();
+        String itemString = item.toString();
+        if (!"All".equals(itemString)) {
             final ArrayList<Donation> results = new ArrayList<>();
             final Location location = Locations.get((String)
                     (searchLocationSpinner.getSelectedItem()));
