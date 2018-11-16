@@ -267,7 +267,9 @@ public class SearchActivity extends AppCompatActivity
                                 if (results.isEmpty()) {
                                     Log.e("","searchresults is empty, does nothing rn");
                                     TextView emptyMessage = findViewById(R.id.emptyMessageView);
-                                    String s = String.format(SEARCH_RESULTS_FOR,searchLocationSpinner.getSelectedItem().toString(),IS_EMPTY);
+                                    Object t = searchLocationSpinner.getSelectedItem();
+                                    String s2 = t.toString();
+                                    String s = String.format(SEARCH_RESULTS_FOR,s2,IS_EMPTY);
                                     emptyMessage.setText(s);
                                 } else {
                                     adapter = new SearchAdapter(results);
@@ -289,7 +291,9 @@ public class SearchActivity extends AppCompatActivity
             if (searchResults.isEmpty()) {
                 Log.e("","searchresults is empty, does nothing rn");
                 TextView emptyMessage = findViewById(R.id.emptyMessageView);
-                String q = String.format(SEARCH_RESULTS_FOR1, searchLocationSpinner.getSelectedItem().toString(),IS_EMPTY1);
+                Object q2 = searchLocationSpinner.getSelectedItem();
+                String f = q2.toString();
+                String q = String.format(SEARCH_RESULTS_FOR1, f,IS_EMPTY1);
                 emptyMessage.setText(q);
             } else {
                 adapter = new SearchAdapter(searchResults);
@@ -358,7 +362,11 @@ public class SearchActivity extends AppCompatActivity
         if (searchResults.isEmpty()) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            String v = String.format(SEARCH_RESULTS_FOR_VALUE_RANGE,valueSearchTextMin.getText().toString(),STRING,valueSearchTextMax.getText().toString(),EMPTY);
+            Editable y = valueSearchTextMin.getText();
+            String y2 = y.toString();
+            Editable y3 = valueSearchTextMax.getText();
+            String y4 = y3.toString();
+            String v = String.format(SEARCH_RESULTS_FOR_VALUE_RANGE,y2,STRING,y4,EMPTY);
             emptyMessage.setText(v);
         } else {
             Log.e("", "first donation in search results: " + searchResults.get(0));
