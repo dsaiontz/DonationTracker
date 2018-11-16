@@ -9,37 +9,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
     private static ArrayList<Donation> donationData;
-    private Context context;
-    private static String locationName;
+    // --Commented out by Inspection (11/16/18 10:45 AM):private static String locationName;
 
 
-    public DonationAdapter (ArrayList<Donation> donationData, Context context, String locationName) {
-        this.donationData = donationData;
-        this.context = context;
-        this.locationName = locationName;
+    public DonationAdapter(ArrayList<Donation> donationData) {
+        DonationAdapter.donationData = donationData;
     }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // donation attributes
-        private TextView time;
-        private TextView location;
-        private TextView shortDescription;
-        private TextView fullDescription;
-        private TextView value;
-        private TextView category;
+        private final TextView time;
+        private final TextView location;
+        private final TextView shortDescription;
+        private final TextView fullDescription;
+        private final TextView value;
+        private final TextView category;
         //private TextView comments;
         //private TextView pictureURI;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -48,12 +44,12 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
                 }
             });
 
-            time = (TextView) view.findViewById(R.id.time);
-            location = (TextView) view.findViewById(R.id.location);
+            time = view.findViewById(R.id.time);
+            location = view.findViewById(R.id.location);
             shortDescription = view.findViewById(R.id.shortDescription);
-            fullDescription = (TextView) view.findViewById(R.id.fullDescription);
-            value = (TextView) view.findViewById(R.id.value);
-            category = (TextView) view.findViewById(R.id.category);
+            fullDescription = view.findViewById(R.id.fullDescription);
+            value = view.findViewById(R.id.value);
+            category = view.findViewById(R.id.category);
             // comments
             // picture URI??
 
@@ -73,14 +69,16 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param sDataSet Donation[] containing donation data to populate views to be used by RecyclerView.
-     */
-    public DonationAdapter(ArrayList<Donation> sDataSet) {
-        donationData = sDataSet;
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    /**
+//     * Initialize the dataset of the Adapter.
+//     *
+//     * @param sDataSet Donation[] containing donation data to populate views to be used by RecyclerView.
+//     */
+//    public DonationAdapter(ArrayList<Donation> sDataSet) {
+//        donationData = sDataSet;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     @Override
     public DonationAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -103,7 +101,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             viewHolder.category.setText("");
         } else {
 
-            viewHolder.time.setText(donation.getTime().toString());
+            viewHolder.time.setText(donation.getTime());
             viewHolder.location.setText(donation.getLocation().toString());
             viewHolder.shortDescription.setText(donation.getShortDescription());
             viewHolder.fullDescription.setText(donation.getFullDescription());

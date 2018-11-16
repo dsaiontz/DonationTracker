@@ -10,13 +10,11 @@ import android.widget.Button;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +30,7 @@ public class welcome_page extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         //login button goes to login activity
-        Button LoginButton = (Button) findViewById(R.id.WelcomePageLoginButton);
+        Button LoginButton = findViewById(R.id.WelcomePageLoginButton);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +39,7 @@ public class welcome_page extends AppCompatActivity {
         });
 
         //register button goes to register activity
-        Button RegisterButton = (Button) findViewById(R.id.WelcomePageRegisterButton);
+        Button RegisterButton = findViewById(R.id.WelcomePageRegisterButton);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +47,7 @@ public class welcome_page extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         Button dbButton = (Button) findViewById(R.id.dbButton);
         dbButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +59,13 @@ public class welcome_page extends AppCompatActivity {
             }
         });
 
+=======
+>>>>>>> master
         //reads in the location data from the csv file, sets it to Locations.CsvLocations
         readLocationData();
-
-        addDefaultLogin();
-    }
+        }
 
     private void readLocationData() {
-        Locations locations = new Locations();
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
@@ -91,7 +89,7 @@ public class welcome_page extends AppCompatActivity {
                 data.put("phoneNumber", words[9]);
 
                 db.collection("locations").document(words[1])
-                        .set(data)
+                        .set(data, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -115,18 +113,12 @@ public class welcome_page extends AppCompatActivity {
                 String type = words[8];
                 String phoneNumber = words[9];
                 Location location = new Location(name, type, longitude, latitude, address, phoneNumber);
-                locations.add(location);
+                Locations.add(location);
             }
             reader.close();
         } catch (Exception e) {
             Log.w("Location Data", "Reading Location Data crashed" + "\n" + e.getMessage());
         }
-    }
-
-    private void addDefaultLogin() {
-        Credentials credentials = new Credentials();
-
-        credentials.add(new User("a@a.com", "abc123", UserType.ADMIN));
     }
 
 

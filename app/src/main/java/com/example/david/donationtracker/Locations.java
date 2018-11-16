@@ -2,28 +2,14 @@ package com.example.david.donationtracker;
 
 import android.util.Log;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
-public class Locations {
+class Locations {
 
-    private static HashMap<String, Location> locations = new HashMap<>();
+    private static final HashMap<String, Location> locations = new HashMap<>();
 
     private static Location currentLocation;
-
-//    private static ArrayList<Location> csvLocations;
-//
-//    public static ArrayList<Location> getCsvLocations() {
-//        return csvLocations;
-//    }
-//
-//    public static void setCsvLocations(ArrayList<Location> newLocations) {
-//        csvLocations = newLocations;
-//    }
 
     public static void setCurrentLocation(Location location) { currentLocation = location; }
 
@@ -41,19 +27,21 @@ public class Locations {
         return locations.get(locationName);
     }
 
-    public static void set(String locationName, Location location) {
-        if (locations.containsKey(location.getName())) {
-            locations.remove(location);
-        }
-        locations.put(locationName, location);
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    public static void set(String locationName, Location location) {
+//        if (locations.containsKey(location.getName())) {
+//            locations.remove(location);
+//        }
+//        locations.put(locationName, location);
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     public static boolean containsLocation(String locationName) {
         return locations.containsKey(locationName);
     }
 
     public static ArrayList<Location> getAllLocations() {
-        return new ArrayList<Location>(locations.values());
+        return new ArrayList<>(locations.values());
     }
 
 }

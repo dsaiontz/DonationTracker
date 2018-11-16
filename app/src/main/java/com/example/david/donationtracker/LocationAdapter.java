@@ -18,14 +18,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     private static final String TAG = "CustomAdapter";
 
     private static ArrayList<Location> locationData;
-    private Context context;
-    private static String username;
+    // --Commented out by Inspection (11/16/18 10:54 AM):private static String username;
 
 
-    public LocationAdapter (ArrayList<Location> locationData, Context context, String username) {
-        this.locationData = locationData;
-        this.context = context;
-        this.username = username;
+    public LocationAdapter(ArrayList<Location> locationData, String username) {
+        LocationAdapter.locationData = locationData;
 
     }
     /**
@@ -39,7 +36,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         private final TextView address;
         private final TextView phoneNumber;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -47,12 +44,12 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            name = (TextView) view.findViewById(R.id.name);
-            type = (TextView) view.findViewById(R.id.type);
-            longitude = (TextView) view.findViewById(R.id.longitude);
-            latitude = (TextView) view.findViewById(R.id.latitude);
-            address = (TextView) view.findViewById(R.id.address);
-            phoneNumber = (TextView) view.findViewById(R.id.phoneNumber);
+            name = view.findViewById(R.id.name);
+            type = view.findViewById(R.id.type);
+            longitude = view.findViewById(R.id.longitude);
+            latitude = view.findViewById(R.id.latitude);
+            address = view.findViewById(R.id.address);
+            phoneNumber = view.findViewById(R.id.phoneNumber);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -78,14 +75,16 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
-     */
-    public LocationAdapter(ArrayList<Location> sDataSet) {
-        locationData = sDataSet;
-    }
+// --Commented out by Inspection START (11/16/18 10:46 AM):
+//    /**
+//     * Initialize the dataset of the Adapter.
+//     *
+//     * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
+//     */
+//    public LocationAdapter(ArrayList<Location> sDataSet) {
+//        locationData = sDataSet;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:46 AM)
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {

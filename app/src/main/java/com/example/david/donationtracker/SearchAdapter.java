@@ -18,12 +18,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private static final String TAG = "CustomAdapter";
 
     private static ArrayList<Donation> donationData;
-    private Context context;
 
 
-    public SearchAdapter (ArrayList<Donation> donationData, Context context) {
-        this.donationData = donationData;
-        this.context = context;
+    public SearchAdapter(ArrayList<Donation> donationData) {
+        SearchAdapter.donationData = donationData;
     }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -32,7 +30,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         private final TextView shortDescription;
         private final TextView value;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -40,8 +38,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            shortDescription = (TextView) view.findViewById(R.id.shortDescription);
-            value = (TextView) view.findViewById(R.id.value);
+            shortDescription = view.findViewById(R.id.donationShortDescription);
+            value = view.findViewById(R.id.donationValue);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -49,7 +47,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     Context context = v.getContext();
                     int pos = getAdapterPosition();
                     Donation clickedItem = donationData.get(pos);
-                    Log.e("","clickedItem: " + clickedItem + ", currentuser.getlocation: " + Credentials.getCurrentUser().getLocation());
+                    //Log.e("","clickedItem: " + clickedItem + ", currentuser.getlocation: " + Credentials.getCurrentUser().getLocation());
                     //not working properly
 //                    if ((Credentials.getCurrentUser().getLocation() != clickedItem)
 //                            && (Credentials.getCurrentUser().getUserType() == UserType.EMPLOYEE)) {
@@ -60,7 +58,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 //                    } else {
                     //Locations.setCurrentLocation(clickedItem);
 
-                    Intent intent = new Intent(context, DetailActivity.class);
+                    Intent intent = new Intent(context, DonationDetailActivity.class);
+                    Donations.setCurrentDonation(clickedItem);
 
                     Log.e("", "This is before starting the new activity");
 
@@ -71,14 +70,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
-     */
-    public SearchAdapter(ArrayList<Donation> sDataSet) {
-        donationData = sDataSet;
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    /**
+//     * Initialize the dataset of the Adapter.
+//     *
+//     * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
+//     */
+//    public SearchAdapter(ArrayList<Donation> sDataSet) {
+//        donationData = sDataSet;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -92,7 +93,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
 
         Donation donation = donationData.get(position);
-
+        Log.e("",Double.toString(donation.getValue()));
+        Log.e("",donation.getShortDescription());
 
         viewHolder.shortDescription.setText(donation.getShortDescription());
 //        viewHolder.name.setTextColor(Color.parseColor("#FFFFFF"));  // Use this to change the color of the text in a recycler view

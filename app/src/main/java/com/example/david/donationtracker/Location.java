@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Location implements Parcelable {
-    private String name;
+    private final String name;
     private String type;
     private String longitude;
     private String latitude;
@@ -28,9 +28,11 @@ public class Location implements Parcelable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+// --Commented out by Inspection START (11/16/18 10:46 AM):
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:46 AM)
 
     public String getType() {
         return type;
@@ -44,33 +46,43 @@ public class Location implements Parcelable {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    public void setLongitude(String longitude) {
+//        this.longitude = longitude;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String lattitude) {
-        this.latitude = lattitude;
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+////    public void setLatitude(String lattitude) {
+////        this.latitude = lattitude;
+////    }
+//// --Commented out by Inspection STOP (11/16/18 10:30 AM)
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    public void setAddress(String address) {
+//        this.address = address;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+// --Commented out by Inspection START (11/16/18 10:53 AM):
+//    public void setPhoneNumber(String phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:53 AM)
 
     public String toString() {
         return "Name: " + getName() + "\nAddress:"
@@ -78,7 +90,7 @@ public class Location implements Parcelable {
                 "\nPhone Number:" + getPhoneNumber() + "\nLatitude: " + getLatitude() + "\nLongitude: " + getLongitude() + "\n\n";
     }
 
-    public Location(Parcel in){
+    private Location(Parcel in){
         String[] data = new String[6];
 
         in.readStringArray(data);
