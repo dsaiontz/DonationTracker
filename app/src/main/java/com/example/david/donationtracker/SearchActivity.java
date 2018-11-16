@@ -309,7 +309,9 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void handleClickCategorySearchButton() {
-        boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
+        Object item = searchLocationSpinner.getSelectedItem();
+        String itemString = item.toString();
+        boolean isAllLocs = "All".equals(itemString);
         DonationCategory category = (DonationCategory) donationCategorySpinner.getSelectedItem();
         ArrayList<Donation> searchResults = donations.filterByCategory(category, isAllLocs);
         if (searchResults.isEmpty()) {
@@ -327,7 +329,9 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void handleClickValueSearchButton() {
-        boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
+        Object item = searchLocationSpinner.getSelectedItem();
+        String itemString = item.toString();
+        boolean isAllLocs = "All".equals(itemString);
         Log.e("","Just called handleclickvaluesearchbutton");
         ArrayList<Donation> searchResults = donations.filterByValue(
                 Double.parseDouble(valueSearchTextMin.getText().toString()),
