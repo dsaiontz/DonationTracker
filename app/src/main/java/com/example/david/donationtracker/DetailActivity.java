@@ -34,6 +34,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.threeten.bp.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -47,7 +49,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private FirebaseUser user;
 
-<<<<<<< HEAD
+
     private FirebaseFirestore db;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef;
@@ -55,9 +57,9 @@ public class DetailActivity extends AppCompatActivity {
     private String userType;
 
     private FirebaseAuth mAuth;
-=======
+
     private DocumentSnapshot userTypeInfo;
->>>>>>> master
+
 
     private ArrayList<Donation> listForAdapter;
 
@@ -176,9 +178,9 @@ public class DetailActivity extends AppCompatActivity {
 
         //Sets text for detailed information of location
 
-<<<<<<< HEAD
+
         //Button for adding donation, displays toast if just a USER
-        Button donationButton = findViewById(R.id.donationButton);
+        //Button donationButton = findViewById(R.id.donationButton);
 
         donationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +190,7 @@ public class DetailActivity extends AppCompatActivity {
                         (userType.equals("MANAGER"))) {
                     Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
                     final LocalDateTime time = LocalDateTime.now();
+                    //final LocalDateTime time = LocalDateTime.now();
                     intent.putExtra("time", time);
                     startActivity(intent);
                     finish();
@@ -217,8 +220,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-=======
->>>>>>> master
+
         docRef = db.collection("users").document(user.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
