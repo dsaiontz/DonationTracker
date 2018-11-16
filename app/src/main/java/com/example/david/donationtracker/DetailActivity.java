@@ -73,12 +73,15 @@ public class DetailActivity extends AppCompatActivity {
                             if ((userTypeInfo.get("userType").equals("EMPLOYEE")) ||
                                     (userTypeInfo.get("userType").equals("ADMIN")) ||
                                     (userTypeInfo.get("userType").equals("MANAGER"))) {
-                                Intent intent = new Intent(DetailActivity.this, DonationActivity.class);
+                                Intent intent =
+                                        new Intent(DetailActivity.this,
+                                                DonationActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {
                                 String text = "You don't have permission to access this.";
-                                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), text,
+                                        Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         }
@@ -104,12 +107,15 @@ public class DetailActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("retrievedDonation", document.getId() + " => " + document.getData());
+                                Log.d("retrievedDonation", document.getId() + " => " +
+                                        document.getData());
                                 Map<String, Object> data = document.getData();
                                 double dub = (double) data.get("donationValue");
-                                Donation donation = new Donation(location, (String) (data.get("shortDescription")),
+                                Donation donation = new Donation(location, (String)
+                                        (data.get("shortDescription")),
                                         (String) (data.get("longDescription")), dub,
-                                        (DonationCategory.valueOf((String) data.get("donationCategory"))));
+                                        (DonationCategory.valueOf((String)
+                                                data.get("donationCategory"))));
                                 listForAdapter.add(donation);
                             }
                             adapter = new DonationAdapter(listForAdapter);
@@ -124,32 +130,24 @@ public class DetailActivity extends AppCompatActivity {
                                 String detailText = "Name: " + location.getName();
                                 detailText = detailText + "\nType: " + location.getType()
                                         + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
-                                        + location.getLatitude() + "\nAddress: " + location.getAddress()
+                                        + location.getLatitude() + "\nAddress: "
+                                        + location.getAddress()
                                         + "\nPhone Number: " + location.getPhoneNumber() + "\n";
                                 textView.setText(detailText);
                             }
                             textView.setTextColor(Color.parseColor("#FFFFFF"));
                         } else {
-                            Log.d("retrievedDonation", "Error getting documents: ", task.getException());
+                            Log.d("retrievedDonation", "Error getting documents: ",
+                                    task.getException());
                         }
                     }
                 });
 
-        //configures the recycler view that holds the location detail activity as well as donations at that location
         if (user == null) {
             Log.e("userError", "The passed in instance of user is null");
         } else if (user.getEmail() == null) {
             Log.e("userError", "instance of user didn't have an email");
         }
-
-        //UNCOMMENT AND FIX WHEN DATABASE IS WORKING
-//        if (Donations.getDonations(location) != null) {
-//            adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
-//            locationRecyclerView = findViewById(R.id.donationsRecyclerView);
-//            locationRecyclerView.setHasFixedSize(true);
-//            locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//            locationRecyclerView.setAdapter(adapter);
-//        }
 
 
         //Sets text for detailed information of location

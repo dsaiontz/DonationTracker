@@ -6,7 +6,8 @@ class Credentials {
 
     // Regex Patterns
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+            Pattern.compile("^[A-Z0-9._%+-]+" +
+                            "@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
                     Pattern.CASE_INSENSITIVE);
 
     // --Commented out by Inspection (11/16/18 10:29 AM):public static User getCurrentUser()

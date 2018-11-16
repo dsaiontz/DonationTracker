@@ -21,11 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
-public class DonationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class DonationActivity extends AppCompatActivity implements
+        AdapterView.OnItemSelectedListener {
 
-    // --Commented out by Inspection (11/16/18 10:29 AM):public static final String ADD_DATA = "addData";
-    // --Commented out by Inspection (11/16/18 10:45 AM):public static final String ADD_REAL_TIME_ATTEMPT = "addRealTimeAttempt";
-    // --Commented out by Inspection (11/16/18 10:54 AM):private Spinner donationLocation;
     private EditText shortDescription;
     private EditText longDescription;
     private EditText donationValue;
@@ -86,7 +84,8 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         //donation category spinner
         donationCategorySpinner = findViewById(R.id.addDonationSpinner);
         donationCategorySpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<DonationCategory> adapterNext = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
+        ArrayAdapter<DonationCategory> adapterNext = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, registerSpinnerOptions);
         adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         donationCategorySpinner.setAdapter(adapterNext);
         donationCategorySpinner.setOnItemSelectedListener(this);
@@ -99,22 +98,17 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 try
                 {
-                    //need to add more test cases to send to catch block
-//                    Donation donation = new Donation(location, shortDescription.getText().toString(),
-//                            longDescription.getText().toString(),
-//                            Double.parseDouble(donationValue.getText().toString()),
-//                            (DonationCategory) donationCategorySpinner.getSelectedItem());
-//                    double value = Double.parseDouble(donationValue.getText().toString());
-//                    donations.addDonation(donation);
-//                    addDonationToFirebase(donation);
 
                     //ADDING DONATIONS TO FIREBASE
                     Map<String, Object> data = new HashMap<>();
                     data.put("shortDescription", shortDescription.getText().toString());
                     data.put("longDescription", longDescription.getText().toString());
-                    data.put("donationValue", Double.parseDouble(donationValue.getText().toString()));
-                    data.put("donationCategory", donationCategorySpinner.getSelectedItem().toString());
-                    db.collection("locations").document(location.getName()).collection("donations").add(data);
+                    data.put("donationValue", Double.parseDouble(donationValue.getText()
+                            .toString()));
+                    data.put("donationCategory", donationCategorySpinner.getSelectedItem()
+                            .toString());
+                    db.collection("locations").document(location.getName())
+                            .collection("donations").add(data);
 
                     toLocationActivity();
                     finish();
@@ -138,7 +132,8 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(View v) {
                 backToDetailActivity();
                 Log.i("","before going back to location page when you click button");
-                final Intent intentToDetail = new Intent(DonationActivity.this, DetailActivity.class);
+                final Intent intentToDetail = new Intent(DonationActivity.this,
+                        DetailActivity.class);
                 startActivity(intentToDetail);
                 finish();
             }
@@ -162,7 +157,8 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void backToDetailActivity() {
-        Intent backToDetailActivity = new Intent(DonationActivity.this, DetailActivity.class);
+        Intent backToDetailActivity = new Intent(DonationActivity.this,
+                DetailActivity.class);
         backToDetailActivity.putExtra("username", username);
         backToDetailActivity.putExtra("location", location.getName());
         startActivity(backToDetailActivity);
