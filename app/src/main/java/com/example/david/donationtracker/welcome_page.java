@@ -52,7 +52,7 @@ public class welcome_page extends AppCompatActivity {
         }
 
     private void readLocationData() {
-        BufferedReader reader = null;
+        BufferedReader reader;
         try {
             reader = new BufferedReader(
                     new InputStreamReader(getAssets().open("LocationData.csv")));

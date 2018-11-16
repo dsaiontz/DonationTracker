@@ -1,6 +1,6 @@
 package com.example.david.donationtracker;
 
-import com.google.firebase.database.annotations.NotNull;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ public class Donation implements Serializable {
     private final Location location;
     private final String shortDescription;
     private final String fullDescription;
-    private double value;
+    private final double value;
     private final DonationCategory category;
     // --Commented out by Inspection (11/16/18 10:29 AM):private String comments;
     // --Commented out by Inspection (11/16/18 1:14 PM):private String pictureURI;
@@ -141,6 +141,7 @@ public class Donation implements Serializable {
 //        this.pictureURI = pictureURI;
 //    }
 
+    @NonNull
     @Override
     public String toString() {
         return "Donation\n" + "Location: " + location.getName()

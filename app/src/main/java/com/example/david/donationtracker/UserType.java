@@ -1,5 +1,7 @@
 package com.example.david.donationtracker;
 
+import android.support.annotation.NonNull;
+
 public enum UserType {
 
     USER ("USER"),
@@ -17,6 +19,7 @@ public enum UserType {
         return _userType;
     }
 
+    @NonNull
     public String toString() {
         return _userType;
     }

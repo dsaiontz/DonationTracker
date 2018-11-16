@@ -119,7 +119,7 @@ public class DetailActivity extends AppCompatActivity {
                             locationRecyclerView.setAdapter(adapter);
 
                             //Sets text for detailed information of location
-                            TextView textView = (TextView) findViewById(R.id.detailText);
+                            TextView textView = findViewById(R.id.detailText);
                             if (location != null) {
                                 String detailText = "Name: " + location.getName();
                                 detailText = detailText + "\nType: " + location.getType()

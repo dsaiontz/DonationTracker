@@ -71,20 +71,20 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 
         //setting values for spinner for choosing donation category
         Object[] registerSpinnerOptions = new Object[DonationCategory.values().length + 1];
-        registerSpinnerOptions[0] = (Object) "Please Select Category";
+        registerSpinnerOptions[0] = "Please Select Category";
         int k = 1;
         for (DonationCategory i: DonationCategory.values()) {
             registerSpinnerOptions[k++] = i;
         }
 
         //EditTexts for descriptions and value
-        shortDescription = (EditText) findViewById(R.id.addDonationShortDescription);
-        longDescription = (EditText) findViewById(R.id.addDonationLongDescription);
-        donationValue = (EditText) findViewById(R.id.addDonationValue);
+        shortDescription = findViewById(R.id.addDonationShortDescription);
+        longDescription = findViewById(R.id.addDonationLongDescription);
+        donationValue = findViewById(R.id.addDonationValue);
 
 
         //donation category spinner
-        donationCategorySpinner = (Spinner) findViewById(R.id.addDonationSpinner);
+        donationCategorySpinner = findViewById(R.id.addDonationSpinner);
         donationCategorySpinner.setOnItemSelectedListener(this);
         ArrayAdapter<DonationCategory> adapterNext = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
         adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -93,7 +93,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 
 
         //add donation button should to to location activity after adding donation to Donations
-        final Button addDonationButton = (Button) findViewById(R.id.addDonationButton);
+        final Button addDonationButton = findViewById(R.id.addDonationButton);
         addDonationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +113,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                     data.put("shortDescription", shortDescription.getText().toString());
                     data.put("longDescription", longDescription.getText().toString());
                     data.put("donationValue", Double.parseDouble(donationValue.getText().toString()));
-                    data.put("donationCategory", ((DonationCategory) donationCategorySpinner.getSelectedItem()).toString());
+                    data.put("donationCategory", donationCategorySpinner.getSelectedItem().toString());
                     db.collection("locations").document(location.getName()).collection("donations").add(data);
 
                     toLocationActivity();

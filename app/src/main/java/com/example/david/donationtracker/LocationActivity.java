@@ -20,7 +20,7 @@ public class LocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        Button backButton = (Button) findViewById(R.id.backButton);
+        Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,7 +28,7 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-        Button searchButton = (Button) findViewById(R.id.toSearchActivityButton);
+        Button searchButton = findViewById(R.id.toSearchActivityButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +36,7 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-        Button mapButton = (Button) findViewById(R.id.mapButton);
+        Button mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

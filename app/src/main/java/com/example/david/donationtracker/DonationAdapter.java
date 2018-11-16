@@ -2,6 +2,7 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,11 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private static ArrayList<Donation> donationData;
+    private static List<Donation> donationData;
     // --Commented out by Inspection (11/16/18 10:45 AM):private static String locationName;
 
 
@@ -80,8 +82,9 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
+    @NonNull
     @Override
-    public DonationAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public DonationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recycler_view_detail_view, viewGroup, false);
 
@@ -90,7 +93,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 
     @Override
     @SuppressWarnings("ConstantConditions")
-    public void onBindViewHolder(DonationAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
         Donation donation = donationData.get(position);
         if (donationData.size() == 0) {

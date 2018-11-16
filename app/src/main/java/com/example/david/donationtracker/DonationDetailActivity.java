@@ -14,7 +14,7 @@ public class DonationDetailActivity extends AppCompatActivity {
 
         Log.e("","inside donationdetailactivity");
 
-        TextView textView = (TextView) findViewById(R.id.donation);
+        TextView textView = findViewById(R.id.donation);
         textView.setText(Donations.getCurrentDonation().toString());
     }
 }

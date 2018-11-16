@@ -60,7 +60,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
         db = FirebaseFirestore.getInstance();
 
-        nameSearchText = (EditText) findViewById(R.id.nameSearchText);
+        nameSearchText = findViewById(R.id.nameSearchText);
         nameSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -72,7 +72,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        valueSearchTextMin = (EditText) findViewById(R.id.valueSearchTextMin);
+        valueSearchTextMin = findViewById(R.id.valueSearchTextMin);
         valueSearchTextMin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -84,7 +84,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        valueSearchTextMax = (EditText) findViewById(R.id.valueSearchTextMax);
+        valueSearchTextMax = findViewById(R.id.valueSearchTextMax);
         valueSearchTextMax.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -96,7 +96,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        searchLocationSpinner = (Spinner) findViewById(R.id.locationSpinner);
+        searchLocationSpinner = findViewById(R.id.locationSpinner);
 
         ArrayList<String> locs = new ArrayList<>();
         locs.add("All");
@@ -111,12 +111,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
         //setting values for spinner for choosing donation category
         Object[] donationCategoryOptions = new Object[DonationCategory.values().length + 1];
-        donationCategoryOptions[0] = (Object) "Please Select Category";
+        donationCategoryOptions[0] = "Please Select Category";
         int k = 1;
         for (DonationCategory i: DonationCategory.values()) {
             donationCategoryOptions[k++] = i;
         }
-        donationCategorySpinner = (Spinner) findViewById(R.id.categorySpinner);
+        donationCategorySpinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<DonationActivity> adapterCat = new ArrayAdapter(this, android.R.layout.simple_spinner_item, donationCategoryOptions);
         adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         donationCategorySpinner.setAdapter(adapterCat);
@@ -185,7 +185,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     @SuppressWarnings("ConstantConditions")
     private void handleClickLocationSearchButton() {
-        ArrayList<Donation> searchResults = new ArrayList<>();
+        ArrayList<Donation> searchResults;
         if (!searchLocationSpinner.getSelectedItem().toString().equals("All")) {
             final ArrayList<Donation> results = new ArrayList<>();
             final Location location = Locations.get((String) (searchLocationSpinner.getSelectedItem()));

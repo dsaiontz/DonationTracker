@@ -23,7 +23,7 @@ public class MainPage extends AppCompatActivity {
         user = currentIntent.getParcelableExtra("currentUser");
 
         //logout button should set current user to null, return to login activity
-        Button logoutButton = (Button) findViewById(R.id.logoutButton);
+        Button logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +33,7 @@ public class MainPage extends AppCompatActivity {
 
 
         //location button should go to location activity=
-        Button locationButton = (Button) findViewById(R.id.locationButton);
+        Button locationButton = findViewById(R.id.locationButton);
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

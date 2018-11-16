@@ -2,6 +2,7 @@ package com.example.david.donationtracker;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 public class Location implements Parcelable {
     private final String name;
@@ -86,6 +87,7 @@ public class Location implements Parcelable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:53 AM)
 
+    @NonNull
     public String toString() {
         return "Name: " + getName() + "\nAddress:"
                 + getAddress() + "\nType:" + getType() +

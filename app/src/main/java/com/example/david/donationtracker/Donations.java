@@ -11,13 +11,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 class Donations {
 
-    private static final HashMap<Location, ArrayList<Donation>> donations = new HashMap<>();
+    private static final Map<Location, ArrayList<Donation>> donations = new HashMap<>();
     private static Donation currentDonation;
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -82,7 +83,7 @@ class Donations {
                 });
     }
 
-    private ArrayList<Donation> getDonations(Location location) {
+    private Iterable<Donation> getDonations(Location location) {
         if (donations.containsKey(location)) {
             return donations.get(location);
         } else {
@@ -105,7 +106,7 @@ class Donations {
 
     public ArrayList<Donation> getAllDonations() {
         ArrayList<Donation> allLocations = new ArrayList<>();
-        for(ArrayList<Donation> list : donations.values()) {
+        for(Collection<Donation> list : donations.values()) {
             allLocations.addAll(list);
         }
         return allLocations;

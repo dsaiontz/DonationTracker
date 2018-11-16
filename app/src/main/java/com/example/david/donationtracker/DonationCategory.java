@@ -1,5 +1,7 @@
 package com.example.david.donationtracker;
 
+import android.support.annotation.NonNull;
+
 public enum DonationCategory {
 
     CLOTHING ("CLOTHING"),
@@ -21,6 +23,7 @@ public enum DonationCategory {
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
+    @NonNull
     public String toString() {
         return donationCategory;
     }

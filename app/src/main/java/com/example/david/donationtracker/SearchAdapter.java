@@ -2,6 +2,7 @@ package com.example.david.donationtracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private static ArrayList<Donation> donationData;
+    private static List<Donation> donationData;
 
 
     public SearchAdapter(ArrayList<Donation> donationData) {
@@ -81,8 +83,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recycler_view_donations, viewGroup, false);
 
@@ -90,7 +93,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         Donation donation = donationData.get(position);
         Log.e("",Double.toString(donation.getValue()));

@@ -4,10 +4,11 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 class Locations {
 
-    private static final HashMap<String, Location> locations = new HashMap<>();
+    private static final Map<String, Location> locations = new HashMap<>();
 
     private static Location currentLocation;
 

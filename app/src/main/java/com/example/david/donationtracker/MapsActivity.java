@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -43,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double latitude;
         double longitude;
 
-        ArrayList<Location> locations = Locations.getAllLocations();
+        List<Location> locations = Locations.getAllLocations();
         for (Location location : locations) {
             latitude = Double.parseDouble(location.getLatitude());
             longitude = Double.parseDouble(location.getLongitude());
