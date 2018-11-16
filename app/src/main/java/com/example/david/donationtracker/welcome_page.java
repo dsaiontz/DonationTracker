@@ -1,6 +1,7 @@
 package com.example.david.donationtracker;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,11 @@ import android.widget.Button;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -70,8 +76,9 @@ public class welcome_page extends AppCompatActivity {
     private void readLocationData() {
         BufferedReader reader;
         try {
+            AssetManager manager = getAssets();
             reader = new BufferedReader(
-                    new InputStreamReader(getAssets().open("LocationData.csv")));
+                    new InputStreamReader(manager.open("LocationData.csv")));
             String space = " ";
             String comma = ", ";
             String line;
@@ -92,16 +99,18 @@ public class welcome_page extends AppCompatActivity {
                 data.put("type", words[8]);
                 data.put("phoneNumber", words[9]);
 
-                db.collection("locations").document(words[1])
-                        .set(data, SetOptions.merge())
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                CollectionReference locColl = db.collection("locations");
+                DocumentReference docuRef = locColl.document(words[1]);
+
+                Task<Void> setLocTask = docuRef.set(data, SetOptions.merge());
+                setLocTask.addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d("locationAdded",
                                         "DocumentSnapshot successfully written: " + words[1]);
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
+                        });
+                        setLocTask.addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Log.w("locationAdded", "Error writing document", e);

@@ -91,7 +91,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext())
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        View v = layoutInflater
                 .inflate(R.layout.recycler_view_donations, viewGroup, false);
 
         return new ViewHolder(v);
@@ -107,7 +108,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         viewHolder.shortDescription.setText(donation.getShortDescription());
 //        viewHolder.name.setTextColor(Color.parseColor("#FFFFFF"));  // Use this
 // to change the color of the text in a recycler view
-        viewHolder.value.setText(Double.toString(donation.getValue()));
+        String v = Double.toString(donation.getValue());
+        viewHolder.value.setText(v);
 //        viewHolder.longitude.setText(location.getLongitude());
 //        viewHolder.latitude.setText(location.getLatitude());
 //        viewHolder.address.setText(location.getAddress());

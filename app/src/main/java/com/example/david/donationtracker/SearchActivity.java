@@ -34,6 +34,21 @@ import java.util.Map;
 public class SearchActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener {
 
+    public static final String SEARCH_RESULTS_FOR = "search results for %s %s";
+    public static final String IS_EMPTY = " is empty";
+    public static final String DONATION_VALUE = "donationValue";
+    public static final String SHORT_DESCRIPTION = "shortDescription";
+    public static final String LONG_DESCRIPTION = "longDescription";
+    public static final String DONATION_CATEGORY = "donationCategory";
+    public static final String SEARCH_RESULTS_FOR1 = "search results for %s %s";
+    public static final String IS_EMPTY1 = " is empty";
+    public static final String SEARCH_RESULTS_FOR_THE_NAME = "search results for the name %s %s";
+    public static final String IS_EMPTY2 = " is empty";
+    public static final String SEARCH_RESULTS_FOR2 = "search results for %s %s";
+    public static final String IS_EMPTY3 = "is empty";
+    public static final String SEARCH_RESULTS_FOR_VALUE_RANGE = "search results for value range %s %s %s %s";
+    public static final String STRING = "-";
+    public static final String EMPTY = " empty";
     private EditText nameSearchText;
     private EditText valueSearchTextMin;
     private EditText valueSearchTextMax;
@@ -210,7 +225,10 @@ public class SearchActivity extends AppCompatActivity
     @SuppressWarnings("ConstantConditions")
     private void handleClickLocationSearchButton() {
         ArrayList<Donation> searchResults;
-        if (!searchLocationSpinner.getSelectedItem().toString().equals("All")) {
+        searchLocationSpinner.getSelectedItem().toString();
+        Object item = searchLocationSpinner.getSelectedItem();
+        String itemString = item.toString();
+        if (!"All".equals(itemString)) {
             final ArrayList<Donation> results = new ArrayList<>();
             final Location location = Locations.get((String)
                     (searchLocationSpinner.getSelectedItem()));
@@ -225,21 +243,20 @@ public class SearchActivity extends AppCompatActivity
                                     Log.d("retrievedDonation", document.getId()
                                             + " => " + document.getData());
                                     Map<String, Object> data = document.getData();
-                                    double dub = (double) data.get("donationValue");
+                                    double dub = (double) data.get(DONATION_VALUE);
                                     Donation donation = new Donation(location,
-                                            (String) (data.get("shortDescription")),
-                                            (String) (data.get("longDescription")), dub,
+                                            (String) (data.get(SHORT_DESCRIPTION)),
+                                            (String) (data.get(LONG_DESCRIPTION)), dub,
                                             (DonationCategory.valueOf((String)
-                                                    data.get("donationCategory"))));
+                                                    data.get(DONATION_CATEGORY))));
                                     results.add(donation);
                                 }
                                 adapter = new DonationAdapter(results);
                                 if (results.isEmpty()) {
                                     Log.e("","searchresults is empty, does nothing rn");
                                     TextView emptyMessage = findViewById(R.id.emptyMessageView);
-                                    emptyMessage.setText("search results for " +
-                                            searchLocationSpinner.getSelectedItem().toString()
-                                            + " is empty");
+                                    String s = String.format(SEARCH_RESULTS_FOR,searchLocationSpinner.getSelectedItem().toString(),IS_EMPTY);
+                                    emptyMessage.setText(s);
                                 } else {
                                     adapter = new SearchAdapter(results);
                                     donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -260,9 +277,8 @@ public class SearchActivity extends AppCompatActivity
             if (searchResults.isEmpty()) {
                 Log.e("","searchresults is empty, does nothing rn");
                 TextView emptyMessage = findViewById(R.id.emptyMessageView);
-                emptyMessage.setText("search results for "
-                        + searchLocationSpinner.getSelectedItem().toString()
-                        + " is empty");
+                String q = String.format(SEARCH_RESULTS_FOR1, searchLocationSpinner.getSelectedItem().toString(),IS_EMPTY1);
+                emptyMessage.setText(q);
             } else {
                 adapter = new SearchAdapter(searchResults);
                 donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -280,7 +296,9 @@ public class SearchActivity extends AppCompatActivity
         if (searchResults.isEmpty()) {
             Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for the name " + searchText + " is empty");
+            String q = searchText;
+            String inter = String.format(SEARCH_RESULTS_FOR_THE_NAME,q,IS_EMPTY2);
+            emptyMessage.setText(inter);
         } else {
             adapter = new SearchAdapter(searchResults);
             donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -291,13 +309,16 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void handleClickCategorySearchButton() {
-        boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
+        Object item = searchLocationSpinner.getSelectedItem();
+        String itemString = item.toString();
+        boolean isAllLocs = "All".equals(itemString);
         DonationCategory category = (DonationCategory) donationCategorySpinner.getSelectedItem();
         ArrayList<Donation> searchResults = donations.filterByCategory(category, isAllLocs);
         if (searchResults.isEmpty()) {
             Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for " + category + "is empty");
+            String in = String.format(SEARCH_RESULTS_FOR2, category, IS_EMPTY3);
+            emptyMessage.setText(in);
         } else {
             adapter = new SearchAdapter(searchResults);
             donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -308,7 +329,9 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void handleClickValueSearchButton() {
-        boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
+        Object item = searchLocationSpinner.getSelectedItem();
+        String itemString = item.toString();
+        boolean isAllLocs = "All".equals(itemString);
         Log.e("","Just called handleclickvaluesearchbutton");
         ArrayList<Donation> searchResults = donations.filterByValue(
                 Double.parseDouble(valueSearchTextMin.getText().toString()),
@@ -317,9 +340,8 @@ public class SearchActivity extends AppCompatActivity
         if (searchResults.isEmpty()) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for value range "
-                    + valueSearchTextMin.getText().toString() + "-"
-                    + valueSearchTextMax.getText().toString() + " empty");
+            String v = String.format(SEARCH_RESULTS_FOR_VALUE_RANGE,valueSearchTextMin.getText().toString(),STRING,valueSearchTextMax.getText().toString(),EMPTY);
+            emptyMessage.setText(v);
         } else {
             Log.e("", "first donation in search results: " + searchResults.get(0));
             adapter = new SearchAdapter(searchResults);
