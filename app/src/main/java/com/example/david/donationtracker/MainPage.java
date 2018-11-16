@@ -9,6 +9,9 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Main page after logging in for the app
+ */
 public class MainPage extends AppCompatActivity {
 
     private FirebaseUser user;

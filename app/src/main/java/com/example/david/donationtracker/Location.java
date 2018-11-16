@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+/**
+ * Location class
+ */
 public class Location implements Parcelable {
     private final String name;
     private String type;
@@ -12,7 +15,17 @@ public class Location implements Parcelable {
     private String address;
     private String phoneNumber;
 
-    public Location(String name, String type, String longitude, String latitude, String address, String phoneNumber) {
+    /**
+     * Constructor for location
+     * @param name of location
+     * @param type of location
+     * @param longitude of location
+     * @param latitude of location
+     * @param address of location
+     * @param phoneNumber of location
+     */
+    public Location(String name, String type, String longitude, String latitude,
+                    String address, String phoneNumber) {
         this.name = name;
         this.type = type;
         this.longitude = longitude;
@@ -21,10 +34,18 @@ public class Location implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * constructor
+     * @param name of location
+     */
     public Location(String name) {
         this.name = name;
     }
 
+    /**
+     * getter for name of location
+     * @return name
+     */
     public String getName() {
         return name;
     }
@@ -35,6 +56,10 @@ public class Location implements Parcelable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:46 AM)
 
+    /**
+     * getter for location type
+     * @return type
+     */
     public String getType() {
         return type;
     }
@@ -45,6 +70,10 @@ public class Location implements Parcelable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 1:15 PM)
 
+    /**
+     * getter for longitude of location
+     * @return location
+     */
     public String getLongitude() {
         return longitude;
     }
@@ -55,18 +84,26 @@ public class Location implements Parcelable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
+    /**
+     * getter for latitude
+     * @return latitude
+     */
     public String getLatitude() {
         return latitude;
     }
 
 // --Commented out by Inspection START (11/16/18 10:30 AM):
 // --Commented out by Inspection START (11/16/18 10:30 AM):
-////    public void setLatitude(String lattitude) {
-////        this.latitude = lattitude;
+////    public void setLatitude(String latitude) {
+////        this.latitude = latitude;
 ////    }
 //// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 // --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
+    /**
+     * getter for address
+     * @return address
+     */
     public String getAddress() {
         return address;
     }
@@ -77,6 +114,10 @@ public class Location implements Parcelable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
+    /**
+     * getter for phone number
+     * @return phone number
+     */
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -91,7 +132,8 @@ public class Location implements Parcelable {
     public String toString() {
         return "Name: " + getName() + "\nAddress:"
                 + getAddress() + "\nType:" + getType() +
-                "\nPhone Number:" + getPhoneNumber() + "\nLatitude: " + getLatitude() + "\nLongitude: " + getLongitude() + "\n\n";
+                "\nPhone Number:" + getPhoneNumber() + "\nLatitude: "
+                + getLatitude() + "\nLongitude: " + getLongitude() + "\n\n";
     }
 
     private Location(Parcel in){
@@ -106,6 +148,7 @@ public class Location implements Parcelable {
         this.phoneNumber = data[5];
     }
 
+    @Override
     public int describeContents(){
         return 0;
     }
@@ -118,10 +161,12 @@ public class Location implements Parcelable {
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator<Location>() {
+        @Override
         public Location createFromParcel(Parcel in) {
             return new Location(in);
         }
 
+        @Override
         public Location[] newArray(int size) {
             return new Location[size];
         }

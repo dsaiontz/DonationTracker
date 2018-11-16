@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+/**
+ * donation detail activity class
+ */
 public class DonationDetailActivity extends AppCompatActivity {
 
     @Override

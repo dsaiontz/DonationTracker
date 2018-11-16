@@ -27,7 +27,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+/**
+ * Activity used for registering users
+ */
+public class RegisterActivity extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener {
 
     // UI References
     private EditText email;
@@ -42,7 +46,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     // --Commented out by Inspection (11/16/18 10:30 AM):private Credentials creds;
 
     // Regex Patterns
-    private final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+                    Pattern.CASE_INSENSITIVE);
 
     private FirebaseAuth mAuth;
 
@@ -77,7 +83,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
         userSpinner = findViewById(R.id.userSpinner);
         userSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<DonationActivity> adapterNext = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
+        ArrayAdapter<DonationActivity> adapterNext = new ArrayAdapter
+                (this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
         adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapterNext);
         userSpinner.setOnItemSelectedListener(this);
@@ -85,7 +92,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
         locationSpinner = findViewById(R.id.locationSpinner);
         locationSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<DonationActivity> adapterNew = new ArrayAdapter(this, android.R.layout.simple_spinner_item, registerLocationOptions);
+        ArrayAdapter<DonationActivity> adapterNew = new ArrayAdapter
+                (this, android.R.layout.simple_spinner_item, registerLocationOptions);
         adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSpinner.setAdapter(adapterNew);
         locationSpinner.setOnItemSelectedListener(this);
@@ -143,7 +151,8 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                                 Log.d("creationSuccess", "createUserWithEmail:success");
 
                                 Map<String, Object> userInfo = new HashMap<>();
-                                userInfo.put("userType", ((UserType) userSpinner.getSelectedItem()).getUserType());
+                                userInfo.put("userType", ((UserType) userSpinner.getSelectedItem())
+                                        .getUserType());
                                 userInfo.put("location", locationSpinner.getSelectedItem());
 
                                 db.collection("users").document(emailText)
@@ -151,13 +160,17 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Log.d("userTypeAdded", "DocumentSnapshot successfully written!");
+                                                Log.d("userTypeAdded",
+                                                        "DocumentSnapshot successfully written!");
                                                 FirebaseAuth.getInstance().signOut();
                                                 CharSequence text = "You have been registered!";
                                                 int duration = Toast.LENGTH_SHORT;
-                                                Toast toast = Toast.makeText(context, text, duration);
+                                                Toast toast = Toast.makeText(context,
+                                                        text, duration);
                                                 toast.show();
-                                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                                startActivity(new Intent(
+                                                        RegisterActivity.this,
+                                                        LoginActivity.class));
                                                 finish();
                                             }
                                         })
@@ -170,10 +183,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
                             } else {
                                 // If sign up fails, display a message to the user.
-                                Log.w("creationSuccess", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(context, "Email is already associated with account",
+                                Log.w("creationSuccess", "createUserWithEmail:failure",
+                                        task.getException());
+                                Toast.makeText(context, "Email is already " +
+                                                "associated with account",
                                         Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegisterActivity.this, RegisterActivity.class));
+                                startActivity(new Intent(RegisterActivity.this,
+                                        RegisterActivity.class));
                                 finish();
                             }
                         }
@@ -188,10 +204,12 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
     //methods for spinner
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
     }
 
+    @Override
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
     }

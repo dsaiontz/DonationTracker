@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Donation class
+ */
 public class Donation implements Serializable {
 
     private final LocalDateTime time;
@@ -31,6 +34,15 @@ public class Donation implements Serializable {
 //    }
 
     //delete after adding comments and pictureURI
+
+    /**
+     * constructor
+     * @param location of donation
+     * @param shortDescription of donation
+     * @param fullDescription of donation
+     * @param value of donation
+     * @param category of donation
+     */
     public Donation(Location location, String shortDescription,
                     String fullDescription, double value, DonationCategory category) {
         this.location = location;
@@ -62,6 +74,10 @@ public class Donation implements Serializable {
 // --Commented out by Inspection STOP (11/16/18 10:49 AM)
 
 
+    /**
+     * getter method for time
+     * @return time
+     */
     public String getTime() {
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return time.toString();
@@ -74,6 +90,10 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 1:25 PM)
 
+    /**
+     * getter method for location
+     * @return location
+     */
     public Location getLocation() {
         return location;
     }
@@ -85,6 +105,10 @@ public class Donation implements Serializable {
 // --Commented out by Inspection START (11/16/18 1:25 PM):
 //// --Commented out by Inspection STOP (11/16/18 1:25 PM)
 
+    /**
+     * Getter method for short description
+     * @return short description
+     */
     public String getShortDescription() {
         return shortDescription;
     }
@@ -95,6 +119,10 @@ public class Donation implements Serializable {
 // --Commented out by Inspection STOP (11/16/18 1:25 PM)
 //    }
 
+    /**
+     * getter method for full description
+     * @return full description
+     */
     public String getFullDescription() {
         return fullDescription;
     }
@@ -105,6 +133,10 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 1:25 PM)
 
+    /**
+     * getter method for value
+     * @return value
+     */
     public double getValue() {
         return value;
     }
@@ -115,6 +147,10 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 1:30 PM)
 
+    /**
+     * getter method for category
+     * @return category
+     */
     public DonationCategory getCategory() {
         return category;
     }
@@ -153,7 +189,7 @@ public class Donation implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ((o == null) || (getClass() != o.getClass())) return false;
         Donation donation = (Donation) o;
         return Double.compare(donation.getValue(), getValue()) == 0 &&
                 Objects.equals(getTime(), donation.getTime()) &&
