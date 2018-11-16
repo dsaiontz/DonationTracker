@@ -57,6 +57,9 @@ public class SearchActivity extends AppCompatActivity
     private RecyclerView donationRecyclerView;
     private RecyclerView.Adapter adapter;
 
+    Object[] donationCategoryOptions;
+    ArrayList<String> locs;
+
     private final Donations donations = new Donations();
     private FirebaseUser user;
 
@@ -79,6 +82,80 @@ public class SearchActivity extends AppCompatActivity
 
         db = FirebaseFirestore.getInstance();
 
+        initializeSearchTexts();
+
+        searchLocationSpinner = findViewById(R.id.locationSpinner);
+
+        locs = new ArrayList<>();
+        locs.add("All");
+        for (int x = 0; x < Locations.getAllLocations().size(); x++) {
+            locs.add(Locations.getAllLocations().get(x).getName());
+        }
+
+        //setting values for spinner for choosing donation category
+        donationCategoryOptions = new Object[DonationCategory.values().length + 1];
+        donationCategoryOptions[0] = "Please Select Category";
+        int k = 1;
+        for (DonationCategory i: DonationCategory.values()) {
+            donationCategoryOptions[k] = i;
+            k++;
+        }
+
+        initializeSpinners();
+
+        initializeButtons();
+
+        //Getting current user
+        Intent currentIntent = getIntent();
+        user = currentIntent.getParcelableExtra("currentUser");
+
+        // set up spinner for search options
+//        Object[] searchTypeOptions = new Object[4];
+//        searchTypeOptions[0] =  "Please Select Search Type";
+//        searchTypeOptions[1] =  "By Keywords";
+//        searchTypeOptions[2] =  "By Donation Value";
+//        searchTypeOptions[3] =  "By Category";
+
+        context = this;
+
+        donations.getAllDonationsFromDatabase();
+    }
+
+    private void initializeButtons() {
+        Button locationSearchButton = findViewById(R.id.locationSearchButton);
+        locationSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickLocationSearchButton();
+            }
+        });
+
+        Button nameSearchButton = findViewById(R.id.nameSearchButton);
+        nameSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickNameSearchButton();
+            }
+        });
+
+        Button categorySearchButton = findViewById(R.id.categorySearchButton);
+        categorySearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickCategorySearchButton();
+            }
+        });
+
+        Button valueSearchButton = findViewById(R.id.valueSearchButton);
+        valueSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickValueSearchButton();
+            }
+        });
+    }
+
+    private void initializeSearchTexts() {
         nameSearchText = findViewById(R.id.nameSearchText);
         nameSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -114,82 +191,21 @@ public class SearchActivity extends AppCompatActivity
                 return false;
             }
         });
+    }
 
-        searchLocationSpinner = findViewById(R.id.locationSpinner);
-
-        ArrayList<String> locs = new ArrayList<>();
-        locs.add("All");
-        for (int x = 0; x < Locations.getAllLocations().size(); x++) {
-            locs.add(Locations.getAllLocations().get(x).getName());
-        }
-
+    private void initializeSpinners() {
         ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter
                 (this, android.R.layout.simple_spinner_item, locs);
         adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchLocationSpinner.setAdapter(adapterLoc);
         searchLocationSpinner.setOnItemSelectedListener(this);
 
-        //setting values for spinner for choosing donation category
-        Object[] donationCategoryOptions = new Object[DonationCategory.values().length + 1];
-        donationCategoryOptions[0] = "Please Select Category";
-        int k = 1;
-        for (DonationCategory i: DonationCategory.values()) {
-            donationCategoryOptions[k] = i;
-            k++;
-        }
         donationCategorySpinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<DonationActivity> adapterCat = new ArrayAdapter(
                 this, android.R.layout.simple_spinner_item, donationCategoryOptions);
         adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         donationCategorySpinner.setAdapter(adapterCat);
         donationCategorySpinner.setOnItemSelectedListener(this);
-
-        Button locationSearchButton = findViewById(R.id.locationSearchButton);
-        locationSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClickLocationSearchButton();
-            }
-        });
-
-        //Getting current user
-        Intent currentIntent = getIntent();
-        user = currentIntent.getParcelableExtra("currentUser");
-
-        Button nameSearchButton = findViewById(R.id.nameSearchButton);
-        nameSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClickNameSearchButton();
-            }
-        });
-
-        Button categorySearchButton = findViewById(R.id.categorySearchButton);
-        categorySearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClickCategorySearchButton();
-            }
-        });
-
-        Button valueSearchButton = findViewById(R.id.valueSearchButton);
-        valueSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClickValueSearchButton();
-            }
-        });
-
-        // set up spinner for search options
-//        Object[] searchTypeOptions = new Object[4];
-//        searchTypeOptions[0] =  "Please Select Search Type";
-//        searchTypeOptions[1] =  "By Keywords";
-//        searchTypeOptions[2] =  "By Donation Value";
-//        searchTypeOptions[3] =  "By Category";
-
-        context = this;
-
-        donations.getAllDonationsFromDatabase();
     }
 
 // --Commented out by Inspection START (11/16/18 10:30 AM):
