@@ -191,10 +191,10 @@ public class Donation implements Serializable {
         if (this == o) { return true; }
         if ((o == null) || (getClass() != o.getClass())) { return false; }
         Donation donation = (Donation) o;
-        return Double.compare(donation.getValue(), getValue()) == 0 &&
+        return (Double.compare(donation.getValue(), getValue()) == 0) &&
                 Objects.equals(getTime(), donation.getTime()) &&
                 Objects.equals(getLocation(), donation.getLocation()) &&
-                getCategory() == donation.getCategory();
+                (getCategory() == donation.getCategory());
     }
 
     @Override

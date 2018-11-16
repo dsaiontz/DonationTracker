@@ -15,7 +15,7 @@ import java.util.List;
 class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private List<Donation> donationData;
+    private final List<Donation> donationData;
     // --Commented out by Inspection (11/16/18 10:45 AM):private static String locationName;
 
 

@@ -193,11 +193,7 @@ class Donations {
     public static boolean isValidValue(String value) {
         try {
             int i = Integer.parseInt(value);
-            if (i >= 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return i >= 0;
 
         }
         catch (Exception e) {

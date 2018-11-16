@@ -46,15 +46,6 @@ public class DetailActivity extends AppCompatActivity {
 
     private FirebaseUser user;
 
-
-    private FirebaseFirestore db;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
-
-    private String userType;
-
-    private FirebaseAuth mAuth;
-
     private DocumentSnapshot userTypeInfo;
 
 

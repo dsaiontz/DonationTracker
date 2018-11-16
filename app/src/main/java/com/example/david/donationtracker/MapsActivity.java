@@ -61,8 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         averageLat /= locations.size();
         averageLong /= locations.size();
         LatLng forCamera = new LatLng(averageLat, averageLong);
-        float zoomLevel = 10f;
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(forCamera, zoomLevel));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(forCamera, 10f));
 
     }
 }

@@ -35,21 +35,21 @@ import java.util.Map;
 public class SearchActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener {
 
-    public static final String SEARCH_RESULTS_FOR = "search results for %s %s";
-    public static final String IS_EMPTY = " is empty";
-    public static final String DONATION_VALUE = "donationValue";
-    public static final String SHORT_DESCRIPTION = "shortDescription";
-    public static final String LONG_DESCRIPTION = "longDescription";
-    public static final String DONATION_CATEGORY = "donationCategory";
-    public static final String SEARCH_RESULTS_FOR1 = "search results for %s %s";
-    public static final String IS_EMPTY1 = " is empty";
-    public static final String SEARCH_RESULTS_FOR_THE_NAME = "search results for the name %s %s";
-    public static final String IS_EMPTY2 = " is empty";
-    public static final String SEARCH_RESULTS_FOR2 = "search results for %s %s";
-    public static final String IS_EMPTY3 = "is empty";
-    public static final String SEARCH_RESULTS_FOR_VALUE_RANGE = "search results for value range %s %s %s %s";
-    public static final String STRING = "-";
-    public static final String EMPTY = " empty";
+    private static final String SEARCH_RESULTS_FOR = "search results for %s %s";
+    private static final String IS_EMPTY = " is empty";
+    private static final String DONATION_VALUE = "donationValue";
+    private static final String SHORT_DESCRIPTION = "shortDescription";
+    private static final String LONG_DESCRIPTION = "longDescription";
+    private static final String DONATION_CATEGORY = "donationCategory";
+    private static final String SEARCH_RESULTS_FOR1 = "search results for %s %s";
+    private static final String IS_EMPTY1 = " is empty";
+    private static final String SEARCH_RESULTS_FOR_THE_NAME = "search results for the name %s %s";
+    private static final String IS_EMPTY2 = " is empty";
+    private static final String SEARCH_RESULTS_FOR2 = "search results for %s %s";
+    private static final String IS_EMPTY3 = "is empty";
+    private static final String SEARCH_RESULTS_FOR_VALUE_RANGE = "search results for value range %s %s %s %s";
+    private static final String STRING = "-";
+    private static final String EMPTY = " empty";
     private EditText nameSearchText;
     private EditText valueSearchTextMin;
     private EditText valueSearchTextMax;
@@ -58,8 +58,8 @@ public class SearchActivity extends AppCompatActivity
     private RecyclerView donationRecyclerView;
     private RecyclerView.Adapter adapter;
 
-    Object[] donationCategoryOptions;
-    ArrayList<String> locs;
+    private Object[] donationCategoryOptions;
+    private ArrayList<String> locs;
 
     private final Donations donations = new Donations();
     private FirebaseUser user;
@@ -303,8 +303,7 @@ public class SearchActivity extends AppCompatActivity
         if (searchResults.isEmpty()) {
             Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            String q = searchText;
-            String inter = String.format(SEARCH_RESULTS_FOR_THE_NAME,q,IS_EMPTY2);
+            String inter = String.format(SEARCH_RESULTS_FOR_THE_NAME, searchText,IS_EMPTY2);
             emptyMessage.setText(inter);
         } else {
             adapter = new SearchAdapter(searchResults);
