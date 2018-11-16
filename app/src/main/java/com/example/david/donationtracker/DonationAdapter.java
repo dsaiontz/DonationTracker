@@ -16,17 +16,17 @@ import java.util.List;
 class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private static List<Donation> donationData;
+    private List<Donation> donationData;
     // --Commented out by Inspection (11/16/18 10:45 AM):private static String locationName;
 
 
-    public DonationAdapter(ArrayList<Donation> donationData) {
-        DonationAdapter.donationData = donationData;
+    public DonationAdapter(List<Donation> donationData) {
+        this.donationData = donationData;
     }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // donation attributes
         private final TextView time;
         private final TextView location;
@@ -85,7 +85,8 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     @NonNull
     @Override
     public DonationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext())
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
+        View v = layoutInflater
                 .inflate(R.layout.recycler_view_detail_view, viewGroup, false);
 
         return new DonationAdapter.ViewHolder(v);
@@ -105,12 +106,15 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             viewHolder.category.setText("");
         } else {
 
+            Location loc = donation.getLocation();
+            DonationCategory category = donation.getCategory();
+
             viewHolder.time.setText(donation.getTime());
-            viewHolder.location.setText(donation.getLocation().toString());
+            viewHolder.location.setText(loc.toString());
             viewHolder.shortDescription.setText(donation.getShortDescription());
             viewHolder.fullDescription.setText(donation.getFullDescription());
             viewHolder.value.setText(Double.toString(donation.getValue()));
-            viewHolder.category.setText(donation.getCategory().toString());
+            viewHolder.category.setText(category.toString());
         }
     }
 

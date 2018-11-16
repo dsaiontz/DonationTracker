@@ -60,7 +60,8 @@ public class welcome_page extends AppCompatActivity {
             String comma = ", ";
             String line;
             reader.readLine();
-            while ((line = reader.readLine())!= null) {
+            while ((reader.readLine())!= null) {
+                line = reader.readLine();
                 final String[] words = line.split(",");
 
                 Map<String, Object> data = new HashMap<>();

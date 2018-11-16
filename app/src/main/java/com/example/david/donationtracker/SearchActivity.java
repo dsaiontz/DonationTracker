@@ -114,7 +114,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         donationCategoryOptions[0] = "Please Select Category";
         int k = 1;
         for (DonationCategory i: DonationCategory.values()) {
-            donationCategoryOptions[k++] = i;
+            donationCategoryOptions[k] = i;
+            k++;
         }
         donationCategorySpinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<DonationActivity> adapterCat = new ArrayAdapter(this, android.R.layout.simple_spinner_item, donationCategoryOptions);
@@ -296,10 +297,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
     //methods for spinner
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
     }
 
+    @Override
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
     }

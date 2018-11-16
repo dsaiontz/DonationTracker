@@ -106,6 +106,7 @@ public class Location implements Parcelable {
         this.phoneNumber = data[5];
     }
 
+    @Override
     public int describeContents(){
         return 0;
     }
@@ -118,10 +119,12 @@ public class Location implements Parcelable {
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator<Location>() {
+        @Override
         public Location createFromParcel(Parcel in) {
             return new Location(in);
         }
 
+        @Override
         public Location[] newArray(int size) {
             return new Location[size];
         }

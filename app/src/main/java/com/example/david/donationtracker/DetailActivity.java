@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -60,8 +61,12 @@ public class DetailActivity extends AppCompatActivity {
 
         final Button donationButton = findViewById(R.id.donationButton);
 
-        DocumentReference docRef = db.collection("users").document(user.getEmail());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        CollectionReference usersCollection = db.collection("users");
+
+        DocumentReference docRef = usersCollection.document(user.getEmail());
+
+        Task<DocumentSnapshot> snapshot = docRef.get();
+        snapshot.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -70,9 +75,10 @@ public class DetailActivity extends AppCompatActivity {
                     donationButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if ((userTypeInfo.get("userType").equals("EMPLOYEE")) ||
-                                    (userTypeInfo.get("userType").equals("ADMIN")) ||
-                                    (userTypeInfo.get("userType").equals("MANAGER"))) {
+                            String userType = (String) userTypeInfo.get("userType");
+                            if ((userType.equals("EMPLOYEE")) ||
+                                    (userType.equals("ADMIN")) ||
+                                    (userType.equals("MANAGER"))) {
                                 Intent intent =
                                         new Intent(DetailActivity.this,
                                                 DonationActivity.class);
@@ -100,9 +106,12 @@ public class DetailActivity extends AppCompatActivity {
         final Context context = this;
 
         //NEED ARRAYLIST OF DONATIONS
-        db.collection("locations").document(location.getName()).collection("donations")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        CollectionReference locationsCollection = db.collection("locations");
+        DocumentReference docuRefer = locationsCollection.document(location.getName());
+        CollectionReference donationsAtLocation = docuRefer.collection("donations");
+                Task<QuerySnapshot> task = donationsAtLocation.get();
+                task.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -152,8 +161,9 @@ public class DetailActivity extends AppCompatActivity {
 
         //Sets text for detailed information of location
 
-        docRef = db.collection("users").document(user.getEmail());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        docRef = usersCollection.document(user.getEmail());
+        Task<DocumentSnapshot> userInfoTask = docRef.get();
+                userInfoTask.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {

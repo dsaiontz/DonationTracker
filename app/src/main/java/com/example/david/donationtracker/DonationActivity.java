@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -72,7 +75,8 @@ public class DonationActivity extends AppCompatActivity implements
         registerSpinnerOptions[0] = "Please Select Category";
         int k = 1;
         for (DonationCategory i: DonationCategory.values()) {
-            registerSpinnerOptions[k++] = i;
+            registerSpinnerOptions[k] = i;
+            k++;
         }
 
         //EditTexts for descriptions and value
@@ -98,17 +102,25 @@ public class DonationActivity extends AppCompatActivity implements
             public void onClick(View v) {
                 try
                 {
+                    Editable shortDesc = shortDescription.getText();
+                    Editable longDesc = longDescription.getText();
+                    Editable doubleEdit = donationValue.getText();
+                    Object categoryItem = donationCategorySpinner.getSelectedItem();
 
                     //ADDING DONATIONS TO FIREBASE
                     Map<String, Object> data = new HashMap<>();
-                    data.put("shortDescription", shortDescription.getText().toString());
-                    data.put("longDescription", longDescription.getText().toString());
-                    data.put("donationValue", Double.parseDouble(donationValue.getText()
+                    data.put("shortDescription", shortDesc.toString());
+                    data.put("longDescription", longDesc.toString());
+                    data.put("donationValue", Double.parseDouble(doubleEdit
                             .toString()));
-                    data.put("donationCategory", donationCategorySpinner.getSelectedItem()
+                    data.put("donationCategory", categoryItem
                             .toString());
-                    db.collection("locations").document(location.getName())
-                            .collection("donations").add(data);
+
+                    CollectionReference locCollection = db.collection("locations");
+                    DocumentReference locationDocument = locCollection.document(location.getName());
+                    CollectionReference donationsCollection =
+                            locationDocument.collection("donations");
+                    donationsCollection.add(data);
 
                     toLocationActivity();
                     finish();
@@ -141,10 +153,12 @@ public class DonationActivity extends AppCompatActivity implements
     }
     
     //methods for spinner
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
     }
 
+    @Override
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
     }

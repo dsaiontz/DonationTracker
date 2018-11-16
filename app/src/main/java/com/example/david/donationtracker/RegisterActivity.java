@@ -61,14 +61,16 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         registerSpinnerOptions[0] = "PLEASE SELECT USER TYPE";
         int k = 1;
         for (UserType i : UserType.values()) {
-            registerSpinnerOptions[k++] = i;
+            registerSpinnerOptions[k] = i;
+            k++;
         }
 
         Object[] registerLocationOptions = new Object[Locations.getAllLocations().size() + 1];
         registerLocationOptions[0] = "PLEASE SELECT LOCATION";
         int m = 1;
         for (Location i : Locations.getAllLocations()) {
-            registerLocationOptions[m++] = i.getName();
+            registerLocationOptions[m] = i.getName();
+            m++;
         }
 
         email = findViewById(R.id.RegisterPageEmail);
@@ -188,10 +190,12 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
     //methods for spinner
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
     }
 
+    @Override
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
     }
