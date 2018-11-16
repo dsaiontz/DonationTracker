@@ -20,21 +20,18 @@ import java.util.List;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private static List<Location> locationData;
+    private List<Location> locationData;
     // --Commented out by Inspection (11/16/18 10:54 AM):private static String username;
 
-    /**
-     * Constructor for LocationAdapter
-     * @param locationData for creating the adapter
-     */
+
     public LocationAdapter(List<Location> locationData) {
-        LocationAdapter.locationData = locationData;
+        this.locationData = locationData;
 
     }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final TextView type;
         private final TextView longitude;
@@ -97,7 +94,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext())
+        LayoutInflater layoutinflater = LayoutInflater.from(viewGroup.getContext());
+        View v = layoutinflater
                 .inflate(R.layout.recycler_view, viewGroup, false);
 
         return new ViewHolder(v);

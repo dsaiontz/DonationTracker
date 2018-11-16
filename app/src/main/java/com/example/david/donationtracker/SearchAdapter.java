@@ -19,20 +19,16 @@ import java.util.List;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private static List<Donation> donationData;
+    private List<Donation> donationData;
 
 
-    /**
-     * constructor for search adapter
-     * @param donationData is the donation data
-     */
     public SearchAdapter(List<Donation> donationData) {
-        SearchAdapter.donationData = donationData;
+        this.donationData = donationData;
     }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView shortDescription;
         private final TextView value;
 

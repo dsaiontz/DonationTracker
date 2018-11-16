@@ -129,7 +129,8 @@ public class SearchActivity extends AppCompatActivity
         donationCategoryOptions[0] = "Please Select Category";
         int k = 1;
         for (DonationCategory i: DonationCategory.values()) {
-            donationCategoryOptions[k++] = i;
+            donationCategoryOptions[k] = i;
+            k++;
         }
         donationCategorySpinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<DonationActivity> adapterCat = new ArrayAdapter(

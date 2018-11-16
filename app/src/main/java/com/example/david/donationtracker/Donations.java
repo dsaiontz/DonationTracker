@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -13,7 +14,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Donations {
@@ -39,15 +42,16 @@ class Donations {
             donationsAtLocation.add(donation);
             donations.put(location, donationsAtLocation);
         } else {
-            donations.get(location).add(donation);
+            List<Donation> list = donations.get(location);
+            list.add(donation);
         }
     }
 
     @SuppressWarnings("ConstantConditions")
     public void getAllDonationsFromDatabase() {
-        db.collection("locations")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        CollectionReference locColl = db.collection("locations");
+        Task<QuerySnapshot> taskSnap = locColl.get();
+                taskSnap.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -63,9 +67,10 @@ class Donations {
                                         (String) locationData.get("latitude"), (String)
                                         locationData.get("address"),
                                         (String) locationData.get("phoneNumber"));
-                                doc.collection("donations").get()
-                                        .addOnCompleteListener(new OnCompleteListener
-                                                <QuerySnapshot>() {
+                                CollectionReference collection2 =
+                                        doc.collection("donations");
+                                Task<QuerySnapshot> task2 = collection2.get();
+                                        task2.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<QuerySnapshot>
                                                                            task) {
@@ -154,11 +159,15 @@ class Donations {
         Pattern pattern;
         for (Donation donation : getAllDonations()) {
             pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
-            if (pattern.matcher(donation.getFullDescription()).matches()) {
+            Matcher matchFull = pattern.matcher(donation.getFullDescription());
+            Matcher matchShort = pattern.matcher(donation.getShortDescription());
+            DonationCategory category = donation.getCategory();
+            Matcher matchCat = pattern.matcher(category.toString());
+            if (matchFull.matches()) {
                 filteredList.add(donation);
-            } else if (pattern.matcher(donation.getShortDescription()).matches()) {
+            } else if (matchShort.matches()) {
                 filteredList.add(donation);
-            } else if (pattern.matcher(donation.getCategory().toString()).matches()) {
+            } else if (matchCat.matches()) {
                 filteredList.add(donation);
             }
         }

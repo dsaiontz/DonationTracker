@@ -18,6 +18,11 @@ public class DonationDetailActivity extends AppCompatActivity {
         Log.e("","inside donationdetailactivity");
 
         TextView textView = findViewById(R.id.donation);
-        textView.setText(Donations.getCurrentDonation().toString());
+
+        Donation don = Donations.getCurrentDonation();
+
+        String string = don.toString();
+
+        textView.setText(string);
     }
 }

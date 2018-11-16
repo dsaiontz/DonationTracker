@@ -1,5 +1,8 @@
 package com.example.david.donationtracker;
 
+import android.content.res.Resources;
+import android.support.v4.app.LoaderManager;
+import android.text.Editable;
 import android.util.Log;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -23,6 +26,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewPropertyAnimator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -118,7 +122,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return;
         }
 
-        getLoaderManager().initLoader(0, null, this);
+        android.app.LoaderManager manager = getLoaderManager();
+
+        manager.initLoader(0, null, this);
     }
 
     private boolean mayRequestContacts() {
@@ -129,8 +135,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
+            Snackbar snak = Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
+
+            snak.setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
@@ -169,8 +176,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+
+        Editable emailEdit = mEmailView.getText();
+        Editable passEdit = mPasswordView.getText();
+        String email = emailEdit.toString();
+        String password = passEdit.toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -202,7 +212,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress();
 
-            mAuth.signInWithEmailAndPassword(email, password)
+            Task<AuthResult> signInTask = mAuth.signInWithEmailAndPassword(email, password);
+
+            signInTask
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -218,9 +230,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 // If sign in fails, display a message to the user.
                                 Log.w("signInSuccess", "signInWithEmail:failure",
                                         task.getException());
-                                Toast.makeText(LoginActivity.this,
+                                Toast toast = Toast.makeText(LoginActivity.this,
                                         "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
+                                        Toast.LENGTH_SHORT);
+
+                                toast.show();
                             }
                         }
                     });
@@ -250,11 +264,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+            Resources resources = getResources();
+            int shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime);
 
             mLoginFormView.setVisibility(View.GONE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    0).setListener(new AnimatorListenerAdapter() {
+
+            ViewPropertyAnimator animate = mLoginFormView.animate();
+            animate = animate.setDuration(shortAnimTime);
+            animate = animate.alpha(0);
+            animate.setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mLoginFormView.setVisibility(View.GONE);
@@ -262,14 +280,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             });
 
             mProgressView.setVisibility(View.VISIBLE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    1).setListener(new AnimatorListenerAdapter() {
+            ViewPropertyAnimator animation = mProgressView.animate();
+            animation = animation.setDuration(shortAnimTime);
+            animation = animation.alpha(1);
+            animation.setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mProgressView.setVisibility(View.VISIBLE);
                 }
             });
         } else {
+
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
             mProgressView.setVisibility(View.VISIBLE);

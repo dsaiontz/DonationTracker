@@ -67,14 +67,16 @@ public class RegisterActivity extends AppCompatActivity
         registerSpinnerOptions[0] = "PLEASE SELECT USER TYPE";
         int k = 1;
         for (UserType i : UserType.values()) {
-            registerSpinnerOptions[k++] = i;
+            registerSpinnerOptions[k] = i;
+            k++;
         }
 
         Object[] registerLocationOptions = new Object[Locations.getAllLocations().size() + 1];
         registerLocationOptions[0] = "PLEASE SELECT LOCATION";
         int m = 1;
         for (Location i : Locations.getAllLocations()) {
-            registerLocationOptions[m++] = i.getName();
+            registerLocationOptions[m] = i.getName();
+            m++;
         }
 
         email = findViewById(R.id.RegisterPageEmail);
