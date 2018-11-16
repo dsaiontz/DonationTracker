@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
+/**
+ * donation activity class
+ */
 public class DonationActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 
@@ -143,10 +146,12 @@ public class DonationActivity extends AppCompatActivity implements
     }
     
     //methods for spinner
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
     }
 
+    @Override
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
     }
