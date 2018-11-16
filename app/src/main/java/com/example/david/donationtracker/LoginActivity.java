@@ -63,7 +63,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
 
     // Regex Patterns
-    private final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
+            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -215,8 +216,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 finish();
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.w("signInSuccess", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Log.w("signInSuccess", "signInWithEmail:failure",
+                                        task.getException());
+                                Toast.makeText(LoginActivity.this,
+                                        "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
                         }

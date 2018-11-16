@@ -12,7 +12,8 @@ public class Location implements Parcelable {
     private String address;
     private String phoneNumber;
 
-    public Location(String name, String type, String longitude, String latitude, String address, String phoneNumber) {
+    public Location(String name, String type, String longitude, String latitude,
+                    String address, String phoneNumber) {
         this.name = name;
         this.type = type;
         this.longitude = longitude;
@@ -91,7 +92,8 @@ public class Location implements Parcelable {
     public String toString() {
         return "Name: " + getName() + "\nAddress:"
                 + getAddress() + "\nType:" + getType() +
-                "\nPhone Number:" + getPhoneNumber() + "\nLatitude: " + getLatitude() + "\nLongitude: " + getLongitude() + "\n\n";
+                "\nPhone Number:" + getPhoneNumber() + "\nLatitude: "
+                + getLatitude() + "\nLongitude: " + getLongitude() + "\n\n";
     }
 
     private Location(Parcel in){

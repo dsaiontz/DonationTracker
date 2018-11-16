@@ -75,7 +75,8 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 //    /**
 //     * Initialize the dataset of the Adapter.
 //     *
-//     * @param sDataSet Donation[] containing donation data to populate views to be used by RecyclerView.
+//     * @param sDataSet Donation[] containing donation data to populate
+//     * views to be used by RecyclerView.
 //     */
 //    public DonationAdapter(ArrayList<Donation> sDataSet) {
 //        donationData = sDataSet;
@@ -84,7 +85,8 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public DonationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public DonationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+                                                         int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recycler_view_detail_view, viewGroup, false);
 

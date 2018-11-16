@@ -49,7 +49,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             latitude = Double.parseDouble(location.getLatitude());
             longitude = Double.parseDouble(location.getLongitude());
             LatLng marker = new LatLng(latitude, longitude);
-            googleMap.addMarker(new MarkerOptions().position(marker).title(location.getName() + ", " + location.getPhoneNumber()));
+            googleMap.addMarker(new MarkerOptions().position(marker).title(location.getName()
+                    + ", " + location.getPhoneNumber()));
             averageLat += latitude;
             averageLong += longitude;
         }
