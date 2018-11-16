@@ -24,6 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("ConstantConditions")
+/**
+ * donation activity class
+ */
 public class DonationActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 

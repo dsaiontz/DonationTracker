@@ -10,9 +10,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * maps activity class that shows the google map
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private float averageLat;
@@ -49,7 +51,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             latitude = Double.parseDouble(location.getLatitude());
             longitude = Double.parseDouble(location.getLongitude());
             LatLng marker = new LatLng(latitude, longitude);
-            googleMap.addMarker(new MarkerOptions().position(marker).title(location.getName() + ", " + location.getPhoneNumber()));
+            googleMap.addMarker(new MarkerOptions().position(marker).title(location.getName()
+                    + ", " + location.getPhoneNumber()));
             averageLat += latitude;
             averageLong += longitude;
         }

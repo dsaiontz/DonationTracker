@@ -75,7 +75,8 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 //    /**
 //     * Initialize the dataset of the Adapter.
 //     *
-//     * @param sDataSet Donation[] containing donation data to populate views to be used by RecyclerView.
+//     * @param sDataSet Donation[] containing donation data to populate
+//     * views to be used by RecyclerView.
 //     */
 //    public DonationAdapter(ArrayList<Donation> sDataSet) {
 //        donationData = sDataSet;
@@ -97,7 +98,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
         Donation donation = donationData.get(position);
-        if (donationData.size() == 0) {
+        if (donationData.isEmpty()) {
             viewHolder.time.setText("no donations");
             viewHolder.location.setText("");
             viewHolder.shortDescription.setText("");

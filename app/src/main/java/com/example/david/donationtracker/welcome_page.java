@@ -21,6 +21,9 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * welcome page activity
+ */
 public class welcome_page extends AppCompatActivity {
 
     private FirebaseFirestore db;
@@ -87,7 +90,8 @@ public class welcome_page extends AppCompatActivity {
                 data.put("streetAddress", words[4]);
                 data.put("city", words[5]);
                 data.put("state", words[6]);
-                data.put("address", data.get("streetAddress") + space + data.get("city") + comma + data.get("state"));
+                data.put("address", data.get("streetAddress") + space + data.get("city") + comma +
+                        data.get("state"));
                 data.put("type", words[8]);
                 data.put("phoneNumber", words[9]);
 
@@ -96,7 +100,8 @@ public class welcome_page extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d("locationAdded", "DocumentSnapshot successfully written: " + words[1]);
+                                Log.d("locationAdded",
+                                        "DocumentSnapshot successfully written: " + words[1]);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -115,7 +120,8 @@ public class welcome_page extends AppCompatActivity {
                 String address = streetAddress + space + city + comma + state;
                 String type = words[8];
                 String phoneNumber = words[9];
-                Location location = new Location(name, type, longitude, latitude, address, phoneNumber);
+                Location location = new Location(name, type, longitude, latitude,
+                        address, phoneNumber);
                 Locations.add(location);
             }
             reader.close();

@@ -62,10 +62,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                     Location clickedItem = locationData.get(pos);
                     //not working properly
 //                    if ((Credentials.getCurrentUser().getLocation() != clickedItem)
-//                            && (Credentials.getCurrentUser().getUserType() == UserType.EMPLOYEE)) {
+//                           && (Credentials.getCurrentUser().getUserType() == UserType.EMPLOYEE)) {
 //                        //employee does not have access to this location
 //                        int duration = Toast.LENGTH_SHORT;
-//                        Toast toast = Toast.makeText(context, "Employee does not have access to this location", duration);
+//                        Toast toast = Toast.makeText(context, "Employee does
+//                          ot have access to this location", duration);
 //                        toast.show();
 //                    } else {
                         Locations.setCurrentLocation(clickedItem);
@@ -80,9 +81,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
 // --Commented out by Inspection START (11/16/18 10:46 AM):
 //    /**
-//     * Initialize the dataset of the Adapter.
+//     * Initialize the data set of the Adapter.
 //     *
-//     * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
+//     * @param sDataSet Location[] containing location data to populate views to be
+//     * used by RecyclerView.
 //     */
 //    public LocationAdapter(ArrayList<Location> sDataSet) {
 //        locationData = sDataSet;
@@ -107,7 +109,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
 
         viewHolder.name.setText(location.getName());
-        viewHolder.name.setTextColor(Color.parseColor("#FFFFFF"));  // Use this to change the color of the text in a recycler view
+        viewHolder.name.setTextColor(Color.parseColor("#FFFFFF"));
+        // Use this to change the color of the text in a recycler view
         viewHolder.type.setText(location.getType());
         viewHolder.longitude.setText(location.getLongitude());
         viewHolder.latitude.setText(location.getLatitude());

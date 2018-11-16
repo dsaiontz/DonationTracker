@@ -40,6 +40,9 @@ import org.threeten.bp.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * detail activity class
+ */
 @SuppressWarnings("ConstantConditions")
 public class DetailActivity extends AppCompatActivity {
 

@@ -56,26 +56,42 @@ class Donations {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("getCollection", document.getId() + " => " + document.getData());
+                                Log.d("getCollection", document.getId() + " => " +
+                                        document.getData());
                                 DocumentReference doc = document.getReference();
                                 Map<String, Object> locationData = document.getData();
-                                final Location location = new Location((String) locationData.get("name"),
-                                        (String) locationData.get("type"), (String) locationData.get("longitude"),
-                                        (String) locationData.get("latitude"), (String) locationData.get("address"),
+                                final Location location = new Location((String)
+                                        locationData.get("name"),
+                                        (String) locationData.get("type"), (String)
+                                        locationData.get("longitude"),
+                                        (String) locationData.get("latitude"), (String)
+                                        locationData.get("address"),
                                         (String) locationData.get("phoneNumber"));
                                 CollectionReference collection2 =
                                         doc.collection("donations");
                                 Task<QuerySnapshot> task2 = collection2.get();
                                         task2.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            public void onComplete(@NonNull Task<QuerySnapshot>
+                                                                           task) {
                                                 if (task.isSuccessful()) {
-                                                    Log.d("getIndividualDonation", "Successfully retrieved donation");
-                                                    for (QueryDocumentSnapshot currentDonation : task.getResult()) {
-                                                        Map<String, Object> donationData = currentDonation.getData();
+                                                    Log.d("getIndividualDonation",
+                                                            "Successfully retrieved donation");
+                                                    for (QueryDocumentSnapshot currentDonation :
+                                                            task.getResult()) {
+                                                        Map<String, Object> donationData =
+                                                                currentDonation.getData();
                                                         Donation curr = new Donation(location,
-                                                                (String) donationData.get("shortDescription"), (String) donationData.get("longDescription"),
-                                                                (double) donationData.get("donationValue"), DonationCategory.valueOf((String) donationData.get("donationCategory")));
+                                                                (String) donationData.get
+                                                                        ("shortDescription"),
+                                                                (String) donationData.
+                                                                        get("longDescription"),
+                                                                (double) donationData.get
+                                                                        ("donationValue"),
+                                                                DonationCategory.valueOf((String)
+                                                                        donationData.get
+                                                                                ("donationCategory")
+                                                                ));
                                                         addDonation(curr);
                                                     }
                                                 }
@@ -83,7 +99,8 @@ class Donations {
                                         });
                             }
                         } else {
-                            Log.d("getCollection", "Error getting documents: ", task.getException());
+                            Log.d("getCollection", "Error getting documents: ",
+                                    task.getException());
                         }
                     }
                 });
@@ -138,7 +155,7 @@ class Donations {
 
     public ArrayList<Donation> filterByName(String searchText) {
         ArrayList<Donation> filteredList = new ArrayList<>();
-//        searchText = removeInvalidCharacters(searchText); test to see if this is correctly removing invalid characters
+//        searchText = removeInvalidCharacters(searchText);
         Pattern pattern;
         for (Donation donation : getAllDonations()) {
             pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
@@ -161,13 +178,13 @@ class Donations {
         ArrayList<Donation> filteredList = new ArrayList<>();
         if (allDonos) {
             for (Donation donation : getAllDonations()) {
-                if (donation.getValue() > min && donation.getValue() < max) {
+                if ((donation.getValue() > min) && (donation.getValue() < max)) {
                     filteredList.add(donation);
                 }
             }
         } else {
             for (Donation donation : getDonations(Locations.get(loc))) {
-                if (donation.getValue() > min && donation.getValue() < max) {
+                if ((donation.getValue() > min) && (donation.getValue() < max)) {
                     filteredList.add(donation);
                 }
             }
@@ -191,8 +208,9 @@ class Donations {
     }
 
 // --Commented out by Inspection START (11/16/18 10:46 AM):
+//    replaces all non valid characters in the string
 //    private String removeInvalidCharacters(String text) {
-//        return text.replaceAll("[^A-Za-z0-9()\\[\\]]", ""); // replaces all non valid characters in the string
+//        return text.replaceAll("[^A-Za-z0-9()\\[\\]]", "");
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:46 AM)
 
