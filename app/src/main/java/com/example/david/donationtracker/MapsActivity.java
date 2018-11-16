@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private float averageLat = 0;
-    private float averageLong = 0;
+    private float averageLat;
+    private float averageLong;
 
     @Override
     @SuppressWarnings("ConstantConditions")

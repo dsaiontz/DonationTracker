@@ -20,10 +20,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("ConstantConditions")
 /**
- * donation activity class
+ * Donation activity class
  */
+@SuppressWarnings("ConstantConditions")
 public class DonationActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 
