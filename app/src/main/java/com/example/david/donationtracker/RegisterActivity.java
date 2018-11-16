@@ -46,8 +46,6 @@ public class RegisterActivity extends AppCompatActivity
     private Spinner userSpinner;
     private Object[] registerSpinnerOptions;
 
-    private Object[] registerLocationOptions;
-
     private Spinner locationSpinner;
 
     // --Commented out by Inspection (11/16/18 10:30 AM):private Credentials creds;

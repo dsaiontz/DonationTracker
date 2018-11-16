@@ -136,9 +136,8 @@ public class welcome_page extends AppCompatActivity {
         String address = streetAddress + space + city + comma + state;
         String type = words[8];
         String phoneNumber = words[9];
-        Location location = new Location(name, type, longitude, latitude,
+        return new Location(name, type, longitude, latitude,
                 address, phoneNumber);
-        return location;
     }
 
 
