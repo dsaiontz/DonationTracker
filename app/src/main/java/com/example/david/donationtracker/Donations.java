@@ -175,6 +175,21 @@ class Donations {
         return filteredList;
     }
 
+    public static boolean isValidValue(String value) {
+        try {
+            int i = Integer.parseInt(value);
+            if (i >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
 // --Commented out by Inspection START (11/16/18 10:46 AM):
 //    private String removeInvalidCharacters(String text) {
 //        return text.replaceAll("[^A-Za-z0-9()\\[\\]]", ""); // replaces all non valid characters in the string

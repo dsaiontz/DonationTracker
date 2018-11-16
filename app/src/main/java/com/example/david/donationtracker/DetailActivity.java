@@ -14,6 +14,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import java.time.Clock;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +34,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.threeten.bp.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -39,7 +51,17 @@ public class DetailActivity extends AppCompatActivity {
 
     private FirebaseUser user;
 
+
+    private FirebaseFirestore db;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef;
+
+    private String userType;
+
+    private FirebaseAuth mAuth;
+
     private DocumentSnapshot userTypeInfo;
+
 
     private ArrayList<Donation> listForAdapter;
 
@@ -159,6 +181,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
 
+
         //Sets text for detailed information of location
 
         docRef = usersCollection.document(user.getEmail());
@@ -180,6 +203,7 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
+
         //Back button returns to locationactivity
         Button backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +215,41 @@ public class DetailActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
-}
+            }
+        }
+
+
+
+
+   //public void readFromFirebase() {
+   //    //if (locationName == "")
+   //    //set int i accordingly
+   //    myRef = database.getReference();
+
+   //    myRef.addValueEventListener(new ValueEventListener() {
+   //        @Override
+   //        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+   //            showData(dataSnapshot);
+   //        }
+
+   //        @Override
+   //        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+   //        }
+   //    });
+   //}
+
+    //public void showData(DataSnapshot dataSnapshot) {
+    //    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+    //        adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
+    //        locationRecyclerView = findViewById(R.id.donationsRecyclerView);
+    //        locationRecyclerView.setHasFixedSize(true);
+    //        locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    //        locationRecyclerView.setAdapter(adapter);
+    //    }
+    //}
+
+
+
+
