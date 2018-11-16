@@ -34,6 +34,16 @@ import java.util.Map;
 public class SearchActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener {
 
+    public static final String SEARCH_RESULTS_FOR = "search results for ";
+    public static final String IS_EMPTY = " is empty";
+    public static final String DONATION_VALUE = "donationValue";
+    public static final String SHORT_DESCRIPTION = "shortDescription";
+    public static final String LONG_DESCRIPTION = "longDescription";
+    public static final String DONATION_CATEGORY = "donationCategory";
+    public static final String SEARCH_RESULTS_FOR1 = "search results for ";
+    public static final String IS_EMPTY1 = " is empty";
+    public static final String SEARCH_RESULTS_FOR_THE_NAME = "search results for the name ";
+    public static final String IS_EMPTY2 = " is empty";
     private EditText nameSearchText;
     private EditText valueSearchTextMin;
     private EditText valueSearchTextMax;
@@ -208,21 +218,21 @@ public class SearchActivity extends AppCompatActivity
                                     Log.d("retrievedDonation", document.getId()
                                             + " => " + document.getData());
                                     Map<String, Object> data = document.getData();
-                                    double dub = (double) data.get("donationValue");
+                                    double dub = (double) data.get(DONATION_VALUE);
                                     Donation donation = new Donation(location,
-                                            (String) (data.get("shortDescription")),
-                                            (String) (data.get("longDescription")), dub,
+                                            (String) (data.get(SHORT_DESCRIPTION)),
+                                            (String) (data.get(LONG_DESCRIPTION)), dub,
                                             (DonationCategory.valueOf((String)
-                                                    data.get("donationCategory"))));
+                                                    data.get(DONATION_CATEGORY))));
                                     results.add(donation);
                                 }
                                 adapter = new DonationAdapter(results);
                                 if (results.isEmpty()) {
                                     Log.e("","searchresults is empty, does nothing rn");
                                     TextView emptyMessage = findViewById(R.id.emptyMessageView);
-                                    emptyMessage.setText("search results for " +
+                                    emptyMessage.setText(SEARCH_RESULTS_FOR +
                                             searchLocationSpinner.getSelectedItem().toString()
-                                            + " is empty");
+                                            + IS_EMPTY);
                                 } else {
                                     adapter = new SearchAdapter(results);
                                     donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -243,9 +253,9 @@ public class SearchActivity extends AppCompatActivity
             if (searchResults.isEmpty()) {
                 Log.e("","searchresults is empty, does nothing rn");
                 TextView emptyMessage = findViewById(R.id.emptyMessageView);
-                emptyMessage.setText("search results for "
+                emptyMessage.setText(SEARCH_RESULTS_FOR1
                         + searchLocationSpinner.getSelectedItem().toString()
-                        + " is empty");
+                        + IS_EMPTY1);
             } else {
                 adapter = new SearchAdapter(searchResults);
                 donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -263,7 +273,8 @@ public class SearchActivity extends AppCompatActivity
         if (searchResults.isEmpty()) {
             Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for the name " + searchText + " is empty");
+            String q = searchText;
+            emptyMessage.setText(SEARCH_RESULTS_FOR_THE_NAME + q + IS_EMPTY2);
         } else {
             adapter = new SearchAdapter(searchResults);
             donationRecyclerView = findViewById(R.id.donationsRecyclerView);

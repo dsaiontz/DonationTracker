@@ -19,5 +19,6 @@
 
     <color name="DarkGrey">#202020</color>
     <string name="title_activity_maps">Map</string>
+    <string name="donation_adapter_no_donations">no donations</string>
 
 </resources>
