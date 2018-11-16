@@ -342,10 +342,16 @@ public class SearchActivity extends AppCompatActivity
         String itemString = item.toString();
         boolean isAllLocs = "All".equals(itemString);
         Log.e("","Just called handleclickvaluesearchbutton");
+        Editable c = valueSearchTextMin.getText();
+        String c2 = c.toString();
+        Editable c3 = valueSearchTextMax.getText();
+        String c4 = c3.toString();
+        Object obj = searchLocationSpinner.getSelectedItem();
+        String c5 = obj.toString();
         ArrayList<Donation> searchResults = donations.filterByValue(
-                Double.parseDouble(valueSearchTextMin.getText().toString()),
-                Double.parseDouble(valueSearchTextMax.getText().toString()),
-                isAllLocs, searchLocationSpinner.getSelectedItem().toString());
+                Double.parseDouble(c2),
+                Double.parseDouble(c4),
+                isAllLocs, c5);
         if (searchResults.isEmpty()) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
