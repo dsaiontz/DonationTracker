@@ -155,6 +155,7 @@ class Donations {
         ArrayList<Donation> filteredList = new ArrayList<>();
 //        searchText = removeInvalidCharacters(searchText);
         Pattern pattern;
+        //ArrayList don = getAllDonations();
         for (Donation donation : getAllDonations()) {
             pattern = Pattern.compile(searchText, Pattern.CASE_INSENSITIVE);
             Matcher matchFull = pattern.matcher(donation.getFullDescription());
