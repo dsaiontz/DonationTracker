@@ -23,6 +23,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     // --Commented out by Inspection (11/16/18 10:54 AM):private static String username;
 
 
+    /**
+     * Constructor for the location adapter
+     * @param locationData for the field
+     */
     public LocationAdapter(List<Location> locationData) {
         this.locationData = locationData;
 
