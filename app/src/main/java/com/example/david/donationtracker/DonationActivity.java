@@ -188,8 +188,14 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         fdb = FirebaseDatabase.getInstance();
         DatabaseReference myRef = fdb.getReference();
         myRef.setValue(donation);
-//        User testUser = new User("t@t.com","abc123", UserType.ADMIN);
-//        myRef.setValue(testUser);
     }
+
+    //METHOD CONTRACT:
+    //Method signature: addDonationToFirebase(Donation : donation) : void
+    //Precondition: The parameter donation does not equal null
+    //Postcondition: A donation object is added to firebase
+    //Invariant: the donation object will always be valid when this method is called in our code
+    //Frame Condition: Firebase realtime database gets written onto (changed), and
+    //the donation object passed in doesn't change
 
 }
