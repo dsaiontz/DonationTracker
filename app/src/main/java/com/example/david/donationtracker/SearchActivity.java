@@ -34,6 +34,21 @@ import java.util.Map;
 public class SearchActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener {
 
+    public static final String SEARCH_RESULTS_FOR = "search results for %s %s";
+    public static final String IS_EMPTY = " is empty";
+    public static final String DONATION_VALUE = "donationValue";
+    public static final String SHORT_DESCRIPTION = "shortDescription";
+    public static final String LONG_DESCRIPTION = "longDescription";
+    public static final String DONATION_CATEGORY = "donationCategory";
+    public static final String SEARCH_RESULTS_FOR1 = "search results for %s %s";
+    public static final String IS_EMPTY1 = " is empty";
+    public static final String SEARCH_RESULTS_FOR_THE_NAME = "search results for the name %s %s";
+    public static final String IS_EMPTY2 = " is empty";
+    public static final String SEARCH_RESULTS_FOR2 = "search results for %s %s";
+    public static final String IS_EMPTY3 = "is empty";
+    public static final String SEARCH_RESULTS_FOR_VALUE_RANGE = "search results for value range %s %s %s %s";
+    public static final String STRING = "-";
+    public static final String EMPTY = " empty";
     private EditText nameSearchText;
     private EditText valueSearchTextMin;
     private EditText valueSearchTextMax;
@@ -41,6 +56,9 @@ public class SearchActivity extends AppCompatActivity
     private Spinner donationCategorySpinner;
     private RecyclerView donationRecyclerView;
     private RecyclerView.Adapter adapter;
+
+    Object[] donationCategoryOptions;
+    ArrayList<String> locs;
 
     private final Donations donations = new Donations();
     private FirebaseUser user;
@@ -64,6 +82,80 @@ public class SearchActivity extends AppCompatActivity
 
         db = FirebaseFirestore.getInstance();
 
+        initializeSearchTexts();
+
+        searchLocationSpinner = findViewById(R.id.locationSpinner);
+
+        locs = new ArrayList<>();
+        locs.add("All");
+        for (int x = 0; x < Locations.getAllLocations().size(); x++) {
+            locs.add(Locations.getAllLocations().get(x).getName());
+        }
+
+        //setting values for spinner for choosing donation category
+        donationCategoryOptions = new Object[DonationCategory.values().length + 1];
+        donationCategoryOptions[0] = "Please Select Category";
+        int k = 1;
+        for (DonationCategory i: DonationCategory.values()) {
+            donationCategoryOptions[k] = i;
+            k++;
+        }
+
+        initializeSpinners();
+
+        initializeButtons();
+
+        //Getting current user
+        Intent currentIntent = getIntent();
+        user = currentIntent.getParcelableExtra("currentUser");
+
+        // set up spinner for search options
+//        Object[] searchTypeOptions = new Object[4];
+//        searchTypeOptions[0] =  "Please Select Search Type";
+//        searchTypeOptions[1] =  "By Keywords";
+//        searchTypeOptions[2] =  "By Donation Value";
+//        searchTypeOptions[3] =  "By Category";
+
+        context = this;
+
+        donations.getAllDonationsFromDatabase();
+    }
+
+    private void initializeButtons() {
+        Button locationSearchButton = findViewById(R.id.locationSearchButton);
+        locationSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickLocationSearchButton();
+            }
+        });
+
+        Button nameSearchButton = findViewById(R.id.nameSearchButton);
+        nameSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickNameSearchButton();
+            }
+        });
+
+        Button categorySearchButton = findViewById(R.id.categorySearchButton);
+        categorySearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickCategorySearchButton();
+            }
+        });
+
+        Button valueSearchButton = findViewById(R.id.valueSearchButton);
+        valueSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleClickValueSearchButton();
+            }
+        });
+    }
+
+    private void initializeSearchTexts() {
         nameSearchText = findViewById(R.id.nameSearchText);
         nameSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -99,82 +191,21 @@ public class SearchActivity extends AppCompatActivity
                 return false;
             }
         });
+    }
 
-        searchLocationSpinner = findViewById(R.id.locationSpinner);
-
-        ArrayList<String> locs = new ArrayList<>();
-        locs.add("All");
-        for (int x = 0; x < Locations.getAllLocations().size(); x++) {
-            locs.add(Locations.getAllLocations().get(x).getName());
-        }
-
+    private void initializeSpinners() {
         ArrayAdapter<DonationActivity> adapterLoc = new ArrayAdapter
                 (this, android.R.layout.simple_spinner_item, locs);
         adapterLoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchLocationSpinner.setAdapter(adapterLoc);
         searchLocationSpinner.setOnItemSelectedListener(this);
 
-        //setting values for spinner for choosing donation category
-        Object[] donationCategoryOptions = new Object[DonationCategory.values().length + 1];
-        donationCategoryOptions[0] = "Please Select Category";
-        int k = 1;
-        for (DonationCategory i: DonationCategory.values()) {
-            donationCategoryOptions[k] = i;
-            k++;
-        }
         donationCategorySpinner = findViewById(R.id.categorySpinner);
         ArrayAdapter<DonationActivity> adapterCat = new ArrayAdapter(
                 this, android.R.layout.simple_spinner_item, donationCategoryOptions);
         adapterCat.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         donationCategorySpinner.setAdapter(adapterCat);
         donationCategorySpinner.setOnItemSelectedListener(this);
-
-        Button locationSearchButton = findViewById(R.id.locationSearchButton);
-        locationSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClickLocationSearchButton();
-            }
-        });
-
-        //Getting current user
-        Intent currentIntent = getIntent();
-        user = currentIntent.getParcelableExtra("currentUser");
-
-        Button nameSearchButton = findViewById(R.id.nameSearchButton);
-        nameSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClickNameSearchButton();
-            }
-        });
-
-        Button categorySearchButton = findViewById(R.id.categorySearchButton);
-        categorySearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClickCategorySearchButton();
-            }
-        });
-
-        Button valueSearchButton = findViewById(R.id.valueSearchButton);
-        valueSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleClickValueSearchButton();
-            }
-        });
-
-        // set up spinner for search options
-//        Object[] searchTypeOptions = new Object[4];
-//        searchTypeOptions[0] =  "Please Select Search Type";
-//        searchTypeOptions[1] =  "By Keywords";
-//        searchTypeOptions[2] =  "By Donation Value";
-//        searchTypeOptions[3] =  "By Category";
-
-        context = this;
-
-        donations.getAllDonationsFromDatabase();
     }
 
 // --Commented out by Inspection START (11/16/18 10:30 AM):
@@ -212,21 +243,20 @@ public class SearchActivity extends AppCompatActivity
                                     Log.d("retrievedDonation", document.getId()
                                             + " => " + document.getData());
                                     Map<String, Object> data = document.getData();
-                                    double dub = (double) data.get("donationValue");
+                                    double dub = (double) data.get(DONATION_VALUE);
                                     Donation donation = new Donation(location,
-                                            (String) (data.get("shortDescription")),
-                                            (String) (data.get("longDescription")), dub,
+                                            (String) (data.get(SHORT_DESCRIPTION)),
+                                            (String) (data.get(LONG_DESCRIPTION)), dub,
                                             (DonationCategory.valueOf((String)
-                                                    data.get("donationCategory"))));
+                                                    data.get(DONATION_CATEGORY))));
                                     results.add(donation);
                                 }
                                 adapter = new DonationAdapter(results);
                                 if (results.isEmpty()) {
                                     Log.e("","searchresults is empty, does nothing rn");
                                     TextView emptyMessage = findViewById(R.id.emptyMessageView);
-                                    emptyMessage.setText("search results for " +
-                                            searchLocationSpinner.getSelectedItem().toString()
-                                            + " is empty");
+                                    String s = String.format(SEARCH_RESULTS_FOR,searchLocationSpinner.getSelectedItem().toString(),IS_EMPTY);
+                                    emptyMessage.setText(s);
                                 } else {
                                     adapter = new SearchAdapter(results);
                                     donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -247,9 +277,8 @@ public class SearchActivity extends AppCompatActivity
             if (searchResults.isEmpty()) {
                 Log.e("","searchresults is empty, does nothing rn");
                 TextView emptyMessage = findViewById(R.id.emptyMessageView);
-                emptyMessage.setText("search results for "
-                        + searchLocationSpinner.getSelectedItem().toString()
-                        + " is empty");
+                String q = String.format(SEARCH_RESULTS_FOR1, searchLocationSpinner.getSelectedItem().toString(),IS_EMPTY1);
+                emptyMessage.setText(q);
             } else {
                 adapter = new SearchAdapter(searchResults);
                 donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -267,7 +296,9 @@ public class SearchActivity extends AppCompatActivity
         if (searchResults.isEmpty()) {
             Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for the name " + searchText + " is empty");
+            String q = searchText;
+            String inter = String.format(SEARCH_RESULTS_FOR_THE_NAME,q,IS_EMPTY2);
+            emptyMessage.setText(inter);
         } else {
             adapter = new SearchAdapter(searchResults);
             donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -284,7 +315,8 @@ public class SearchActivity extends AppCompatActivity
         if (searchResults.isEmpty()) {
             Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for " + category + "is empty");
+            String in = String.format(SEARCH_RESULTS_FOR2, category, IS_EMPTY3);
+            emptyMessage.setText(in);
         } else {
             adapter = new SearchAdapter(searchResults);
             donationRecyclerView = findViewById(R.id.donationsRecyclerView);
@@ -304,9 +336,8 @@ public class SearchActivity extends AppCompatActivity
         if (searchResults.isEmpty()) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
-            emptyMessage.setText("search results for value range "
-                    + valueSearchTextMin.getText().toString() + "-"
-                    + valueSearchTextMax.getText().toString() + " empty");
+            String v = String.format(SEARCH_RESULTS_FOR_VALUE_RANGE,valueSearchTextMin.getText().toString(),STRING,valueSearchTextMax.getText().toString(),EMPTY);
+            emptyMessage.setText(v);
         } else {
             Log.e("", "first donation in search results: " + searchResults.get(0));
             adapter = new SearchAdapter(searchResults);

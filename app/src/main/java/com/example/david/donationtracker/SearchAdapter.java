@@ -20,7 +20,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     private List<Donation> donationData;
 
-
+    /**
+     * Constructor for the search adapter class
+     * @param donationData is the value for the field
+     */
     public SearchAdapter(List<Donation> donationData) {
         this.donationData = donationData;
     }

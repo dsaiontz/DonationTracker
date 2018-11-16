@@ -18,7 +18,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
-import com.google.firebase.firestore.auth.User;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -117,24 +116,29 @@ public class welcome_page extends AppCompatActivity {
                                 Log.w("locationAdded", "Error writing document", e);
                             }
                         });
-
-                String name = words[1];
-                String latitude = words[2];
-                String longitude = words[3];
-                String streetAddress = words[4];
-                String city = words[5];
-                String state = words[6];
-                String address = streetAddress + space + city + comma + state;
-                String type = words[8];
-                String phoneNumber = words[9];
-                Location location = new Location(name, type, longitude, latitude,
-                        address, phoneNumber);
-                Locations.add(location);
+                Locations.add(createLocation(words));
             }
             reader.close();
         } catch (Exception e) {
             Log.w("Location Data", "Reading Location Data crashed" + "\n" + e.getMessage());
         }
+    }
+
+    private Location createLocation(String[] words) {
+        String space = " ";
+        String comma = ", ";
+        String name = words[1];
+        String latitude = words[2];
+        String longitude = words[3];
+        String streetAddress = words[4];
+        String city = words[5];
+        String state = words[6];
+        String address = streetAddress + space + city + comma + state;
+        String type = words[8];
+        String phoneNumber = words[9];
+        Location location = new Location(name, type, longitude, latitude,
+                address, phoneNumber);
+        return location;
     }
 
 
