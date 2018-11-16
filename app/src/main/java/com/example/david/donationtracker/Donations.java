@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,7 +54,7 @@ class Donations {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 Log.d("getCollection", document.getId() + " => " +
                                         document.getData());
                                 DocumentReference doc = document.getReference();
@@ -76,7 +77,7 @@ class Donations {
                                                     Log.d("getIndividualDonation",
                                                             "Successfully retrieved donation");
                                                     for (QueryDocumentSnapshot currentDonation :
-                                                            task.getResult()) {
+                                                            Objects.requireNonNull(task.getResult())) {
                                                         Map<String, Object> donationData =
                                                                 currentDonation.getData();
                                                         Donation curr = new Donation(location,

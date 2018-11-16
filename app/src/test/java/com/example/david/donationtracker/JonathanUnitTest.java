@@ -1,7 +1,5 @@
 package com.example.david.donationtracker;
 
-import android.content.Intent;
-
 import org.junit.Test;
 
 public class JonathanUnitTest {

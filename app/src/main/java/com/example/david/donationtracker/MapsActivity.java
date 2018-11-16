@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * maps activity class that shows the google map
@@ -30,7 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FragmentManager manager = getSupportFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) manager
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        Objects.requireNonNull(mapFragment).getMapAsync(this);
     }
 
 
