@@ -22,9 +22,14 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -238,12 +243,13 @@ public class SearchActivity extends AppCompatActivity
             final ArrayList<Donation> results = new ArrayList<>();
             final Location location = Locations.get((String)
                     (searchLocationSpinner.getSelectedItem()));
-            db.collection("locations").document((String)
-                    (searchLocationSpinner.getSelectedItem())).collection("donations")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            CollectionReference locColl = db.collection("locations");
+            String obj = (String) searchLocationSpinner.getSelectedItem();
+            DocumentReference docuRefer = locColl.document(obj);
+            Task<DocumentSnapshot> task1 = docuRefer.get();
+                    task1.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     Log.d("retrievedDonation", document.getId()
