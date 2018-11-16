@@ -15,9 +15,11 @@ public enum DonationCategory {
         this.donationCategory = donationCategory;
     }
 
-    public String getDonationCategory() {
-        return donationCategory;
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    public String getDonationCategory() {
+//        return donationCategory;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     public String toString() {
         return donationCategory;

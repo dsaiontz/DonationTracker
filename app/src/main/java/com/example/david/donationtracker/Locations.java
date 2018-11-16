@@ -5,9 +5,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Locations {
+class Locations {
 
-    private static HashMap<String, Location> locations = new HashMap<>();
+    private static final HashMap<String, Location> locations = new HashMap<>();
 
     private static Location currentLocation;
 
@@ -27,19 +27,21 @@ public class Locations {
         return locations.get(locationName);
     }
 
-    public static void set(String locationName, Location location) {
-        if (locations.containsKey(location.getName())) {
-            locations.remove(location);
-        }
-        locations.put(locationName, location);
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    public static void set(String locationName, Location location) {
+//        if (locations.containsKey(location.getName())) {
+//            locations.remove(location);
+//        }
+//        locations.put(locationName, location);
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     public static boolean containsLocation(String locationName) {
         return locations.containsKey(locationName);
     }
 
     public static ArrayList<Location> getAllLocations() {
-        return new ArrayList<Location>(locations.values());
+        return new ArrayList<>(locations.values());
     }
 
 }

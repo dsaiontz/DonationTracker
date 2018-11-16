@@ -18,12 +18,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private static final String TAG = "CustomAdapter";
 
     private static ArrayList<Donation> donationData;
-    private Context context;
 
 
-    public SearchAdapter (ArrayList<Donation> donationData, Context context) {
-        this.donationData = donationData;
-        this.context = context;
+    public SearchAdapter(ArrayList<Donation> donationData) {
+        SearchAdapter.donationData = donationData;
     }
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -32,7 +30,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         private final TextView shortDescription;
         private final TextView value;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -40,8 +38,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                 }
             });
-            shortDescription = (TextView) view.findViewById(R.id.donationShortDescription);
-            value = (TextView) view.findViewById(R.id.donationValue);
+            shortDescription = view.findViewById(R.id.donationShortDescription);
+            value = view.findViewById(R.id.donationValue);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -72,14 +70,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
-     */
-    public SearchAdapter(ArrayList<Donation> sDataSet) {
-        donationData = sDataSet;
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    /**
+//     * Initialize the dataset of the Adapter.
+//     *
+//     * @param sDataSet Location[] containing location data to populate views to be used by RecyclerView.
+//     */
+//    public SearchAdapter(ArrayList<Donation> sDataSet) {
+//        donationData = sDataSet;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {

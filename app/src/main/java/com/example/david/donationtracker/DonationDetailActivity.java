@@ -1,6 +1,5 @@
 package com.example.david.donationtracker;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +13,6 @@ public class DonationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_donation_detail_layout);
 
         Log.e("","inside donationdetailactivity");
-
-        Intent intent = getIntent();
 
         TextView textView = (TextView) findViewById(R.id.donation);
         textView.setText(Donations.getCurrentDonation().toString());

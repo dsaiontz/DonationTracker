@@ -25,25 +25,17 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private String username;
-    private String locationName;
+    // --Commented out by Inspection (11/16/18 10:44 AM):private String locationName;
     private RecyclerView.Adapter adapter;
     private RecyclerView locationRecyclerView;
 
-    private Donations donos = new Donations();
+    // --Commented out by Inspection (11/16/18 10:29 AM):private Donations donos = new Donations();
 
     private FirebaseUser user;
-
-    private FirebaseFirestore db;
-
-    private String userType;
-
-    private FirebaseAuth mAuth;
 
     private DocumentSnapshot userTypeInfo;
 
@@ -56,27 +48,26 @@ public class DetailActivity extends AppCompatActivity {
 
         listForAdapter = new ArrayList<>();
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 //        AndroidThreeTen.init(this);
 
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         final Location location = Locations.getCurrentLocation();
 
-        Intent currentIntent = getIntent();
         user = mAuth.getCurrentUser();
-        username = user.getEmail();
+        String username = user.getEmail();
 
         final Button donationButton = findViewById(R.id.donationButton);
 
         DocumentReference docRef = db.collection("users").document(user.getEmail());
-        Task<DocumentSnapshot> userTypeInfoTask = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     userTypeInfo = task.getResult();
-                    userType = (String) (document.get("userType"));
+                    String userType = (String) (document.get("userType"));
                     donationButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -122,7 +113,7 @@ public class DetailActivity extends AppCompatActivity {
                                         (DonationCategory.valueOf((String) data.get("donationCategory"))));
                                 listForAdapter.add(donation);
                             }
-                            adapter = new DonationAdapter(listForAdapter, null, username);
+                            adapter = new DonationAdapter(listForAdapter);
                             locationRecyclerView = findViewById(R.id.donationsRecyclerView);
                             locationRecyclerView.setHasFixedSize(true);
                             locationRecyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -165,7 +156,6 @@ public class DetailActivity extends AppCompatActivity {
         //Sets text for detailed information of location
 
         docRef = db.collection("users").document(user.getEmail());
-        DocumentSnapshot document;
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

@@ -15,12 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class Donations {
+class Donations {
 
-    private static HashMap<Location, ArrayList<Donation>> donations = new HashMap<>();
+    private static final HashMap<Location, ArrayList<Donation>> donations = new HashMap<>();
     private static Donation currentDonation;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public static Donation getCurrentDonation() {
         return currentDonation;
@@ -30,7 +30,7 @@ public class Donations {
         currentDonation = donation;
     }
 
-    public static void addDonation(Donation donation) {
+    private static void addDonation(Donation donation) {
         Location location = donation.getLocation();
         if (!donations.containsKey(location)) {
             ArrayList<Donation> donationsAtLocation = new ArrayList<>();
@@ -80,24 +80,26 @@ public class Donations {
                 });
     }
 
-    public ArrayList<Donation> getDonations(Location location) {
+    private ArrayList<Donation> getDonations(Location location) {
         if (donations.containsKey(location)) {
             return donations.get(location);
         } else {
-            return new ArrayList<Donation>();
+            return new ArrayList<>();
         }
     }
 
-    public static Location linkedLocation(Donation donation) {
-        if (donations.containsValue(donation)) {
-            for (Location l : donations.keySet()) {
-                if (donations.get(l).equals(donation)) {
-                    return l;
-                }
-            }
-        }
-        return null;
-    }
+// --Commented out by Inspection START (11/16/18 10:30 AM):
+//    public static Location linkedLocation(Donation donation) {
+//        if (donations.containsValue(donation)) {
+//            for (Location l : donations.keySet()) {
+//                if (donations.get(l).equals(donation)) {
+//                    return l;
+//                }
+//            }
+//        }
+//        return null;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:30 AM)
 
     public ArrayList<Donation> getAllDonations() {
         ArrayList<Donation> allLocations = new ArrayList<>();
@@ -114,9 +116,7 @@ public class Donations {
         }
         ArrayList<Donation> filteredList = new ArrayList<>();
         if (allDonos) {
-            for (Donation donation : getAllDonations()) {
-                filteredList.add(donation);
-            }
+            filteredList.addAll(getAllDonations());
         } else {
             for (Donation donation : getAllDonations()) {
                 if (donation.getCategory() == category) {
@@ -127,7 +127,7 @@ public class Donations {
         return filteredList;
     }
 
-    public ArrayList<Donation> filterByName(String searchText, String loc) {
+    public ArrayList<Donation> filterByName(String searchText) {
         ArrayList<Donation> filteredList = new ArrayList<>();
 //        searchText = removeInvalidCharacters(searchText); test to see if this is correctly removing invalid characters
         Pattern pattern;
@@ -162,8 +162,10 @@ public class Donations {
         return filteredList;
     }
 
-    private String removeInvalidCharacters(String text) {
-        return text.replaceAll("[^A-Za-z0-9()\\[\\]]", ""); // replaces all non valid characters in the string
-    }
+// --Commented out by Inspection START (11/16/18 10:46 AM):
+//    private String removeInvalidCharacters(String text) {
+//        return text.replaceAll("[^A-Za-z0-9()\\[\\]]", ""); // replaces all non valid characters in the string
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:46 AM)
 
 }

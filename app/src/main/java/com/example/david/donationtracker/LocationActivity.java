@@ -14,11 +14,7 @@ import java.util.ArrayList;
 
 public class LocationActivity extends AppCompatActivity {
 
-    private ArrayList<Location> locations;
-    private RecyclerView locationRecyclerView;
-    private RecyclerView.Adapter adapter;
-
-    FirebaseUser user;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +44,21 @@ public class LocationActivity extends AppCompatActivity {
             }
         });
 
-        locations = Locations.getAllLocations();
+        ArrayList<Location> locations = Locations.getAllLocations();
 
         //Get current user
         Intent currentIntent = getIntent();
         user = currentIntent.getParcelableExtra("currentUser");
 
         // configures the recycler view
-        adapter = new LocationAdapter(locations, null, user.getEmail());
-        locationRecyclerView = findViewById(R.id.locationRecyclerView);
+        RecyclerView.Adapter adapter = new LocationAdapter(locations, user.getEmail());
+        RecyclerView locationRecyclerView = findViewById(R.id.locationRecyclerView);
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         locationRecyclerView.setAdapter(adapter);
     }
 
-    public void toSearchPage() {
+    private void toSearchPage() {
         Intent toSearch = new Intent(LocationActivity.this, SearchActivity.class);
         toSearch.putExtra("currentUser", user);
         startActivity(toSearch);
@@ -70,14 +66,14 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     //back button returns to the main page
-    public void backToMainPage() {
+    private void backToMainPage() {
         Intent backToMain = new Intent(LocationActivity.this, MainPage.class);
         backToMain.putExtra("currentUser", user);
         startActivity(backToMain);
         finish();
     }
 
-    public void toMapPage() {
+    private void toMapPage() {
         Intent toMap = new Intent(LocationActivity.this, MapsActivity.class);
         toMap.putExtra("currentUser", user);
         startActivity(toMap);

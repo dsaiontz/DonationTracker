@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private float zoomLevel = 10f;
     private float averageLat = 0;
     private float averageLong = 0;
 
@@ -41,7 +39,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
         double latitude;
         double longitude;
 
@@ -50,14 +47,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             latitude = Double.parseDouble(location.getLatitude());
             longitude = Double.parseDouble(location.getLongitude());
             LatLng marker = new LatLng(latitude, longitude);
-            mMap.addMarker(new MarkerOptions().position(marker).title(location.getName() + ", " + location.getPhoneNumber()));
+            googleMap.addMarker(new MarkerOptions().position(marker).title(location.getName() + ", " + location.getPhoneNumber()));
             averageLat += latitude;
             averageLong += longitude;
         }
         averageLat /= locations.size();
         averageLong /= locations.size();
         LatLng forCamera = new LatLng(averageLat, averageLong);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(forCamera, zoomLevel));
+        float zoomLevel = 10f;
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(forCamera, zoomLevel));
 
     }
 }

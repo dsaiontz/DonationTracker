@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -23,17 +22,13 @@ import java.util.Map;
 
 public class DonationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    public static final String ADD_DATA = "addData";
-    public static final String ADD_REAL_TIME_ATTEMPT = "addRealTimeAttempt";
-    private Spinner donationLocation;
+    // --Commented out by Inspection (11/16/18 10:29 AM):public static final String ADD_DATA = "addData";
+    // --Commented out by Inspection (11/16/18 10:45 AM):public static final String ADD_REAL_TIME_ATTEMPT = "addRealTimeAttempt";
+    // --Commented out by Inspection (11/16/18 10:54 AM):private Spinner donationLocation;
     private EditText shortDescription;
     private EditText longDescription;
     private EditText donationValue;
     private Spinner donationCategorySpinner;
-    private Object[] registerSpinnerOptions;
-    private Object[] registerLocationOptions;
-    private Donations donations;
-    private FirebaseDatabase fdb;
 
     // username must be passed with every intent
     // location name should be passed with most intents
@@ -44,20 +39,19 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
 
     //Firebase add ons
     //private DocumentReference mDocRef = FirebaseFirestore.getInstance();
-    FirebaseFirestore db;
-
-    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_donation);
-        donations = new Donations();
+//        Donations donations = new Donations();
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        Intent currentIntent = getIntent();
+//        Intent currentIntent = getIntent();
 
         user = mAuth.getCurrentUser();
         username = user.getEmail();
@@ -65,7 +59,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         final Location location = Locations.getCurrentLocation();
 
         //setting values for spinner for choosing location
-        registerLocationOptions = new Object[Locations.getAllLocations().size()+1];
+        Object[] registerLocationOptions = new Object[Locations.getAllLocations().size() + 1];
         registerLocationOptions[0] = (Object) "Please Select Location";
         int m = 1;
         for (Location i: Locations.getAllLocations()) {
@@ -73,7 +67,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         }
 
         //setting values for spinner for choosing donation category
-        registerSpinnerOptions = new Object[DonationCategory.values().length+1];
+        Object[] registerSpinnerOptions = new Object[DonationCategory.values().length + 1];
         registerSpinnerOptions[0] = (Object) "Please Select Category";
         int k = 1;
         for (DonationCategory i: DonationCategory.values()) {
@@ -103,12 +97,12 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
                 try
                 {
                     //need to add more test cases to send to catch block
-                    Donation donation = new Donation(location, shortDescription.getText().toString(),
-                            longDescription.getText().toString(),
-                            Double.parseDouble(donationValue.getText().toString()),
-                            (DonationCategory) donationCategorySpinner.getSelectedItem());
-                    double value = Double.parseDouble(donationValue.getText().toString());
-                    donations.addDonation(donation);
+//                    Donation donation = new Donation(location, shortDescription.getText().toString(),
+//                            longDescription.getText().toString(),
+//                            Double.parseDouble(donationValue.getText().toString()),
+//                            (DonationCategory) donationCategorySpinner.getSelectedItem());
+//                    double value = Double.parseDouble(donationValue.getText().toString());
+//                    donations.addDonation(donation);
 //                    addDonationToFirebase(donation);
 
                     //ADDING DONATIONS TO FIREBASE
@@ -157,14 +151,14 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         // Do nothing.
     }
 
-    public void toLocationActivity() {
+    private void toLocationActivity() {
         Intent intent = new Intent(DonationActivity.this, LocationActivity.class);
         intent.putExtra("currentUser", user);
         startActivity(intent);
         finish();
     }
 
-    public void backToDetailActivity() {
+    private void backToDetailActivity() {
         Intent backToDetailActivity = new Intent(DonationActivity.this, DetailActivity.class);
         backToDetailActivity.putExtra("username", username);
         backToDetailActivity.putExtra("location", locationName);

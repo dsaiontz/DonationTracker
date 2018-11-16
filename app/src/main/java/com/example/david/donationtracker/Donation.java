@@ -12,9 +12,8 @@ public class Donation implements Serializable {
     private String fullDescription;
     private double value;
     private DonationCategory category;
-    private String comments;
+    // --Commented out by Inspection (11/16/18 10:29 AM):private String comments;
     private String pictureURI;
-    private String donationId;
 
 //    public Donation(Time time, Location location, String shortDescription,
 //                    String fullDescription, double value, DonationCategory category,
@@ -41,23 +40,27 @@ public class Donation implements Serializable {
         this.time = LocalDateTime.now();
     }
 
-    public Donation(String donationId, Location location, String shortDescription,
-                    String fullDescription, double value, DonationCategory category) {
-        this.donationId = donationId;
-        this.location = location;
-        this.shortDescription = shortDescription;
-        this.fullDescription = fullDescription;
-        this.value = value;
-        this.category = category;
-        this.time = LocalDateTime.now();
-    }
+// --Commented out by Inspection START (11/16/18 10:45 AM):
+//    public Donation(String donationId, Location location, String shortDescription,
+//                    String fullDescription, double value, DonationCategory category) {
+//        this.donationId = donationId;
+//        this.location = location;
+//        this.shortDescription = shortDescription;
+//        this.fullDescription = fullDescription;
+//        this.value = value;
+//        this.category = category;
+//        this.time = LocalDateTime.now();
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:45 AM)
 
-    public String getDonationId() {
-        return donationId;
-    }
+// --Commented out by Inspection START (11/16/18 10:49 AM):
+//    public String getDonationId() {
+//        return donationId;
+//    }
+// --Commented out by Inspection STOP (11/16/18 10:49 AM)
 
     public void setDonationId(String donationId) {
-        this.donationId = donationId;
+        String donationId1 = donationId;
     }
 
 
