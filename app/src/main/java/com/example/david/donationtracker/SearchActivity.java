@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -297,7 +298,8 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void handleClickNameSearchButton() {
-        String searchText = nameSearchText.getText().toString();
+        Editable c = nameSearchText.getText();
+        String searchText = c.toString();
         ArrayList<Donation> searchResults = donations.filterByName(searchText);
 
         if (searchResults.isEmpty()) {
