@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.AdapterView;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -59,8 +60,9 @@ public class RegisterActivity extends AppCompatActivity
 
     private FirebaseFirestore db;
 
+    private Object[] registerLocationOptions;
+
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
 
@@ -78,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity
 
         List<Location> locList = Locations.getAllLocations();
 
-        Object[] registerLocationOptions = new Object[locList.size() + 1];
+        registerLocationOptions = new Object[locList.size() + 1];
         registerLocationOptions[0] = "PLEASE SELECT LOCATION";
         int m = 1;
         for (Location i : Locations.getAllLocations()) {
@@ -122,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity
 
         locationSpinner = findViewById(R.id.locationSpinner);
         locationSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<DonationActivity> adapterNew = new ArrayAdapter
+        SpinnerAdapter adapterNew = new ArrayAdapter
                 (this, android.R.layout.simple_spinner_item, registerLocationOptions);
         adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSpinner.setAdapter(adapterNew);

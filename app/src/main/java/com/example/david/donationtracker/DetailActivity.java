@@ -36,7 +36,6 @@ import java.util.Map;
 /**
  * detail activity class
  */
-@SuppressWarnings("ConstantConditions")
 public class DetailActivity extends AppCompatActivity {
 
     // --Commented out by Inspection (11/16/18 10:44 AM):private String locationName;

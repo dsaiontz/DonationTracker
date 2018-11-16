@@ -68,7 +68,6 @@ public class SearchActivity extends AppCompatActivity
     private Context context;
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
@@ -222,7 +221,6 @@ public class SearchActivity extends AppCompatActivity
         finish();
     }
 
-    @SuppressWarnings("ConstantConditions")
     private void handleClickLocationSearchButton() {
         ArrayList<Donation> searchResults;
         searchLocationSpinner.getSelectedItem().toString();
