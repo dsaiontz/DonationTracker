@@ -28,6 +28,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * search activity class
+ */
 public class SearchActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener {
 
@@ -65,7 +68,7 @@ public class SearchActivity extends AppCompatActivity
         nameSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
                     handleClickNameSearchButton();
                     return true;
                 }
@@ -77,7 +80,7 @@ public class SearchActivity extends AppCompatActivity
         valueSearchTextMin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
                     handleClickValueSearchButton();
                     return true;
                 }
@@ -89,7 +92,7 @@ public class SearchActivity extends AppCompatActivity
         valueSearchTextMax.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
                     handleClickValueSearchButton();
                     return true;
                 }
@@ -214,7 +217,7 @@ public class SearchActivity extends AppCompatActivity
                                     results.add(donation);
                                 }
                                 adapter = new DonationAdapter(results);
-                                if (results.size() == 0) {
+                                if (results.isEmpty()) {
                                     Log.e("","searchresults is empty, does nothing rn");
                                     TextView emptyMessage = findViewById(R.id.emptyMessageView);
                                     emptyMessage.setText("search results for " +
@@ -237,7 +240,7 @@ public class SearchActivity extends AppCompatActivity
         } else {
             searchResults = donations.getAllDonations();
             
-            if (searchResults.size() == 0) {
+            if (searchResults.isEmpty()) {
                 Log.e("","searchresults is empty, does nothing rn");
                 TextView emptyMessage = findViewById(R.id.emptyMessageView);
                 emptyMessage.setText("search results for "
@@ -257,7 +260,7 @@ public class SearchActivity extends AppCompatActivity
         String searchText = nameSearchText.getText().toString();
         ArrayList<Donation> searchResults = donations.filterByName(searchText);
 
-        if (searchResults.size() == 0) {
+        if (searchResults.isEmpty()) {
             Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
             emptyMessage.setText("search results for the name " + searchText + " is empty");
@@ -274,7 +277,7 @@ public class SearchActivity extends AppCompatActivity
         boolean isAllLocs = searchLocationSpinner.getSelectedItem().toString().equals("All");
         DonationCategory category = (DonationCategory) donationCategorySpinner.getSelectedItem();
         ArrayList<Donation> searchResults = donations.filterByCategory(category, isAllLocs);
-        if (searchResults.size() == 0) {
+        if (searchResults.isEmpty()) {
             Log.e("","search results is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
             emptyMessage.setText("search results for " + category + "is empty");
@@ -294,7 +297,7 @@ public class SearchActivity extends AppCompatActivity
                 Double.parseDouble(valueSearchTextMin.getText().toString()),
                 Double.parseDouble(valueSearchTextMax.getText().toString()),
                 isAllLocs, searchLocationSpinner.getSelectedItem().toString());
-        if (searchResults.size() == 0) {
+        if (searchResults.isEmpty()) {
             Log.e("","searchresults is empty, does nothing rn");
             TextView emptyMessage = findViewById(R.id.emptyMessageView);
             emptyMessage.setText("search results for value range "
@@ -312,10 +315,12 @@ public class SearchActivity extends AppCompatActivity
     }
 
     //methods for spinner
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
     }
 
+    @Override
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
     }

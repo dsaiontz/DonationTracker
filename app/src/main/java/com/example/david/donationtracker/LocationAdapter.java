@@ -23,8 +23,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     private static List<Location> locationData;
     // --Commented out by Inspection (11/16/18 10:54 AM):private static String username;
 
-
-    public LocationAdapter(ArrayList<Location> locationData) {
+    /**
+     * Constructor for LocationAdapter
+     * @param locationData for creating the adapter
+     */
+    public LocationAdapter(List<Location> locationData) {
         LocationAdapter.locationData = locationData;
 
     }
@@ -81,9 +84,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
 // --Commented out by Inspection START (11/16/18 10:46 AM):
 //    /**
-//     * Initialize the dataset of the Adapter.
+//     * Initialize the data set of the Adapter.
 //     *
-//     * @param sDataSet Location[] containing location data to populate viewsto be
+//     * @param sDataSet Location[] containing location data to populate views to be
 //     * used by RecyclerView.
 //     */
 //    public LocationAdapter(ArrayList<Location> sDataSet) {

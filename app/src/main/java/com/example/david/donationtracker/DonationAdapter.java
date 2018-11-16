@@ -20,7 +20,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     // --Commented out by Inspection (11/16/18 10:45 AM):private static String locationName;
 
 
-    public DonationAdapter(ArrayList<Donation> donationData) {
+    public DonationAdapter(List<Donation> donationData) {
         DonationAdapter.donationData = donationData;
     }
     /**
@@ -98,7 +98,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
         Donation donation = donationData.get(position);
-        if (donationData.size() == 0) {
+        if (donationData.isEmpty()) {
             viewHolder.time.setText("no donations");
             viewHolder.location.setText("");
             viewHolder.shortDescription.setText("");

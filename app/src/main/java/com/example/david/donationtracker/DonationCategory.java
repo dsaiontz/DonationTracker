@@ -2,6 +2,9 @@ package com.example.david.donationtracker;
 
 import android.support.annotation.NonNull;
 
+/**
+ * donation category enum
+ */
 public enum DonationCategory {
 
     CLOTHING ("CLOTHING"),

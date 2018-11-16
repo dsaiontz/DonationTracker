@@ -169,13 +169,13 @@ class Donations {
         ArrayList<Donation> filteredList = new ArrayList<>();
         if (allDonos) {
             for (Donation donation : getAllDonations()) {
-                if (donation.getValue() > min && donation.getValue() < max) {
+                if ((donation.getValue() > min) && (donation.getValue() < max)) {
                     filteredList.add(donation);
                 }
             }
         } else {
             for (Donation donation : getDonations(Locations.get(loc))) {
-                if (donation.getValue() > min && donation.getValue() < max) {
+                if ((donation.getValue() > min) && (donation.getValue() < max)) {
                     filteredList.add(donation);
                 }
             }

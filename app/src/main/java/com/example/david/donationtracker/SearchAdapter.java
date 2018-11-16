@@ -22,7 +22,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private static List<Donation> donationData;
 
 
-    public SearchAdapter(ArrayList<Donation> donationData) {
+    /**
+     * constructor for search adapter
+     * @param donationData is the donation data
+     */
+    public SearchAdapter(List<Donation> donationData) {
         SearchAdapter.donationData = donationData;
     }
     /**

@@ -42,5 +42,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="135dp"
         app:srcCompat="@drawable/bongo_cat"
-        android:contentDescription="TODO" />
+        android:contentDescription="description"/>
 </RelativeLayout>

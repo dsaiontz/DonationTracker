@@ -18,6 +18,9 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * welcome page activity
+ */
 public class welcome_page extends AppCompatActivity {
 
     private FirebaseFirestore db;

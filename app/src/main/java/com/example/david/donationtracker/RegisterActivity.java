@@ -27,6 +27,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Activity used for registering users
+ */
 public class RegisterActivity extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener {
 
@@ -201,10 +204,12 @@ public class RegisterActivity extends AppCompatActivity
     }
 
     //methods for spinner
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         parent.getItemAtPosition(position);
     }
 
+    @Override
     public void onNothingSelected(AdapterView parent) {
         // Do nothing.
     }

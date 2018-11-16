@@ -27,6 +27,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * detail activity class
+ */
 @SuppressWarnings("ConstantConditions")
 public class DetailActivity extends AppCompatActivity {
 

@@ -12,6 +12,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
+/**
+ * Location activity class
+ */
 public class LocationActivity extends AppCompatActivity {
 
     private FirebaseUser user;
