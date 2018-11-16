@@ -88,8 +88,15 @@ public class SearchActivity extends AppCompatActivity
 
         locs = new ArrayList<>();
         locs.add("All");
-        for (int x = 0; x < Locations.getAllLocations().size(); x++) {
-            locs.add(Locations.getAllLocations().get(x).getName());
+        ArrayList theL = Locations.getAllLocations();
+        Location m;
+        String s;
+        int v = theL.size();
+        for (int x = 0; x < v; x++) {
+            m = (Location) theL.get(x);
+            s = m.getName();
+            locs.add(s);
+            //locs.add(Locations.getAllLocations().get(x).getName());
         }
 
         //setting values for spinner for choosing donation category
