@@ -115,7 +115,8 @@ public class DetailActivity extends AppCompatActivity {
         //NEED ARRAYLIST OF DONATIONS
 
         CollectionReference locationsCollection = db.collection("locations");
-        DocumentReference docuRefer = locationsCollection.document(location.getName());
+        String name = location.getName();
+        DocumentReference docuRefer = locationsCollection.document(name);
         CollectionReference donationsAtLocation = docuRefer.collection("donations");
                 Task<QuerySnapshot> task = donationsAtLocation.get();
                 task.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -142,12 +143,18 @@ public class DetailActivity extends AppCompatActivity {
 
                             //Sets text for detailed information of location
                             TextView textView = findViewById(R.id.detailText);
-                            String detailText = "Name: " + location.getName();
-                            detailText = detailText + "\nType: " + location.getType()
-                                    + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
-                                    + location.getLatitude() + "\nAddress: "
-                                    + location.getAddress()
-                                    + "\nPhone Number: " + location.getPhoneNumber() + "\n";
+                            String locName = location.getName();
+                            String locType = location.getType();
+                            String locLong = location.getLongitude();
+                            String locLat = location.getLatitude();
+                            String locAdd = location.getAddress();
+                            String locPhone = location.getPhoneNumber();
+                            String detailText = "Name: " + locName;
+                            detailText = detailText + "\nType: " + locType
+                                    + "\nLongitude: " + locLong + "\nLatitude: "
+                                    + locLat + "\nAddress: "
+                                    + locAdd
+                                    + "\nPhone Number: " + locPhone + "\n";
                             textView.setText(detailText);
                             textView.setTextColor(Color.parseColor("#FFFFFF"));
                         } else {

@@ -162,7 +162,8 @@ class Donations {
             Matcher matchFull = pattern.matcher(donation.getFullDescription());
             Matcher matchShort = pattern.matcher(donation.getShortDescription());
             DonationCategory category = donation.getCategory();
-            Matcher matchCat = pattern.matcher(category.toString());
+            String catString = category.toString();
+            Matcher matchCat = pattern.matcher(catString);
             if (matchFull.matches()) {
                 filteredList.add(donation);
             } else if (matchShort.matches()) {

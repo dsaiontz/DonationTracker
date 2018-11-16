@@ -100,8 +100,10 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
         Location loc = donation.getLocation();
         DonationCategory category = donation.getCategory();
 
+        String locString = loc.toString();
+
         viewHolder.time.setText(donation.getTime());
-        viewHolder.location.setText(loc.toString());
+        viewHolder.location.setText(locString);
         viewHolder.shortDescription.setText(donation.getShortDescription());
         viewHolder.fullDescription.setText(donation.getFullDescription());
         String v = Double.toString(donation.getValue());
