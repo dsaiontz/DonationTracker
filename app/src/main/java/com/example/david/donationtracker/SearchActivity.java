@@ -50,7 +50,8 @@ public class SearchActivity extends AppCompatActivity
     private static final String IS_EMPTY2 = " is empty";
     private static final String SEARCH_RESULTS_FOR2 = "search results for %s %s";
     private static final String IS_EMPTY3 = "is empty";
-    private static final String SEARCH_RESULTS_FOR_VALUE_RANGE = "search results for value range %s %s %s %s";
+    private static final String SEARCH_RESULTS_FOR_VALUE_RANGE =
+            "search results for value range %s %s %s %s";
     private static final String STRING = "-";
     private static final String EMPTY = " empty";
     private EditText nameSearchText;
@@ -251,7 +252,8 @@ public class SearchActivity extends AppCompatActivity
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                for (QueryDocumentSnapshot document :
+                                        Objects.requireNonNull(task.getResult())) {
                                     Log.d("retrievedDonation", document.getId()
                                             + " => " + document.getData());
                                     Map<String, Object> data = document.getData();

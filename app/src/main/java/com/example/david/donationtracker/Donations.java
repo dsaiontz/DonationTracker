@@ -54,7 +54,8 @@ class Donations {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                            for (QueryDocumentSnapshot document :
+                                    Objects.requireNonNull(task.getResult())) {
                                 Log.d("getCollection", document.getId() + " => " +
                                         document.getData());
                                 DocumentReference doc = document.getReference();
@@ -69,7 +70,8 @@ class Donations {
                                 CollectionReference collection2 =
                                         doc.collection("donations");
                                 Task<QuerySnapshot> task2 = collection2.get();
-                                        task2.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        task2.addOnCompleteListener
+                                                (new OnCompleteListener<QuerySnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<QuerySnapshot>
                                                                            task) {
@@ -77,7 +79,8 @@ class Donations {
                                                     Log.d("getIndividualDonation",
                                                             "Successfully retrieved donation");
                                                     for (QueryDocumentSnapshot currentDonation :
-                                                            Objects.requireNonNull(task.getResult())) {
+                                                            Objects.requireNonNull
+                                                                    (task.getResult())) {
                                                         Map<String, Object> donationData =
                                                                 currentDonation.getData();
                                                         Donation curr = new Donation(location,

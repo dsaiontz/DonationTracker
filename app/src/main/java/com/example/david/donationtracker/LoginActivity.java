@@ -135,7 +135,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar snak = Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE);
+            Snackbar snak = Snackbar.make(mEmailView, R.string.permission_rationale,
+                    Snackbar.LENGTH_INDEFINITE);
 
             snak.setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override

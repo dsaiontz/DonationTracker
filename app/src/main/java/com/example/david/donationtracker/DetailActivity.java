@@ -70,7 +70,8 @@ public class DetailActivity extends AppCompatActivity {
 
         CollectionReference usersCollection = db.collection("users");
 
-        DocumentReference docRef = usersCollection.document(Objects.requireNonNull(user.getEmail()));
+        DocumentReference docRef = usersCollection.document
+                (Objects.requireNonNull(user.getEmail()));
 
         Task<DocumentSnapshot> snapshot = docRef.get();
         snapshot.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -123,7 +124,8 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                            for (QueryDocumentSnapshot document :
+                                    Objects.requireNonNull(task.getResult())) {
                                 Log.d("retrievedDonation", document.getId() + " => " +
                                         document.getData());
                                 Map<String, Object> data = document.getData();
@@ -230,15 +232,6 @@ public class DetailActivity extends AppCompatActivity {
    //    });
    //}
 
-    //public void showData(DataSnapshot dataSnapshot) {
-    //    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-    //        adapter = new DonationAdapter(Donations.getDonations(location), null, user.getEmail());
-    //        locationRecyclerView = findViewById(R.id.donationsRecyclerView);
-    //        locationRecyclerView.setHasFixedSize(true);
-    //        locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    //        locationRecyclerView.setAdapter(adapter);
-    //    }
-    //}
 
 
 

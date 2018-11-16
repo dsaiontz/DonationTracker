@@ -84,7 +84,8 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public DonationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public DonationAdapter.ViewHolder onCreateViewHolder
+            (@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View v = layoutInflater
                 .inflate(R.layout.recycler_view_detail_view, viewGroup, false);
