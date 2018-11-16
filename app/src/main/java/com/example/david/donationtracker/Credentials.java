@@ -33,6 +33,7 @@ class Credentials {
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:29 AM)
 
+
     public static boolean isValidUsername(String username) {
         return VALID_EMAIL_ADDRESS_REGEX.matcher(username).find();
     }
@@ -42,3 +43,4 @@ class Credentials {
     }
 
 }
+

@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -164,5 +166,21 @@ public class DonationActivity extends AppCompatActivity implements
         startActivity(backToDetailActivity);
         finish();
     }
+
+
+    //private void addDonationToFirebase(Donation donation) {
+    //    fdb = FirebaseDatabase.getInstance();
+    //    DatabaseReference myRef = fdb.getReference();
+    //    myRef.setValue(donation);
+    //}
+
+    //METHOD CONTRACT:
+    //Method signature: addDonationToFirebase(Donation : donation) : void
+    //Precondition: The parameter donation does not equal null
+    //Postcondition: A donation object is added to firebase
+    //Invariant: the donation object will always be valid when this method is called in our code
+    //Frame Condition: Firebase realtime database gets written onto (changed), and
+    //the donation object passed in doesn't change
+
 
 }

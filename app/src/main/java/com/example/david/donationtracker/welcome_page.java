@@ -10,8 +10,11 @@ import android.widget.Button;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.auth.User;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -46,6 +49,19 @@ public class welcome_page extends AppCompatActivity {
                 register();
             }
         });
+
+
+       // Button dbButton = (Button) findViewById(R.id.dbButton);
+        //dbButton.setOnClickListener(new View.OnClickListener() {
+         //   @Override
+         //   public void onClick(View v) {
+         //       FirebaseDatabase fdb= FirebaseDatabase.getInstance();
+         //       DatabaseReference myRef = fdb.getReference();
+         //       User testUser = new User("Update@update.com","update", UserType.ADMIN);
+         //       myRef.setValue(testUser);
+         //   }
+        //});
+
 
         //reads in the location data from the csv file, sets it to Locations.CsvLocations
         readLocationData();
