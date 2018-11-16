@@ -28,10 +28,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Document;
-
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * search activity class
@@ -76,13 +75,7 @@ public class SearchActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        Button backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backToLocationActivity();
-            }
-        });
+        initializeButtons();
 
         db = FirebaseFirestore.getInstance();
 
@@ -164,6 +157,14 @@ public class SearchActivity extends AppCompatActivity
                 handleClickValueSearchButton();
             }
         });
+
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToLocationActivity();
+            }
+        });
     }
 
     private void initializeSearchTexts() {
@@ -235,7 +236,6 @@ public class SearchActivity extends AppCompatActivity
 
     private void handleClickLocationSearchButton() {
         ArrayList<Donation> searchResults;
-        searchLocationSpinner.getSelectedItem().toString();
         Object item = searchLocationSpinner.getSelectedItem();
         String itemString = item.toString();
         if (!"All".equals(itemString)) {
@@ -251,7 +251,7 @@ public class SearchActivity extends AppCompatActivity
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                     Log.d("retrievedDonation", document.getId()
                                             + " => " + document.getData());
                                     Map<String, Object> data = document.getData();

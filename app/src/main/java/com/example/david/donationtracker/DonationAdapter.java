@@ -96,15 +96,9 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
         Donation donation = donationData.get(position);
-        if (donationData.isEmpty()) {
-            viewHolder.time.setText(R.string.donation_adapter_no_donations);
 
-            viewHolder.location.setText("");
-            viewHolder.shortDescription.setText("");
-            viewHolder.fullDescription.setText("");
-            viewHolder.value.setText("");
-            viewHolder.category.setText("");
-        } else {
+        Location loc = donation.getLocation();
+        DonationCategory category = donation.getCategory();
 
             Location loc = donation.getLocation();
             DonationCategory category = donation.getCategory();
