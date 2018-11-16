@@ -99,7 +99,7 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    if (Objects.requireNonNull(document).exists()) {
+                    if (document.exists()) {
                         Log.d("getUserType", "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.d("getUserType", "No such document");
@@ -174,7 +174,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if (Objects.requireNonNull(document).exists()) {
+                    if (document.exists()) {
                         Log.d("pulledUserType", "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.d("pulledUserType", "No such document");

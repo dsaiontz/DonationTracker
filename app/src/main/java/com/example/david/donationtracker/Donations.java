@@ -43,7 +43,7 @@ class Donations {
             donations.put(location, donationsAtLocation);
         } else {
             List<Donation> list = donations.get(location);
-            Objects.requireNonNull(list).add(donation);
+            list.add(donation);
         }
     }
 

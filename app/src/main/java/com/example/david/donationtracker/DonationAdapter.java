@@ -100,9 +100,6 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
         Location loc = donation.getLocation();
         DonationCategory category = donation.getCategory();
 
-            Location loc = donation.getLocation();
-            DonationCategory category = donation.getCategory();
-
             viewHolder.time.setText(donation.getTime());
             viewHolder.location.setText(loc.toString());
             viewHolder.shortDescription.setText(donation.getShortDescription());
@@ -112,7 +109,6 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             String c5 = category.toString();
             viewHolder.category.setText(c5);
         }
-    }
 
     @Override
     public int getItemCount() {

@@ -60,7 +60,7 @@ public class DonationActivity extends AppCompatActivity implements
 //        Intent currentIntent = getIntent();
 
         user = mAuth.getCurrentUser();
-        username = Objects.requireNonNull(user).getEmail();
+        username = user.getEmail();
 
         location = Locations.getCurrentLocation();
 

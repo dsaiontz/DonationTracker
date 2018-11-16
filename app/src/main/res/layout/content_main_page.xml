@@ -34,13 +34,4 @@
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="258dp"
-        android:layout_height="253dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="135dp"
-        app:srcCompat="@drawable/bongo_cat"
-        android:contentDescription="description"/>
 </RelativeLayout>
