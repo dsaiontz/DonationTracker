@@ -14,12 +14,10 @@ public class DavidUnitTest {
                 "12345", "yikes", ","};
 
         for (String s : validPasswords) {
-            System.out.println(s);
             assert(Credentials.isValidPassword(s));
         }
 
         for (String s : invalidPasswords) {
-            System.out.println(s);
             assert(!Credentials.isValidPassword(s));
         }
     }

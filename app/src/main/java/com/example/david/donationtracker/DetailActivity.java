@@ -36,7 +36,6 @@ import java.util.Map;
 /**
  * detail activity class
  */
-@SuppressWarnings("ConstantConditions")
 public class DetailActivity extends AppCompatActivity {
 
     // --Commented out by Inspection (11/16/18 10:44 AM):private String locationName;
@@ -46,15 +45,6 @@ public class DetailActivity extends AppCompatActivity {
     // --Commented out by Inspection (11/16/18 10:29 AM):private Donations donos = new Donations();
 
     private FirebaseUser user;
-
-
-    private FirebaseFirestore db;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
-
-    private String userType;
-
-    private FirebaseAuth mAuth;
 
     private DocumentSnapshot userTypeInfo;
 

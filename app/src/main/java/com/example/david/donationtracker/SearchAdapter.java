@@ -18,7 +18,7 @@ import java.util.List;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private List<Donation> donationData;
+    private final List<Donation> donationData;
 
     /**
      * Constructor for the search adapter class

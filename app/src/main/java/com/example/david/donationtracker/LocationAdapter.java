@@ -19,7 +19,7 @@ import java.util.List;
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private List<Location> locationData;
+    private final List<Location> locationData;
     // --Commented out by Inspection (11/16/18 10:54 AM):private static String username;
 
 

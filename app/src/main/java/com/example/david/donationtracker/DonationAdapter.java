@@ -15,7 +15,7 @@ import java.util.List;
 class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private List<Donation> donationData;
+    private final List<Donation> donationData;
     // --Commented out by Inspection (11/16/18 10:45 AM):private static String locationName;
 
 
@@ -93,7 +93,6 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     }
 
     @Override
-    @SuppressWarnings("ConstantConditions")
     public void onBindViewHolder(@NonNull DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
         Donation donation = donationData.get(position);

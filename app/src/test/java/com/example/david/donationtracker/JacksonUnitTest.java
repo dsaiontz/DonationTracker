@@ -3,6 +3,7 @@ package com.example.david.donationtracker;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class JacksonUnitTest {
@@ -10,7 +11,7 @@ public class JacksonUnitTest {
     @Test
     public void validateAddLocation() {
 
-        List<Location> newLocations = new ArrayList<>();
+        Collection<Location> newLocations = new ArrayList<>();
 
         newLocations.add(new Location("Location 1"));
         newLocations.add(new Location("Location 2"));
