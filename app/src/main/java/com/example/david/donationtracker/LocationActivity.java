@@ -51,7 +51,7 @@ public class LocationActivity extends AppCompatActivity {
         user = currentIntent.getParcelableExtra("currentUser");
 
         // configures the recycler view
-        RecyclerView.Adapter adapter = new LocationAdapter(locations, user.getEmail());
+        RecyclerView.Adapter adapter = new LocationAdapter(locations);
         RecyclerView locationRecyclerView = findViewById(R.id.locationRecyclerView);
         locationRecyclerView.setHasFixedSize(true);
         locationRecyclerView.setLayoutManager(new LinearLayoutManager(this));

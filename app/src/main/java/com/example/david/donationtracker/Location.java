@@ -38,9 +38,11 @@ public class Location implements Parcelable {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+// --Commented out by Inspection START (11/16/18 1:15 PM):
+//    public void setType(String type) {
+//        this.type = type;
+//    }
+// --Commented out by Inspection STOP (11/16/18 1:15 PM)
 
     public String getLongitude() {
         return longitude;

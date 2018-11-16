@@ -30,6 +30,7 @@ class Donations {
         currentDonation = donation;
     }
 
+    @SuppressWarnings("ConstantConditions")
     private static void addDonation(Donation donation) {
         Location location = donation.getLocation();
         if (!donations.containsKey(location)) {
@@ -41,6 +42,7 @@ class Donations {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void getAllDonationsFromDatabase() {
         db.collection("locations")
                 .get()

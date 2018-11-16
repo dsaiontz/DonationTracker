@@ -1,19 +1,21 @@
 package com.example.david.donationtracker;
 
+import com.google.firebase.database.annotations.NotNull;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Donation implements Serializable {
 
-    private LocalDateTime time;
-    private Location location;
-    private String shortDescription;
-    private String fullDescription;
+    private final LocalDateTime time;
+    private final Location location;
+    private final String shortDescription;
+    private final String fullDescription;
     private double value;
-    private DonationCategory category;
+    private final DonationCategory category;
     // --Commented out by Inspection (11/16/18 10:29 AM):private String comments;
-    private String pictureURI;
+    // --Commented out by Inspection (11/16/18 1:14 PM):private String pictureURI;
 
 //    public Donation(Time time, Location location, String shortDescription,
 //                    String fullDescription, double value, DonationCategory category,
@@ -59,10 +61,6 @@ public class Donation implements Serializable {
 //    }
 // --Commented out by Inspection STOP (11/16/18 10:49 AM)
 
-    public void setDonationId(String donationId) {
-        String donationId1 = donationId;
-    }
-
 
     public String getTime() {
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -70,49 +68,62 @@ public class Donation implements Serializable {
 
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
+// --Commented out by Inspection START (11/16/18 1:25 PM):
+//    public void setTime(LocalDateTime time) {
+//        this.time = time;
+//    }
+// --Commented out by Inspection STOP (11/16/18 1:25 PM)
 
     public Location getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+// --Commented out by Inspection START (11/16/18 1:25 PM):
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
+// --Commented out by Inspection START (11/16/18 1:25 PM):
+//// --Commented out by Inspection STOP (11/16/18 1:25 PM)
 
     public String getShortDescription() {
         return shortDescription;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
+// --Commented out by Inspection START (11/16/18 1:25 PM):
+//    public void setShortDescription(String shortDescription) {
+//        this.shortDescription = shortDescription;
+// --Commented out by Inspection STOP (11/16/18 1:25 PM)
+//    }
 
     public String getFullDescription() {
         return fullDescription;
     }
 
-    public void setFullDescription(String fullDescription) {
-        this.fullDescription = fullDescription;
-    }
+// --Commented out by Inspection START (11/16/18 1:25 PM):
+//    public void setFullDescription(String fullDescription) {
+//        this.fullDescription = fullDescription;
+//    }
+// --Commented out by Inspection STOP (11/16/18 1:25 PM)
 
     public double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
-        this.value = value;
-    }
+// --Commented out by Inspection START (11/16/18 1:30 PM):
+//    public void setValue(double value) {
+//        this.value = value;
+//    }
+// --Commented out by Inspection STOP (11/16/18 1:30 PM)
 
     public DonationCategory getCategory() {
         return category;
     }
 
-    public void setCategory(DonationCategory category) {
-        this.category = category;
-    }
+// --Commented out by Inspection START (11/16/18 1:25 PM):
+//    public void setCategory(DonationCategory category) {
+//        this.category = category;
+//    }
+// --Commented out by Inspection STOP (11/16/18 1:25 PM)
 
 //    public String getComments() {
 //        return comments;

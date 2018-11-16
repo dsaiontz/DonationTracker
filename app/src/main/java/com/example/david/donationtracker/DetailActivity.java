@@ -27,6 +27,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+@SuppressWarnings("ConstantConditions")
 public class DetailActivity extends AppCompatActivity {
 
     // --Commented out by Inspection (11/16/18 10:44 AM):private String locationName;
@@ -56,7 +57,6 @@ public class DetailActivity extends AppCompatActivity {
         final Location location = Locations.getCurrentLocation();
 
         user = mAuth.getCurrentUser();
-        String username = user.getEmail();
 
         final Button donationButton = findViewById(R.id.donationButton);
 
@@ -67,7 +67,6 @@ public class DetailActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     userTypeInfo = task.getResult();
-                    String userType = (String) (document.get("userType"));
                     donationButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

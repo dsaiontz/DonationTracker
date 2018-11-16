@@ -89,6 +89,7 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
     }
 
     @Override
+    @SuppressWarnings("ConstantConditions")
     public void onBindViewHolder(DonationAdapter.ViewHolder viewHolder, int position) {
         Log.d(TAG, "Element " + position + " set.");
         Donation donation = donationData.get(position);

@@ -20,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("ConstantConditions")
 public class DonationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     // --Commented out by Inspection (11/16/18 10:29 AM):public static final String ADD_DATA = "addData";
@@ -33,13 +34,15 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     // username must be passed with every intent
     // location name should be passed with most intents
     private String username;
-    private String locationName;
+    // --Commented out by Inspection (11/16/18 1:15 PM):private String locationName;
 
     private FirebaseUser user;
 
     //Firebase add ons
     //private DocumentReference mDocRef = FirebaseFirestore.getInstance();
     private FirebaseFirestore db;
+
+    private Location location;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -56,15 +59,15 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
         user = mAuth.getCurrentUser();
         username = user.getEmail();
 
-        final Location location = Locations.getCurrentLocation();
+        location = Locations.getCurrentLocation();
 
         //setting values for spinner for choosing location
-        Object[] registerLocationOptions = new Object[Locations.getAllLocations().size() + 1];
-        registerLocationOptions[0] = (Object) "Please Select Location";
-        int m = 1;
-        for (Location i: Locations.getAllLocations()) {
-            registerLocationOptions[m++] = i.getName();
-        }
+//        Object[] registerLocationOptions = new Object[Locations.getAllLocations().size() + 1];
+//        registerLocationOptions[0] = (Object) "Please Select Location";
+//        int m = 1;
+//        for (Location i: Locations.getAllLocations()) {
+//            registerLocationOptions[m++] = i.getName();
+//        }
 
         //setting values for spinner for choosing donation category
         Object[] registerSpinnerOptions = new Object[DonationCategory.values().length + 1];
@@ -161,7 +164,7 @@ public class DonationActivity extends AppCompatActivity implements AdapterView.O
     private void backToDetailActivity() {
         Intent backToDetailActivity = new Intent(DonationActivity.this, DetailActivity.class);
         backToDetailActivity.putExtra("username", username);
-        backToDetailActivity.putExtra("location", locationName);
+        backToDetailActivity.putExtra("location", location.getName());
         startActivity(backToDetailActivity);
         finish();
     }

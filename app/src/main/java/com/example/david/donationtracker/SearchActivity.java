@@ -133,7 +133,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         //Getting current user
         Intent currentIntent = getIntent();
         user = currentIntent.getParcelableExtra("currentUser");
-        String username = user.getEmail();
 
         Button nameSearchButton = findViewById(R.id.nameSearchButton);
         nameSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -160,11 +159,11 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         });
 
         // set up spinner for search options
-        Object[] searchTypeOptions = new Object[4];
-        searchTypeOptions[0] =  "Please Select Search Type";
-        searchTypeOptions[1] =  "By Keywords";
-        searchTypeOptions[2] =  "By Donation Value";
-        searchTypeOptions[3] =  "By Category";
+//        Object[] searchTypeOptions = new Object[4];
+//        searchTypeOptions[0] =  "Please Select Search Type";
+//        searchTypeOptions[1] =  "By Keywords";
+//        searchTypeOptions[2] =  "By Donation Value";
+//        searchTypeOptions[3] =  "By Category";
 
         context = this;
 
@@ -184,6 +183,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         finish();
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void handleClickLocationSearchButton() {
         ArrayList<Donation> searchResults = new ArrayList<>();
         if (!searchLocationSpinner.getSelectedItem().toString().equals("All")) {
