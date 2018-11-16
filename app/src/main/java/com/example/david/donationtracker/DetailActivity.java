@@ -14,9 +14,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * detail activity class
@@ -71,7 +69,7 @@ public class DetailActivity extends AppCompatActivity {
 
         CollectionReference usersCollection = db.collection("users");
 
-        DocumentReference docRef = usersCollection.document(user.getEmail());
+        DocumentReference docRef = usersCollection.document(Objects.requireNonNull(user.getEmail()));
 
         Task<DocumentSnapshot> snapshot = docRef.get();
         snapshot.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -100,7 +98,7 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    if (document.exists()) {
+                    if (Objects.requireNonNull(document).exists()) {
                         Log.d("getUserType", "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.d("getUserType", "No such document");
@@ -123,7 +121,7 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 Log.d("retrievedDonation", document.getId() + " => " +
                                         document.getData());
                                 Map<String, Object> data = document.getData();
@@ -143,15 +141,13 @@ public class DetailActivity extends AppCompatActivity {
 
                             //Sets text for detailed information of location
                             TextView textView = findViewById(R.id.detailText);
-                            if (location != null) {
-                                String detailText = "Name: " + location.getName();
-                                detailText = detailText + "\nType: " + location.getType()
-                                        + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
-                                        + location.getLatitude() + "\nAddress: "
-                                        + location.getAddress()
-                                        + "\nPhone Number: " + location.getPhoneNumber() + "\n";
-                                textView.setText(detailText);
-                            }
+                            String detailText = "Name: " + location.getName();
+                            detailText = detailText + "\nType: " + location.getType()
+                                    + "\nLongitude: " + location.getLongitude() + "\nLatitude: "
+                                    + location.getLatitude() + "\nAddress: "
+                                    + location.getAddress()
+                                    + "\nPhone Number: " + location.getPhoneNumber() + "\n";
+                            textView.setText(detailText);
                             textView.setTextColor(Color.parseColor("#FFFFFF"));
                         } else {
                             Log.d("retrievedDonation", "Error getting documents: ",
@@ -177,7 +173,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
+                    if (Objects.requireNonNull(document).exists()) {
                         Log.d("pulledUserType", "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.d("pulledUserType", "No such document");

@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Donation activity class
@@ -59,7 +60,7 @@ public class DonationActivity extends AppCompatActivity implements
 //        Intent currentIntent = getIntent();
 
         user = mAuth.getCurrentUser();
-        username = user.getEmail();
+        username = Objects.requireNonNull(user).getEmail();
 
         location = Locations.getCurrentLocation();
 
