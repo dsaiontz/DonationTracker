@@ -115,7 +115,8 @@ class DonationAdapter extends RecyclerView.Adapter<DonationAdapter.ViewHolder> {
             viewHolder.fullDescription.setText(donation.getFullDescription());
             String v = Double.toString(donation.getValue());
             viewHolder.value.setText(v);
-            viewHolder.category.setText(category.toString());
+            String c5 = category.toString();
+            viewHolder.category.setText(c5);
         }
     }
 
