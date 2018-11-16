@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -88,8 +89,15 @@ public class SearchActivity extends AppCompatActivity
 
         locs = new ArrayList<>();
         locs.add("All");
-        for (int x = 0; x < Locations.getAllLocations().size(); x++) {
-            locs.add(Locations.getAllLocations().get(x).getName());
+        ArrayList theL = Locations.getAllLocations();
+        Location m;
+        String s;
+        int v = theL.size();
+        for (int x = 0; x < v; x++) {
+            m = (Location) theL.get(x);
+            s = m.getName();
+            locs.add(s);
+            //locs.add(Locations.getAllLocations().get(x).getName());
         }
 
         //setting values for spinner for choosing donation category
@@ -290,7 +298,8 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void handleClickNameSearchButton() {
-        String searchText = nameSearchText.getText().toString();
+        Editable c = nameSearchText.getText();
+        String searchText = c.toString();
         ArrayList<Donation> searchResults = donations.filterByName(searchText);
 
         if (searchResults.isEmpty()) {
