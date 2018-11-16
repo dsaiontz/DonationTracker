@@ -26,7 +26,6 @@ import java.util.Map;
 /**
  * Donation activity class
  */
-@SuppressWarnings("ConstantConditions")
 public class DonationActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 
@@ -49,7 +48,6 @@ public class DonationActivity extends AppCompatActivity implements
     private Location location;
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_donation);

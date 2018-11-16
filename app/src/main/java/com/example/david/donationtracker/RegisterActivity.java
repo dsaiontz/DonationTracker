@@ -62,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity
     private FirebaseFirestore db;
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
 
