@@ -1,7 +1,6 @@
 package com.example.david.donationtracker;
 
 import android.content.res.Resources;
-import android.support.v4.app.LoaderManager;
 import android.text.Editable;
 import android.util.Log;
 import android.animation.Animator;

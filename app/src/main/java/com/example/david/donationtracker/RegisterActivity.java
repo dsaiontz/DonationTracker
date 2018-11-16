@@ -41,6 +41,8 @@ public class RegisterActivity extends AppCompatActivity
     private Spinner userSpinner;
     private Object[] registerSpinnerOptions;
 
+    private Object[] registerLocationOptions;
+
     private Spinner locationSpinner;
 
     // --Commented out by Inspection (11/16/18 10:30 AM):private Credentials creds;
@@ -71,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity
             k++;
         }
 
-        Object[] registerLocationOptions = new Object[Locations.getAllLocations().size() + 1];
+        registerLocationOptions = new Object[Locations.getAllLocations().size() + 1];
         registerLocationOptions[0] = "PLEASE SELECT LOCATION";
         int m = 1;
         for (Location i : Locations.getAllLocations()) {
@@ -83,23 +85,7 @@ public class RegisterActivity extends AppCompatActivity
         pass1 = findViewById(R.id.RegisterPassword1);
         pass2 = findViewById(R.id.RegisterPassword2);
 
-        userSpinner = findViewById(R.id.userSpinner);
-        userSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<DonationActivity> adapterNext = new ArrayAdapter
-                (this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
-        adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        userSpinner.setAdapter(adapterNext);
-        userSpinner.setOnItemSelectedListener(this);
-
-
-        locationSpinner = findViewById(R.id.locationSpinner);
-        locationSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<DonationActivity> adapterNew = new ArrayAdapter
-                (this, android.R.layout.simple_spinner_item, registerLocationOptions);
-        adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        locationSpinner.setAdapter(adapterNew);
-        locationSpinner.setOnItemSelectedListener(this);
-
+        initializeSpinners();
 
         Button registerButton = findViewById(R.id.RegisterButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +103,25 @@ public class RegisterActivity extends AppCompatActivity
             }
         });
 
+    }
+
+    private void initializeSpinners() {
+        userSpinner = findViewById(R.id.userSpinner);
+        userSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<DonationActivity> adapterNext = new ArrayAdapter
+                (this, android.R.layout.simple_spinner_item, registerSpinnerOptions);
+        adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        userSpinner.setAdapter(adapterNext);
+        userSpinner.setOnItemSelectedListener(this);
+
+
+        locationSpinner = findViewById(R.id.locationSpinner);
+        locationSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<DonationActivity> adapterNew = new ArrayAdapter
+                (this, android.R.layout.simple_spinner_item, registerLocationOptions);
+        adapterNext.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        locationSpinner.setAdapter(adapterNew);
+        locationSpinner.setOnItemSelectedListener(this);
     }
 
 
