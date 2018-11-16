@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class JamesUnitTest {
 
     @Test
-    public void validateUsernameIsCorrect() {
+    public void validateLocationsIsCorrect() {
 
         ArrayList<Location> locs = Locations.getAllLocations();
         ArrayList<Location> notLocs = new ArrayList<>();
