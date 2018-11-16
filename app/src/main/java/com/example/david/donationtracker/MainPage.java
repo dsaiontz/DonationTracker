@@ -46,7 +46,8 @@ public class MainPage extends AppCompatActivity {
     }
 
     private void logout() {
-        FirebaseAuth.getInstance().signOut();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
         Intent intent = new Intent(MainPage.this, LoginActivity.class);
         startActivity(intent);
         finish();
