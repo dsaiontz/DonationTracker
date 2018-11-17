@@ -17,6 +17,7 @@ public class JamesUnitTest {
         notLocs.add(new Location("notALoc3"));
 
         for (Location s : locs) {
+            //System.out.println("hi");
             System.out.println(s);
             assert(Locations.containsLocation(s.getName()));
         }
